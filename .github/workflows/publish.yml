@@ -1,0 +1,30 @@
+name: Publish package to the Maven Central Repository
+on:
+  release:
+    types: [created]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: build lib
+    steps:
+    - uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin' # See 'Supported distributions' for available options
+        java-version: '11'
+    - name: Import GPG Key
+      uses: crazy-max/ghaction-import-gpg@v1
+      env:
+          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+          PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}    
+    - uses: actions/checkout@v1
+    - name: Install dependencies
+      run: |
+        echo "BUILDING $GITHUB_REF_NAME"
+        curl -s "https://get.sdkman.io" | bash
+        source "$HOME/.sdkman/bin/sdkman-init.sh"
+        sdk install sbt
+        sbt clean compile package publishSigned
+        sdk version
+      env:
+          MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+          MAVEN_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}

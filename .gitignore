@@ -1,0 +1,13 @@
+.snowqm/
+.snowcttemp/
+.metals/
+.bloop/
+TargetMigratedCode/
+TargetMigrationCode/
+coverage/
+project/
+target/
+.idea/
+.gradle/
+.bsp/
+bin/

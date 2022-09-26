@@ -1,0 +1,18 @@
+{
+  "python.terminal.activateEnvironment": false,
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    ".snowqm": true,
+    ".snowcttemp": true,
+    "snowsql_rt.*":true,
+    ".gitpod.yml":true,
+    ".coveragerc":true
+  },
+  "files.watcherExclude": {
+    "**/target": true
+  }
+}
