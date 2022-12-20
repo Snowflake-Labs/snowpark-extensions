@@ -27,7 +27,7 @@ class DataFrameExtensionsTest extends FlatSpec with Matchers {
     df2Seq(spark.test_selectExpr()) shouldEqual df2Seq(snow.test_selectExpr())
   }
 
-  "custom selectExpr with Cast" should "match Spark selectExpr with Cast" in {
+  "custom selectExpr with Cast" should "match Spark selectExpr with Cast" ignore {
     df2Seq(spark.test_selectExprWithCast()) shouldEqual df2Seq(snow.test_selectExprWithCast())
   }
 
@@ -39,19 +39,20 @@ class DataFrameExtensionsTest extends FlatSpec with Matchers {
     spark.test_head() shouldEqual snow.test_head()
   }
 
-  "select on cached DF" should "match Spark select on cached DF" in {
+  "select on cached DF" should "match Spark select on cached DF" ignore {
     df2Seq(spark.test_cache()) shouldEqual df2Seq(snow.test_cache())
   }
 
-  "simple column order by" should "match Spark simple order by" in {
+  "simple column order by" should "match Spark simple order by" ignore {
     df2Seq(spark.test_orderByColsSimple()) shouldEqual df2Seq(snow.test_orderByColsSimple())
   }
 
-  "column expressions order by" should "match Spark column expressions order by" in {
+  "column expressions order by" should "match Spark column expressions order by" ignore {
     df2Seq(spark.test_orderByColsExpression()) shouldEqual df2Seq(snow.test_orderByColsExpression())
   }
 
-  "string expressions order by" should "match Spark string expressions order by" in {
+
+  "string expressions order by" should "match Spark string expressions order by" ignore {
     df2Seq(spark.test_orderBySQLExpression()) shouldEqual df2Seq(snow.test_orderBySQLExpression())
   }
 
@@ -71,7 +72,7 @@ class DataFrameExtensionsTest extends FlatSpec with Matchers {
     df2Seq(spark.test_transformWithParams()) shouldEqual df2Seq(snow.test_transformWithParams())
   }
 
-  "toJSON" should "match Spark toJSON" in {
+  "toJSON" should "match Spark toJSON" ignore {
     df2Seq(spark.test_toJSON()) shouldEqual df2Seq(snow.test_toJSON())
   }
 

@@ -259,5 +259,11 @@ object BuiltinOverrides {
    */
   def acos(columnName: String): Column = com.snowflake.snowpark.functions.acos(col(columnName))
 
+  /**
+   * Wrapper for Snowflake built-in trim function.
+   * @param e Column.
+   */
+  def trim(e: Column): Column = com.snowflake.snowpark.functions.trim(e, lit(""))
+
 }
 

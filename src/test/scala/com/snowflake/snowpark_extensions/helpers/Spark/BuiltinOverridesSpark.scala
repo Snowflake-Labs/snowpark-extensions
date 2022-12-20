@@ -14,7 +14,7 @@ object BuiltinOverridesSpark {
     val df_window = session.createDataFrame(DataFrameCreator.data_for_window).toDF(DataFrameCreator.data_for_window_column:_*)
     val df_double = session.createDataFrame(DataFrameCreator.data_for_double2).toDF(DataFrameCreator.data_for_double2_column:_*)
 
-  // Process
+  // Process 
     def test_concat() : DataFrame = {
         df.select(concat(col("col3"),col("col4")).as("result"))
     }
@@ -164,4 +164,8 @@ object BuiltinOverridesSpark {
       test_acosStr.show
     }
 
+    //trim
+    def test_trim() : DataFrame = {
+      df_double.select(trim(col("col1")).alias("mycol1"))
+    }
 }

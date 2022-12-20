@@ -12,8 +12,8 @@ class SessionExtensionsTest extends FlatSpec with Matchers {
   "time" should "match spark time" in {
     SessionExtensionsSpark.test_time() shouldEqual SessionExtensionsSnowpark.test_time()
   }
-
-  "catalog" should "match spark catalog" in {
+ 
+ "catalog" should "match spark catalog" in {
     df2Seq(SessionExtensionsSpark.test_catalog_methods()) shouldEqual df2Seq(SessionExtensionsSnowpark.test_catalog_methods())
   }
 

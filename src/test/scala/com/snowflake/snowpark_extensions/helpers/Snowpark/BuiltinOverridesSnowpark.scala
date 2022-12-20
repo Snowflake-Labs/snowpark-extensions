@@ -3,7 +3,7 @@ package com.snowflake.snowpark_extensions.helpers.Snowpark
 import com.snowflake.snowpark.{DataFrame, Window}
 import com.snowflake.snowpark.functions.col
 import com.snowflake.snowpark.types.FloatType
-import com.snowflake.snowpark_extensions.helpers.BuiltinOverrides.{avg, concat, concat_ws, lead, lag, approx_count_distinct,degrees,radians,ntile,atan2,acos}
+import com.snowflake.snowpark_extensions.helpers.BuiltinOverrides.{avg, concat, concat_ws, lead, lag, approx_count_distinct,degrees,radians,ntile,atan2,acos,trim}
 import com.snowflake.snowpark_extensions.Extensions._
 import com.snowflake.snowpark_extensions.testutils.{DataFrameCreator, SessionInitializer}
 
@@ -168,6 +168,12 @@ object BuiltinOverridesSnowpark {
   def main(args: Array[String]): Unit = {
     // Snowpark testing main
     test_acosStr.show
+  }
+
+  //trim
+  
+  def test_trim() : DataFrame = {
+    df_double.select(trim(col("col1")).alias("mycol1"))
   }
 
 }
