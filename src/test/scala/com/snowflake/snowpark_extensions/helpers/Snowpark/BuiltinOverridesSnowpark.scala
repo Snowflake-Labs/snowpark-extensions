@@ -171,7 +171,6 @@ object BuiltinOverridesSnowpark {
   }
 
   //trim
-  
   def test_trim() : DataFrame = {
     df_double.select(trim(col("col1")).alias("mycol1"))
   }

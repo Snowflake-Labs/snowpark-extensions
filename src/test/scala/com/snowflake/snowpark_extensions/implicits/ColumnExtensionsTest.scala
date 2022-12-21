@@ -6,7 +6,6 @@ import com.snowflake.snowpark_extensions.implicits.Spark._
 import com.snowflake.snowpark_extensions.testutils.Serializer.df2Seq
 import org.scalatest.{FlatSpec, Matchers, Ignore}
 
-
 class ColumnExtensionsTest extends FlatSpec with Matchers {
   behavior of "ColumnExtensions class"
 
