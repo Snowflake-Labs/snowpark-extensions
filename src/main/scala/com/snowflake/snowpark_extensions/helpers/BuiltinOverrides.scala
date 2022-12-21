@@ -263,7 +263,7 @@ object BuiltinOverrides {
    * Wrapper for Snowflake built-in trim function.
    * @param e Column.
    */
-  def trim(e: Column): Column = com.snowflake.snowpark.functions.trim(e, lit(""))
+  def trim(column: Column): Column = com.snowflake.snowpark.functions.trim(column, lit(""))
 
 }
 
