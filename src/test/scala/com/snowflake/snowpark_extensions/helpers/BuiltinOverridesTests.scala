@@ -121,6 +121,14 @@ class BuiltinOverridesTests extends FlatSpec with Matchers{
     df2Seq(BuiltinOverridesSpark.test_trim()) shouldEqual df2Seq(BuiltinOverridesSnowpark.test_trim())
   }
 
+  "rtrim" should "match spark rtrim" in {
+    df2Seq(BuiltinOverridesSpark.test_rtrim()) shouldEqual df2Seq(BuiltinOverridesSnowpark.test_rtrim())
+  }
+
+  "ltrim" should "match spark trim" in {
+    df2Seq(BuiltinOverridesSpark.test_trim()) shouldEqual df2Seq(BuiltinOverridesSnowpark.test_ltrim())
+  }
+
   "acosStr" should "match spark acosStr" in {
     df2Seq(BuiltinOverridesSpark.test_acosStr()) shouldEqual df2Seq(BuiltinOverridesSnowpark.test_acosStr())
   }

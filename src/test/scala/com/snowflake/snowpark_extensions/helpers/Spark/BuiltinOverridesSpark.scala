@@ -168,4 +168,15 @@ object BuiltinOverridesSpark {
     def test_trim() : DataFrame = {
       df_double.select(trim(col("col1")).alias("mycol1"))
     }
+
+
+    //rtrim
+    def test_rtrim() : DataFrame = {
+      df_double.select(rtrim(col("col1")).alias("mycol1"))
+    }
+
+    //ltrim
+    def test_ltrim() : DataFrame = {
+      df_double.select(ltrim(col("col1")).alias("mycol1"))
+    }
 }

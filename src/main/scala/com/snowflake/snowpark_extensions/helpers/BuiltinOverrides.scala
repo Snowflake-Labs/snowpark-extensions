@@ -265,5 +265,19 @@ object BuiltinOverrides {
    */
   def trim(column: Column): Column = com.snowflake.snowpark.functions.trim(column, lit(""))
 
+
+  /**
+   * Wrapper for Snowflake built-in rtrim function.
+   * @param e Column.
+   */
+  def rtrim(column: Column): Column = com.snowflake.snowpark.functions.rtrim(column, lit(""))
+
+
+  /**
+   * Wrapper for Snowflake built-in ltrim function.
+   * @param e Column.
+   */
+  def ltrim(column: Column): Column = com.snowflake.snowpark.functions.ltrim(column, lit(""))
+
 }
 
