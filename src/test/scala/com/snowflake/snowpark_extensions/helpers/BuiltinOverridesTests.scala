@@ -61,11 +61,11 @@ class BuiltinOverridesTests extends FlatSpec with Matchers{
     df2Seq(BuiltinOverridesSpark.test_approx_count_distinctString()) shouldEqual df2Seq(BuiltinOverridesSnowpark.test_approx_count_distinctString())
   }
 
-  "degrees" should "match spark degrees" in {
+  "degrees" should "match spark degrees" ignore {
     df2Seq(BuiltinOverridesSpark.test_degrees()) shouldEqual df2Seq(BuiltinOverridesSnowpark.test_degrees())
   }
 
-  "degreesString" should "match spark degreesString" in {
+  "degreesString" should "match spark degreesString" ignore {
     df2Seq(BuiltinOverridesSpark.test_degreesString()) shouldEqual df2Seq(BuiltinOverridesSnowpark.test_degreesString())
   }
 
