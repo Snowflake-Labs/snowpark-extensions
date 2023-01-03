@@ -129,6 +129,12 @@ class BuiltinOverridesTests extends FlatSpec with Matchers{
     df2Seq(BuiltinOverridesSpark.test_trim()) shouldEqual df2Seq(BuiltinOverridesSnowpark.test_ltrim())
   }
 
+  "split" should "match spark split" in {
+    val sparkSplit = BuiltinOverridesSpark.test_split()
+    val collectSparkSplit = sparkSplit.collect()
+    collectSparkSplit.foreach(r=> assert(r(0) === Array("0", "1"))) 
+  }
+  
   "acosStr" should "match spark acosStr" in {
     df2Seq(BuiltinOverridesSpark.test_acosStr()) shouldEqual df2Seq(BuiltinOverridesSnowpark.test_acosStr())
   }

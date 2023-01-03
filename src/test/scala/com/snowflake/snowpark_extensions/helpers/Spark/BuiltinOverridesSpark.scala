@@ -179,4 +179,9 @@ object BuiltinOverridesSpark {
     def test_ltrim() : DataFrame = {
       df_double.select(ltrim(col("col1")).alias("mycol1"))
     }
+
+    //split
+    def test_split() : DataFrame = {
+      df_double.select(org.apache.spark.sql.functions.split(col("col1"), "\\.").alias("mycol1"))
+    }
 }

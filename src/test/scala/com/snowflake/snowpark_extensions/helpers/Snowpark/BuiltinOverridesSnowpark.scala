@@ -3,7 +3,10 @@ package com.snowflake.snowpark_extensions.helpers.Snowpark
 import com.snowflake.snowpark.{DataFrame, Window}
 import com.snowflake.snowpark.functions.col
 import com.snowflake.snowpark.types.FloatType
-import com.snowflake.snowpark_extensions.helpers.BuiltinOverrides.{avg, concat, concat_ws, lead, lag, approx_count_distinct,degrees,radians,ntile,atan2,acos,trim,rtrim,ltrim}
+import com.snowflake.snowpark_extensions.helpers.BuiltinOverrides.{avg, concat, concat_ws, lead}
+import com.snowflake.snowpark_extensions.helpers.BuiltinOverrides.{lag, approx_count_distinct,degrees}
+import com.snowflake.snowpark_extensions.helpers.BuiltinOverrides.{radians,ntile,atan2,acos}
+import com.snowflake.snowpark_extensions.helpers.BuiltinOverrides.{trim,rtrim,ltrim, split}
 import com.snowflake.snowpark_extensions.Extensions._
 import com.snowflake.snowpark_extensions.testutils.{DataFrameCreator, SessionInitializer}
 
@@ -183,5 +186,10 @@ object BuiltinOverridesSnowpark {
   //ltrim
   def test_ltrim() : DataFrame = {
     df_double.select(ltrim(col("col1")).alias("mycol1"))
+  }
+
+  //split
+  def test_split() : DataFrame = {
+    df_double.select(split(col("col1"),".").alias("mycol1"))
   }
 }
