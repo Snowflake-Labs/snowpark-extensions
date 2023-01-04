@@ -154,13 +154,24 @@ class BuiltinOverridesTests extends FlatSpec with Matchers{
 
     val doubleValue = "22.132122.1321"
     val sparkRepeat = BuiltinOverridesSpark.test_repeat()
-    sparkRepeat.show()
     val collectsSparkRepeat = sparkRepeat.collect()
     collectsSparkRepeat.foreach(r=> assert(r(0) === doubleValue)) 
     val snowparkRepeat = BuiltinOverridesSnowpark.test_repeat()
-    snowparkRepeat.show()
     val collectsSnowparkRepeat = snowparkRepeat.collect()
     collectsSnowparkRepeat.foreach(r=> assert(r(0) === doubleValue)) 
+  }
+
+      "translate" should "match spark translate" in {
+
+    val doubleValue = "11.1311"
+    val sparkTranslate = BuiltinOverridesSpark.test_translate()
+    sparkTranslate.show()
+    val collectsSparkTranslate = sparkTranslate.collect()
+    collectsSparkTranslate.foreach(r=> assert(r(0) === doubleValue)) 
+    val snowparkTranslate = BuiltinOverridesSnowpark.test_translate()
+    snowparkTranslate.show()
+    val collectsSnowparkTranslate = snowparkTranslate.collect()
+    collectsSnowparkTranslate.foreach(r=> assert(r(0) === doubleValue)) 
   }
 
 }

@@ -7,7 +7,7 @@ import com.snowflake.snowpark_extensions.helpers.BuiltinOverrides.{avg, concat, 
 import com.snowflake.snowpark_extensions.helpers.BuiltinOverrides.{lag, approx_count_distinct,degrees}
 import com.snowflake.snowpark_extensions.helpers.BuiltinOverrides.{radians,ntile,atan2,acos}
 import com.snowflake.snowpark_extensions.helpers.BuiltinOverrides.{trim, rtrim, ltrim, split}
-import com.snowflake.snowpark_extensions.helpers.BuiltinOverrides.{round, repeat}
+import com.snowflake.snowpark_extensions.helpers.BuiltinOverrides.{round, repeat, translate}
 import com.snowflake.snowpark_extensions.Extensions._
 import com.snowflake.snowpark_extensions.testutils.{DataFrameCreator, SessionInitializer}
 
@@ -199,8 +199,13 @@ object BuiltinOverridesSnowpark {
     df_double3.select(round(col("col1")).alias("mycol1"))
   }
 
-  //split
+  //repeat
   def test_repeat() : DataFrame = {
     df_double3.select(repeat(col("col1"), 2).alias("mycol1"))
+  }
+
+  //translate
+    def test_translate() : DataFrame = {
+    df_double3.select(translate(col("col1"), "2","1").alias("mycol1"))
   }
 }
