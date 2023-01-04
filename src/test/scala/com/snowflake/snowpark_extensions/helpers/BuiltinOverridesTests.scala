@@ -150,4 +150,17 @@ class BuiltinOverridesTests extends FlatSpec with Matchers{
     collectsSnowparkRound.foreach(r=> assert(r(0) === doubleValue)) 
   }
 
+    "repeat" should "match spark repeat" in {
+
+    val doubleValue = "22.132122.1321"
+    val sparkRepeat = BuiltinOverridesSpark.test_repeat()
+    sparkRepeat.show()
+    val collectsSparkRepeat = sparkRepeat.collect()
+    collectsSparkRepeat.foreach(r=> assert(r(0) === doubleValue)) 
+    val snowparkRepeat = BuiltinOverridesSnowpark.test_repeat()
+    snowparkRepeat.show()
+    val collectsSnowparkRepeat = snowparkRepeat.collect()
+    collectsSnowparkRepeat.foreach(r=> assert(r(0) === doubleValue)) 
+  }
+
 }

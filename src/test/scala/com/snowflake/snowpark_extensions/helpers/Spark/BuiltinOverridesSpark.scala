@@ -190,4 +190,9 @@ object BuiltinOverridesSpark {
     def test_round() : DataFrame = {
       df_double3.select(round(col("col1")).alias("mycol1"))
     }
+
+    //repeat
+    def test_repeat() : DataFrame = {
+      df_double3.select(repeat(col("col1"),2).alias("mycol1"))
+    }
 }

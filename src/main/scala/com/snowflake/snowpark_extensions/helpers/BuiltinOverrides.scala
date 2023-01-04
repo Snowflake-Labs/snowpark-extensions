@@ -285,11 +285,16 @@ object BuiltinOverrides {
    */
   def split(column: Column, pattern: String): Column = com.snowflake.snowpark.functions.split(column, lit(pattern))
 
-    /**
+  /**
    * Wrapper for Snowflake built-in round function.
    * @param e Column.
    */
   def round(column: Column): Column = com.snowflake.snowpark.functions.round(column, lit(0))
 
+  /**
+   * Wrapper for Snowflake built-in repeat function.
+   * @param e Column.
+   */
+  def repeat(column: Column, n: Int): Column = com.snowflake.snowpark.functions.repeat(column, lit(n))
 }
 
