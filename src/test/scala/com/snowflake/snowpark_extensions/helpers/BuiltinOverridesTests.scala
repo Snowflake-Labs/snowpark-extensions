@@ -138,4 +138,16 @@ class BuiltinOverridesTests extends FlatSpec with Matchers{
   "acosStr" should "match spark acosStr" in {
     df2Seq(BuiltinOverridesSpark.test_acosStr()) shouldEqual df2Seq(BuiltinOverridesSnowpark.test_acosStr())
   }
+
+  "round" should "match spark round" in {
+
+    val doubleValue = 22.0f
+    val sparkRound = BuiltinOverridesSpark.test_round()
+    val collectsSarkRound = sparkRound.collect()
+    collectsSarkRound.foreach(r=> assert(r(0) === doubleValue)) 
+    val snowparkRound = BuiltinOverridesSnowpark.test_round()
+    val collectsSnowparkRound = sparkRound.collect()
+    collectsSnowparkRound.foreach(r=> assert(r(0) === doubleValue)) 
+  }
+
 }
