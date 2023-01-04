@@ -280,10 +280,16 @@ object BuiltinOverrides {
   def ltrim(column: Column): Column = com.snowflake.snowpark.functions.ltrim(column, lit(""))
 
   /**
-   * Wrapper for Snowflake built-in split function.
+   * Wrapper for Snowflake built-in round function.
    * @param e Column.
    */
   def split(column: Column, pattern: String): Column = com.snowflake.snowpark.functions.split(column, lit(pattern))
+
+    /**
+   * Wrapper for Snowflake built-in round function.
+   * @param e Column.
+   */
+  def round(column: Column): Column = com.snowflake.snowpark.functions.round(column, lit(0))
 
 }
 

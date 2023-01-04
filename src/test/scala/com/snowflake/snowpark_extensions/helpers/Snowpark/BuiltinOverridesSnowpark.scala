@@ -6,7 +6,8 @@ import com.snowflake.snowpark.types.FloatType
 import com.snowflake.snowpark_extensions.helpers.BuiltinOverrides.{avg, concat, concat_ws, lead}
 import com.snowflake.snowpark_extensions.helpers.BuiltinOverrides.{lag, approx_count_distinct,degrees}
 import com.snowflake.snowpark_extensions.helpers.BuiltinOverrides.{radians,ntile,atan2,acos}
-import com.snowflake.snowpark_extensions.helpers.BuiltinOverrides.{trim,rtrim,ltrim, split}
+import com.snowflake.snowpark_extensions.helpers.BuiltinOverrides.{trim, rtrim, ltrim, split}
+import com.snowflake.snowpark_extensions.helpers.BuiltinOverrides.{round}
 import com.snowflake.snowpark_extensions.Extensions._
 import com.snowflake.snowpark_extensions.testutils.{DataFrameCreator, SessionInitializer}
 
@@ -17,7 +18,7 @@ object BuiltinOverridesSnowpark {
   val df = session.createDataFrame(DataFrameCreator.data_for_general).toDF(DataFrameCreator.data_for_general_column)
   val df_window = session.createDataFrame(DataFrameCreator.data_for_window).toDF(DataFrameCreator.data_for_window_column)
   val df_double = session.createDataFrame(DataFrameCreator.data_for_double2).toDF(DataFrameCreator.data_for_double2_column)
-
+  val df_double3 = session.createDataFrame(DataFrameCreator.data_for_double3).toDF(DataFrameCreator.data_for_double3_column)
   // Process
   def test_concat(): DataFrame = {
     df.select(concat(col("col3"), col("col4")).as("result"))
@@ -191,5 +192,10 @@ object BuiltinOverridesSnowpark {
   //split
   def test_split() : DataFrame = {
     df_double.select(split(col("col1"),".").alias("mycol1"))
+  }
+
+    //split
+  def test_round() : DataFrame = {
+    df_double3.select(round(col("col1")).alias("mycol1"))
   }
 }

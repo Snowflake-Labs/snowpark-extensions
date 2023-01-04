@@ -12,7 +12,8 @@ object BuiltinOverridesSpark {
     val session = SessionInitializer.spark
     val df = session.createDataFrame(DataFrameCreator.data_for_general).toDF(DataFrameCreator.data_for_general_column:_*)
     val df_window = session.createDataFrame(DataFrameCreator.data_for_window).toDF(DataFrameCreator.data_for_window_column:_*)
-    val df_double = session.createDataFrame(DataFrameCreator.data_for_double2).toDF(DataFrameCreator.data_for_double2_column:_*)
+    val df_double = session.createDataFrame(DataFrameCreator.data_for_double2).toDF(DataFrameCreator.data_for_double2_column:_*) 
+    val df_double3 = session.createDataFrame(DataFrameCreator.data_for_double3).toDF(DataFrameCreator.data_for_double3_column:_*)
 
   // Process 
     def test_concat() : DataFrame = {
@@ -182,6 +183,11 @@ object BuiltinOverridesSpark {
 
     //split
     def test_split() : DataFrame = {
-      df_double.select(org.apache.spark.sql.functions.split(col("col1"), "\\.").alias("mycol1"))
+      df_double.select(split(col("col1"), "\\.").alias("mycol1"))
+    }
+
+    //round
+    def test_round() : DataFrame = {
+      df_double3.select(round(col("col1")).alias("mycol1"))
     }
 }
