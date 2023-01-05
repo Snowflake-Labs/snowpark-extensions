@@ -12,8 +12,36 @@ object ColumnExtensionsSnowpark {
   // Init
   val session = SessionInitializer.snow
   val df = session.createDataFrame(DataFrameCreator.data_for_general).toDF(data_for_general_column)
+  // -------------------------------------------------------
+  // |"COL1"  |"COL2"  |"COL3"                    |"COL4"  |
+  // -------------------------------------------------------
+  // |1       |1.1     |NULL                      |c       |
+  // |2       |2.1     |two                       |c       |
+  // |237     |237.1   |two hundred thirty seven  |g       |
+  // -------------------------------------------------------
   val df2 = session.createDataFrame(DataFrameCreator.data_for_float).toDF(data_for_float_column)
+  // --------------------------------------
+  // |"COL1"  |"COL2"  |"COL3"   |"COL4"  |
+  // --------------------------------------
+  // |0.1     |1       |test123  |5       |
+  // |NaN     |5       |test     |5       |
+  // --------------------------------------
   val df3 = session.createDataFrame(DataFrameCreator.data_for_array).toDF(data_for_array_column)
+  // -------------------
+  // |"COL1"  |"COL2"  |
+  // -------------------
+  // |[       |2       |
+  // |  "a",  |        |
+  // |  "b",  |        |
+  // |  "c"   |        |
+  // |]       |        |
+  // |[       |4       |
+  // |  "a"   |        |
+  // |]       |        |
+  // |[       |6       |
+  // |  ""    |        |
+  // |]       |        |
+  // -------------------
   val df4 = session.createDataFrame(DataFrameCreator.data_for_cast).toDF(data_for_cast_column)
 
   // Process
@@ -120,9 +148,8 @@ object ColumnExtensionsSnowpark {
   //Main
   def main(args: Array[String]): Unit = {
     // Snowpark testing main
-
-  var a = test_eqNullSafe()
-    a.show()
+    test_as_symbol()
+  
   }
 
 }
