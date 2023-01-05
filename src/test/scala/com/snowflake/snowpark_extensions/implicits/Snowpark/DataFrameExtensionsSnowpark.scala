@@ -42,7 +42,7 @@ object DataFrameExtensionsSnowpark {
   }
 
   def test_headN() = {
-    df.head(5).map(_.toSeq)
+    df.head(2).map(_.toSeq)
   }
 
   def test_cache(): DataFrame = {

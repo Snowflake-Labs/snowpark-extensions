@@ -113,10 +113,8 @@ object DataFrameExtensionsSpark {
 
   //Main
   def main(args: Array[String]): Unit = {
-    // Spark testing main
-
-    /*var a = test_concat_ws()
-    a.show()*/
+     print(test_collectAsList())
+   
   }
 
 }
