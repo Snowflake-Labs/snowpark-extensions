@@ -1,3 +1,0 @@
- M src/test/scala/com/snowflake/snowpark_extensions/implicits/ColumnExtensionsTest.scala
- M src/test/scala/com/snowflake/snowpark_extensions/implicits/Spark/ColumnExtensionsSpark.scala
-?? bds-auto-save-mauricio.rojas_mobilize.net-2023-01-05-20-06-29.txt

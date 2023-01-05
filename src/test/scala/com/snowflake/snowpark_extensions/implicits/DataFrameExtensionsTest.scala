@@ -78,7 +78,7 @@ class DataFrameExtensionsTest extends FlatSpec with Matchers {
     // +----+-----+------------------------+----+
     // |1   |1.1  |null                    |c   |
     // +----+-----+------------------------+----+     
-    Seq(Seq(1,1.1,null,"c")) shouldEqual snow.test_head()
+    Array(1,1.1,null,"c") shouldEqual snow.test_head()
   }
 
   "simple transform" should "match Spark simple transform" in {
