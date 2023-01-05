@@ -115,9 +115,8 @@ object ColumnExtensionsSpark {
 
   //Main
   def main(args: Array[String]): Unit = {
-    // Spark testing main{
+    val r=test_cast().collect()
 
-    var a = test_eqNullSafe()
-    a.show()
+    
   }
 }

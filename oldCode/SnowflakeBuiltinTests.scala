@@ -198,4 +198,8 @@ class SnowflakeBuiltinTests extends FlatSpec with Matchers {
   "conv" should "match spark conv" in {
     df2Seq(SnowflakeBuiltinSpark.test_conv()) shouldEqual df2Seq(SnowflakeBuiltinSnowpark.test_conv())
   }
+
+  def main() : Unit = {
+    print("Hola")
+  }
 }
