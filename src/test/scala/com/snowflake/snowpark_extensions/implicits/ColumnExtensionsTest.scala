@@ -107,15 +107,33 @@ class ColumnExtensionsTest extends FlatSpec with Matchers {
   }
 
   "bitwiseAND" should "match bitwiseAND" in {
-     df2Seq(ColumnExtensionsSpark.test_bitwiseAND()) shouldEqual df2Seq(ColumnExtensionsSnowpark.test_bitwiseAND())
+    // +-------------+
+    // |(col2 & col4)|
+    // +-------------+
+    // |1            |
+    // |5            |
+    // +-------------+
+    Seq(Seq(1),Seq(5)) shouldEqual df2Seq(ColumnExtensionsSnowpark.test_bitwiseAND())
   }
 
   "bitwiseOR" should "match bitwiseOR" in {
-     df2Seq(ColumnExtensionsSpark.test_bitwiseOR()) shouldEqual df2Seq(ColumnExtensionsSnowpark.test_bitwiseOR())
+      // +-------------+
+      // |(col2 | col4)|
+      // +-------------+
+      // |5            |
+      // |5            |
+      // +-------------+
+      Seq(Seq(5), Seq(5)) shouldEqual df2Seq(ColumnExtensionsSnowpark.test_bitwiseOR())
   }
 
   "bitwiseXOR" should "match bitwiseXOR" in {
-     df2Seq(ColumnExtensionsSpark.test_bitwiseXOR()) shouldEqual df2Seq(ColumnExtensionsSnowpark.test_bitwiseXOR())
+    // +-------------+
+    // |(col2 ^ col4)|
+    // +-------------+
+    // |4            |
+    // |0            |
+    // +-------------+    
+    Seq(Seq(4),Seq(0)) shouldEqual df2Seq(ColumnExtensionsSnowpark.test_bitwiseXOR())
   }
 
   "getItem" should "match getItem" in {
