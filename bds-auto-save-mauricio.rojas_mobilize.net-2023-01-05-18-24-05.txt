@@ -1,0 +1,3 @@
+ M .vscode/settings.json
+ M src/test/scala/com/snowflake/snowpark_extensions/implicits/ColumnExtensionsTest.scala
+?? bds-auto-save-mauricio.rojas_mobilize.net-2023-01-05-18-24-05.txt

@@ -97,13 +97,13 @@ class ColumnExtensionsTest extends FlatSpec with Matchers {
   }
 
   "rlike" should "match rlike" in {
-+----------------------+
-|RLIKE(col3, test\d{3})|
-+----------------------+
-|true                  |
-|false                 |
-+----------------------+    
-     df2Seq(ColumnExtensionsSpark.test_rlike()) shouldEqual df2Seq(ColumnExtensionsSnowpark.test_rlike())
+    // +----------------------+
+    // |RLIKE(col3, test\d{3})|
+    // +----------------------+
+    // |true                  |
+    // |false                 |
+    // +----------------------+    
+    Seq(Seq(true),Seq(false)) shouldEqual df2Seq(ColumnExtensionsSnowpark.test_rlike())
   }
 
   "bitwiseAND" should "match bitwiseAND" in {
