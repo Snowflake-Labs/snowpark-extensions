@@ -115,7 +115,7 @@ object ColumnExtensionsSpark {
 
   //Main
   def main(args: Array[String]): Unit = {
-    val r=test_cast().collect()
+    test_rlike.show(false)
 
     
   }

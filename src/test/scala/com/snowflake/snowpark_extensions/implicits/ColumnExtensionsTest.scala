@@ -62,15 +62,34 @@ class ColumnExtensionsTest extends FlatSpec with Matchers {
   }
 
   "substr(int, int)" should "match spark (int, int)" in {
-    df2Seq(ColumnExtensionsSpark.test_substrByInts()) shouldEqual df2Seq(ColumnExtensionsSnowpark.test_substrByInts())
+    // +---------------------+---------------------+---------------------+
+    // |substring(col3, 0, 2)|substring(col3, 1, 2)|substring(col3, 2, 7)|
+    // +---------------------+---------------------+---------------------+
+    // |te                   |te                   |est123               |
+    // |te                   |te                   |est                  |
+    // +---------------------+---------------------+---------------------+
+    Seq(Seq("te","te","est123"),Seq("te","te","est")) shouldEqual df2Seq(ColumnExtensionsSnowpark.test_substrByInts())
   }
 
   "substr(col, col)" should "match spark (col, col)" in {
-    df2Seq(ColumnExtensionsSpark.test_substrByCols()) shouldEqual df2Seq(ColumnExtensionsSnowpark.test_substrByCols())
+    // +---------------------+---------------------+---------------------+
+    // |substring(col3, 0, 2)|substring(col3, 1, 2)|substring(col3, 2, 7)|
+    // +---------------------+---------------------+---------------------+
+    // |te                   |te                   |est123               |
+    // |te                   |te                   |est                  |
+    // +---------------------+---------------------+---------------------+
+    Seq(Seq("te","te","est123"),Seq("te","te","est")) shouldEqual df2Seq(ColumnExtensionsSnowpark.test_substrByCols())
   }
 
   "startsWith" should "match startsWith" in {
-    df2Seq(ColumnExtensionsSpark.test_startsWith()) shouldEqual df2Seq(ColumnExtensionsSnowpark.test_startsWith())
+    // +-------------------+-------------------+
+    // |startswith(col3, a)|startswith(col3, t)|
+    // +-------------------+-------------------+
+    // |null               |null               |
+    // |false              |true               |
+    // |false              |true               |
+    // +-------------------+-------------------+
+    Seq(Seq(null,null),Seq(false,true),Seq(false,true)) shouldEqual df2Seq(ColumnExtensionsSnowpark.test_startsWith())
   }
 
   "notEqual" should "match notEqual" in {
@@ -78,6 +97,12 @@ class ColumnExtensionsTest extends FlatSpec with Matchers {
   }
 
   "rlike" should "match rlike" in {
++----------------------+
+|RLIKE(col3, test\d{3})|
++----------------------+
+|true                  |
+|false                 |
++----------------------+    
      df2Seq(ColumnExtensionsSpark.test_rlike()) shouldEqual df2Seq(ColumnExtensionsSnowpark.test_rlike())
   }
 
@@ -94,15 +119,35 @@ class ColumnExtensionsTest extends FlatSpec with Matchers {
   }
 
   "getItem" should "match getItem" in {
-     df2Seq(ColumnExtensionsSpark.test_getItem()) shouldEqual df2Seq(ColumnExtensionsSnowpark.test_getItem())
+    // +----+----+----+
+    // |pos0|pos1|pos2|
+    // +----+----+----+
+    // |a   |b   |c   |
+    // |a   |null|null|
+    // |    |null|null|
+    // +----+----+----+ 
+    Seq(Seq("a","b","c"),Seq("a",null,null),Seq("",null,null)) shouldEqual df2Seq(ColumnExtensionsSnowpark.test_getItem())
   }
 
   "getField" should "match getField" in {
-     df2Seq(ColumnExtensionsSpark.test_getField()) shouldEqual df2Seq(ColumnExtensionsSnowpark.test_getField())
+// +----------------------------------------------+
+// |struct(col2 AS `Col 2`, col3 AS `Col 3`).Col 3|
+// +----------------------------------------------+
+// |null                                          |
+// |two                                           |
+// |two hundred thirty seven                      |
+// +----------------------------------------------+    
+     Seq(Seq(null), Seq("two"), Seq("two hundred thirty seven")) shouldEqual df2Seq(ColumnExtensionsSnowpark.test_getField())
   }
 
   "contains" should "match contains" in {
-     df2Seq(ColumnExtensionsSpark.test_contains()) shouldEqual df2Seq(ColumnExtensionsSnowpark.test_contains())
+      // +--------------------+-------------------+
+      // |contains(col3, test)|contains(col3, 123)|
+      // +--------------------+-------------------+
+      // |                true|               true|
+      // |                true|              false|
+      // +--------------------+-------------------+
+    Seq(Seq(true,true),Seq(true,false)) shouldEqual df2Seq(ColumnExtensionsSnowpark.test_contains())
   }
 
   "cast" should "match cast" in {
@@ -113,13 +158,22 @@ class ColumnExtensionsTest extends FlatSpec with Matchers {
 // |         0|       null|      false|          0|           0|         0|          0|         0.0|          0.0|             0|       null|               null|
 // +----------+-----------+-----------+-----------+------------+----------+-----------+------------+-------------+--------------+-----------+-------------------+
     Seq(
-Seq( "1", true,  true,123,123,123,123,2.1,2.1,2, java.sql.Date.valueOf("2021-05-15"),java.sql.Timestamp.valueOf("2021-05-15 06:54:34")),
-Seq( "0",false, false, 15, 15, 15, 15,5.4,5.4,5, java.sql.Date.valueOf("2021-05-15"),java.sql.Timestamp.valueOf("2021-05-15 00:00:00")),
-Seq( "0", null, false,  0,  0,  0,  0,0.0,0.0,0,       null,    null))   shouldEqual df2Seq(ColumnExtensionsSnowpark.test_cast())
+    Seq( "1", true,  true,123,123,123,123,2.1,2.1,2, java.sql.Date.valueOf("2021-05-15"),java.sql.Timestamp.valueOf("2021-05-15 06:54:34")),
+    Seq( "0",false, false, 15, 15, 15, 15,5.4,5.4,5, java.sql.Date.valueOf("2021-05-15"),java.sql.Timestamp.valueOf("2021-05-15 00:00:00")),
+    Seq( "0", null, false,  0,  0,  0,  0,0.0,0.0,0,       null,    null))   shouldEqual df2Seq(ColumnExtensionsSnowpark.test_cast())
   }
 
   "eqNullSafe" should "match eqNullSafe" in {
-     df2Seq(ColumnExtensionsSpark.test_eqNullSafe()) shouldEqual df2Seq(ColumnExtensionsSnowpark.test_eqNullSafe())
+// +--------------+---------------+---------------+
+// |(col3 <=> two)|(col3 <=> NULL)|(col3 <=> NULL)|
+// +--------------+---------------+---------------+
+// |         false|           true|           true|
+// |          true|          false|          false|
+// |         false|          false|          false|
+// +--------------+---------------+---------------+
+    Seq(Seq(false, true, true),
+      Seq(true, false, false),
+      Seq(false, false, false)) shouldEqual df2Seq(ColumnExtensionsSnowpark.test_eqNullSafe())
   }
 
 }
