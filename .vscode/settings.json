@@ -1,4 +1,7 @@
 {
+ "files.exclude": {
+  "**/.tmp": true
+ },
  "mochaExplorer.ui": "qunit",
  "mochaExplorer.files": "tests/**/*.spec.js",
  "mochaExplorer.timeout": 200000,
@@ -15,8 +18,7 @@
  ],
  "debug.allowBreakpointsEverywhere": true,
  "mochaExplorer.launcherScript": "tests/node_modules/mocha-explorer-launcher-scripts-c8/c8/index.js",
- "workbench.productIconTheme": "fluent-icons",
- "workbench.colorTheme": "Light BlackDiamond",
+ "workbench.colorTheme": "Dark BlackDiamond",
  "workbench.preferredDarkColorTheme": "Dark BlackDiamond",
  "workbench.preferredHighContrastColorTheme": "Dark BlackDiamond",
  "workbench.preferredLightColorTheme": "Light BlackDiamond",
@@ -35,14 +37,13 @@
  "experiments.override.gettingStarted.overrideCategory.ms-python.python.pythonWelcome.when": false,
  "workbench.startupEditor": "none",
  "python.terminal.activateEnvironment": false,
- "autoHide.panelDelay": 20000,
- "autoHide.sideBarDelay": 20000,
- "autoHide.autoHidePanel": false,
- "autoHide.autoHideSideBar": false,
- "autoHide.hideOnOpen": false,
  "extensions.autoUpdate": false,
  "testExplorer.mergeSuites": true,
  "testExplorer.useNativeTesting": true,
+ "csv-preview.lineNumbers": "ordinal",
+ "[python]": {
+  "editor.tabSize": 1
+ },
  "sqltools.connections": [
     {
         "connId": 2353,
@@ -50,8 +51,8 @@
         "driver": "Snowflake",
         "name": "mobilize",
         "account": "mobilize",
-        "username": "U2FsdGVkX1+Qf1w4C0F4o1bNGNA90N6dz7qFpShqmIU=",
-        "password": "U2FsdGVkX1/t2FekRQPxnN+LYvWC1fV/Ne/2jlVWOoI=",
+        "username": "U2FsdGVkX1/lBKwG5c5Ms2VmQmRgHbwXsyIl368lfvM=",
+        "password": "U2FsdGVkX1+L+qPDpEHk5l7bINM5XUzPM2USaxrRtNA=",
         "database": "SNOWPARK_ANALYSIS",
         "warehouse": "load_wh",
         "schema": "public"

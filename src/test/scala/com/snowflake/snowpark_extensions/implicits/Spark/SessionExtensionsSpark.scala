@@ -68,13 +68,14 @@ object SessionExtensionsSpark {
 
   //Main
   def main(args: Array[String]): Unit = {
-    val packages = Package.getPackages()
-    print(packages(0).getName())
-    val l = packages(0).getName()
-    print(l)
-    // Spark testing main)
-    /*var a = test_concat_ws()
-    a.show()*/
+    test_execute().show()
+    // val packages = Package.getPackages()
+    // print(packages(0).getName())
+    // val l = packages(0).getName()
+    // print(l)
+    // // Spark testing main)
+    // /*var a = test_concat_ws()
+    // a.show()*/
     println("Done" )
   }
 
