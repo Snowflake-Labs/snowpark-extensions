@@ -2,6 +2,8 @@ name := "SnowparkExtensions"
 
 
 Compile / scalacOptions ++= Seq("-doc-root-content", "rootdoc.txt")
+Compile / scalacOptions ++= Seq("-doc-title", "Snowpark Extensions")
+
 
 (sys.env.get("MAVEN_USERNAME"), sys.env.get("MAVEN_PASSWORD")) match {
   case (Some(username), Some(password)) => 
@@ -56,6 +58,8 @@ ThisBuild / publishMavenStyle := true
 crossPaths := false
 
 version := sys.env.getOrElse("GITHUB_REF_NAME","0.0.0")
+Compile / scalacOptions ++= Seq("-doc-version", "0.0.9")
+
 
 val snowparkVersion = "1.6.2"
 val sparkVersion = "3.2.1"
