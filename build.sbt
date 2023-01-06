@@ -58,7 +58,7 @@ ThisBuild / publishMavenStyle := true
 crossPaths := false
 
 version := sys.env.getOrElse("GITHUB_REF_NAME","0.0.0")
-Compile / scalacOptions ++= Seq("-doc-version", "0.0.9")
+Compile / scalacOptions ++= Seq("-doc-version", version.value)
 
 
 val snowparkVersion = "1.6.2"
