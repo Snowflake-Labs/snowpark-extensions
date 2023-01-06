@@ -24,6 +24,8 @@ object Extensions {
     new SessionExtensions.ExtendedSession(s)
   implicit def extendedSessionBuilder(sb: Session.SessionBuilder) =
     new SessionExtensions.ExtendedSessionBuilder(sb)
+  implicit def extendedCaseExpr(cex: CaseExpr) =
+    new CaseExprExtensions.ExtendedCaseExpr(cex)
 
 
 
