@@ -9,9 +9,11 @@ package com.snowflake.snowpark_extensions
 
 import com.snowflake.snowpark.Column
 import com.snowflake.snowpark.DataFrame
+import com.snowflake.snowpark.CaseExpr
 import com.snowflake.snowpark_extensions.implicits.ColumnExtensions
 import com.snowflake.snowpark_extensions.implicits.DataFrameExtensions
 import com.snowflake.snowpark_extensions.implicits.SessionExtensions
+import com.snowflake.snowpark_extensions.implicits.CaseExprExtensions
 import com.snowflake.snowpark.Session
 
 object Extensions {
