@@ -64,7 +64,5 @@ libraryDependencies ++= Seq(
   "org.scala-lang" % "scala-library" % "2.12.10",
   "com.snowflake" % "snowpark" % snowparkVersion,  
   "org.scala-lang" % "scala-library" % "2.12.10" % Test,
-  "org.scalatest" %% "scalatest" % "3.0.1" % Test,  
-  "org.apache.spark" %% "spark-core" % sparkVersion % Test,
-  "org.apache.spark" %% "spark-sql" % sparkVersion  % Test
+  "org.scalatest" %% "scalatest" % "3.0.1" % Test,
 )

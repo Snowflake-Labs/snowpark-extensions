@@ -28,10 +28,10 @@ object SessionExtensionsSnowpark {
 def test_catalog_methods() : DataFrame = {
      val name = "TestDB"
      val tableName = "TestTable"
-
+     session.sql("USE SCHEMA PUBLIC").collect()
      val catalog = session.catalog
      //catalog.setCurrentDatabase(name)
-     session.sql("""CREATE OR REPLACE TABLE TestTable("col1" int, "col2" string, "a" int, "b" string)""").collect()
+     session.sql("""CREATE OR REPLACE TABLE PUBLIC.TestTable("col1" int, "col2" string, "a" int, "b" string)""").collect()
      val columns = catalog.listColumns(tableName)
      val df = session.createDataFrame(DataFrameCreator.data_for_general).toDF(DataFrameCreator.data_for_general_column)
      df.createOrReplaceTempView("view1")

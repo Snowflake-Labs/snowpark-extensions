@@ -2,7 +2,7 @@ package com.snowflake.snowpark_extensions.implicits
 
 //Testing packages
 import com.snowflake.snowpark_extensions.implicits.Snowpark._
-import com.snowflake.snowpark_extensions.testutils.Serializer.{df2Seq, snowList2Seq, sparkList2Seq}
+import com.snowflake.snowpark_extensions.testutils.Serializer.{df2Seq, snowList2Seq}
 import org.scalatest.{FlatSpec, Matchers}
 import com.snowflake.snowpark_extensions.implicits.Snowpark.{DataFrameExtensionsSnowpark => snow}
 

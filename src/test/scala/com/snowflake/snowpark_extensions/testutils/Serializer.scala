@@ -5,10 +5,6 @@ object Serializer {
     df.collect().map(_.toSeq)
   }
 
-  def df2Seq(df : org.apache.spark.sql.DataFrame): Seq[Seq[Any]] ={
-    df.collect().map(_.toSeq)
-  }
-
   def snowList2Seq(list: java.util.List[com.snowflake.snowpark.Row]): Array[Seq[Any]] = {
     list.toArray().map(f => {
       val r = f.asInstanceOf[com.snowflake.snowpark.Row]
@@ -16,10 +12,4 @@ object Serializer {
     })
   }
 
-  def sparkList2Seq(list: java.util.List[org.apache.spark.sql.Row]): Array[Seq[Any]] = {
-    list.toArray().map(f => {
-      val r = f.asInstanceOf[org.apache.spark.sql.Row]
-      r.toSeq
-    })
-  }
 }

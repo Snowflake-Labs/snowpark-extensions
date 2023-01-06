@@ -2,16 +2,9 @@ package com.snowflake.snowpark_extensions.testutils
 
 import java.io.File
 import java.nio.file.Files
-import org.apache.spark.util.ShutdownHookManager
 import java.net.URI
 import java.io.IOException
 import java.util.UUID
-import org.apache.spark.sql.catalyst.catalog.CatalogTable
-import org.apache.spark.sql.catalyst.TableIdentifier
-import org.apache.spark.sql.catalyst.catalog.CatalogTableType
-import org.apache.spark.sql.catalyst.catalog.CatalogStorageFormat
-import org.apache.spark.sql.types.StructType
-import org.apache.spark.sql.catalyst.catalog.BucketSpec
 
 object Utils {
 
@@ -20,28 +13,9 @@ object Utils {
   val defaultProvider: String = ""
   
 
-  lazy val storageFormat = CatalogStorageFormat(
-    locationUri = None,
-    inputFormat = Some(tableInputFormat),
-    outputFormat = Some(tableOutputFormat),
-    serde = None,
-    compressed = false,
-    properties = Map.empty)
 
- def newTable(name: String, database: Option[String] = None): CatalogTable = {
-    CatalogTable(
-      identifier = TableIdentifier(name, database),
-      tableType = CatalogTableType.EXTERNAL,
-      storage = storageFormat.copy(locationUri = Some(Utils.createTempDir().toURI)),
-      schema = new StructType()
-        .add("col1", "int")
-        .add("col2", "string")
-        .add("a", "int")
-        .add("b", "string"),
-      provider = Some(defaultProvider),
-      partitionColumnNames = Seq("a", "b"),
-      bucketSpec = Some(BucketSpec(4, Seq("col1"), Nil)))
-  }
+
+
 
   def createDirectory(dir: File): Boolean = {
     try {
