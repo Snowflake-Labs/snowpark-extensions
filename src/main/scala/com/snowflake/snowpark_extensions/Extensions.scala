@@ -22,6 +22,8 @@ object Extensions {
     new DataFrameExtensions.ExtendedDataFrame(df)
   implicit def extendedSession(s: Session) =
     new SessionExtensions.ExtendedSession(s)
+  implicit def extendedSessionBuilder(sb: Session.SessionBuilder) =
+    new SessionExtensions.ExtendedSessionBuilder(sb)
 
 
 
@@ -32,6 +34,8 @@ object functions {
   import com.snowflake.snowpark.{Column, DataFrame, functions}
   import com.snowflake.snowpark.functions._
   import com.snowflake.snowpark.types._
+  var _format_string_function:Boolean = false
+
   /**
    * Function to convert a string into an SQL expression.
    * @param s SQL Expression as text.

@@ -56,7 +56,7 @@ crossPaths := false
 
 version := sys.env.getOrElse("GITHUB_REF_NAME","0.0.0")
 
-val snowparkVersion = "1.6.0"
+val snowparkVersion = "1.6.2"
 val sparkVersion = "3.2.1"
 
 libraryDependencies ++= Seq( 

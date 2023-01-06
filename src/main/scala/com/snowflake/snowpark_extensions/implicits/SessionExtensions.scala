@@ -173,3 +173,39 @@ object SessionExtensions {
     }
   }
 }
+
+ class ExtendedSessionBuilder (sb: Session.SessionBuilder) {
+   def loadFromEnvIfPresent(configKey:String,env1:String, env2:String):Unit={
+      var value = sys.env.get(env1)
+        if (value.isDefined) {
+          sb.config(configKey,value.get)
+        }
+        else {
+           value = sys.env.get(env2)
+          if (value.isDefined) {
+            sb.config(configKey,value.get)
+          }
+        }
+   }
+
+   def from_env() = {
+        loadFromEnvIfPresent("user"      ,"SNOW_USER"     , "SNOWSQL_USER")
+        loadFromEnvIfPresent("password"  ,"SNOW_PASSWORD" , "SNOWSQL_PWD")
+        loadFromEnvIfPresent("account"   ,"SNOW_ACCOUNT"  , "SNOWSQL_ACCOUNT")
+        loadFromEnvIfPresent("role"      ,"SNOW_ROLE"     , "SNOWSQL_ROLE")
+        loadFromEnvIfPresent("warehouse" ,"SNOW_WAREHOUSE", "SNOWSQL_ROLE")
+        loadFromEnvIfPresent("database"  ,"SNOW_DATABASE" , "SNOWSQL_DATABASE")
+        sb
+    }
+
+  def from_snowsql() = {
+        loadFromEnvIfPresent("user"      ,"SNOW_USER"     , "SNOWSQL_USER")
+        loadFromEnvIfPresent("password"  ,"SNOW_PASSWORD" , "SNOWSQL_PWD")
+        loadFromEnvIfPresent("account"   ,"SNOW_ACCOUNT"  , "SNOWSQL_ACCOUNT")
+        loadFromEnvIfPresent("role"      ,"SNOW_ROLE"     , "SNOWSQL_ROLE")
+        loadFromEnvIfPresent("warehouse" ,"SNOW_WAREHOUSE", "SNOWSQL_ROLE")
+        loadFromEnvIfPresent("database"  ,"SNOW_DATABASE" , "SNOWSQL_DATABASE")
+        sb
+    }
+
+}
