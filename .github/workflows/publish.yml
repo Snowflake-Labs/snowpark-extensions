@@ -23,7 +23,7 @@ jobs:
         curl -s "https://get.sdkman.io" | bash
         source "$HOME/.sdkman/bin/sdkman-init.sh"
         sdk install sbt
-        sbt clean compile package publishSigned
+        sbt clean compile package publish
         sdk version
       env:
           MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
