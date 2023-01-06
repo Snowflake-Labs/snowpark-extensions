@@ -34,7 +34,6 @@ object functions {
   import com.snowflake.snowpark.{Column, DataFrame, functions}
   import com.snowflake.snowpark.functions._
   import com.snowflake.snowpark.types._
-  var _format_string_function:Boolean = false
 
   /**
    * Function to convert a string into an SQL expression.

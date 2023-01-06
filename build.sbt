@@ -59,7 +59,8 @@ version := sys.env.getOrElse("GITHUB_REF_NAME","0.0.0")
 val snowparkVersion = "1.6.2"
 val sparkVersion = "3.2.1"
 
-libraryDependencies ++= Seq( 
+libraryDependencies ++= Seq(
+  "org.ini4j" % "ini4j" % "0.5.4",
   "org.scala-lang" % "scala-library" % "2.12.10",
   "com.snowflake" % "snowpark" % snowparkVersion,  
   "org.scala-lang" % "scala-library" % "2.12.10" % Test,

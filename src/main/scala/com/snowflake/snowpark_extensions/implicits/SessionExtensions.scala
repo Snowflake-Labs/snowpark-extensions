@@ -25,6 +25,8 @@ import com.snowflake.snowpark.types.IntegerType
 import com.snowflake.snowpark.types.StringType
 import com.snowflake.snowpark.types.BooleanType
 import java.util.concurrent.TimeUnit.NANOSECONDS
+import java.io.File
+import org.ini4j.Wini
 
 /**
  * The options tables holds configurations values, in a similar way as the SparkSession.conf class.
@@ -172,40 +174,100 @@ object SessionExtensions {
       s.sql(query).count()
     }
   }
-}
 
- class ExtendedSessionBuilder (sb: Session.SessionBuilder) {
-   def loadFromEnvIfPresent(configKey:String,env1:String, env2:String):Unit={
-      var value = sys.env.get(env1)
+   class ExtendedSessionBuilder (var sb: Session.SessionBuilder) {
+
+   val homeDir = System.getProperty("user.home")
+
+   val sep = System.getProperty("file.separator")
+
+   def loadFromEnvIfPresent(configKey:String,env1:String, env2:String):Session.SessionBuilder = {
+        var value = sys.env.get(env1)
         if (value.isDefined) {
-          sb.config(configKey,value.get)
+          return sb.config(configKey,value.get)
         }
         else {
            value = sys.env.get(env2)
           if (value.isDefined) {
-            sb.config(configKey,value.get)
+            return sb.config(configKey,value.get)
           }
         }
+        return sb
    }
 
+    def loadFromEnvIfPresentURL(configKey:String,env1:String, env2:String):Session.SessionBuilder={
+        var value = sys.env.get(env1)
+        if (value.isDefined) {
+            return sb.config(configKey,s"https://${value.get}.snowflakecomputing.com:443")
+        }
+        else {
+          value = sys.env.get(env2)
+          if (value.isDefined) {
+            return sb.config(configKey,s"https://${value.get}.snowflakecomputing.com:443")
+          }
+        }
+        return sb
+    }
+    
+    def loadFromIni(configKey:String,ini:Wini,sectionName:String,key:String):Session.SessionBuilder={
+      var value = ini.get(sectionName,key)
+      if (value!=null){
+        sb = sb.config(configKey,value)
+      }
+      return sb
+    }
+
+    def loadFromIniURL(ini:Wini,sectionName:String,key:String):Session.SessionBuilder={
+      var value = ini.get(sectionName,key)
+      if (value!=null){
+        val newValue = s"https://${value}.snowflakecomputing.com:443"
+        sb = sb.config("url",newValue)
+        sb = sb.config("account",value)
+      }
+      return sb
+    }
+
+    /**
+     * utility method that sets up the connection properties from SNOW_xxx or SNOWSQL_xxx environment variables
+     * if they are set
+     */   
    def from_env() = {
-        loadFromEnvIfPresent("user"      ,"SNOW_USER"     , "SNOWSQL_USER")
-        loadFromEnvIfPresent("password"  ,"SNOW_PASSWORD" , "SNOWSQL_PWD")
-        loadFromEnvIfPresent("account"   ,"SNOW_ACCOUNT"  , "SNOWSQL_ACCOUNT")
-        loadFromEnvIfPresent("role"      ,"SNOW_ROLE"     , "SNOWSQL_ROLE")
-        loadFromEnvIfPresent("warehouse" ,"SNOW_WAREHOUSE", "SNOWSQL_ROLE")
-        loadFromEnvIfPresent("database"  ,"SNOW_DATABASE" , "SNOWSQL_DATABASE")
+        sb = loadFromEnvIfPresent("user"      ,"SNOW_USER"     , "SNOWSQL_USER")
+        sb = loadFromEnvIfPresent("password"  ,"SNOW_PASSWORD" , "SNOWSQL_PWD")
+        sb = loadFromEnvIfPresent("account"   ,"SNOW_ACCOUNT"  , "SNOWSQL_ACCOUNT")
+        sb = loadFromEnvIfPresentURL("url"    ,"SNOW_ACCOUNT"  , "SNOWSQL_ACCOUNT")
+        sb = loadFromEnvIfPresent("role"      ,"SNOW_ROLE"     , "SNOWSQL_ROLE")
+        sb = loadFromEnvIfPresent("warehouse" ,"SNOW_WAREHOUSE", "SNOWSQL_ROLE")
+        sb = loadFromEnvIfPresent("database"  ,"SNOW_DATABASE" , "SNOWSQL_DATABASE")
         sb
-    }
+    }  
 
-  def from_snowsql() = {
-        loadFromEnvIfPresent("user"      ,"SNOW_USER"     , "SNOWSQL_USER")
-        loadFromEnvIfPresent("password"  ,"SNOW_PASSWORD" , "SNOWSQL_PWD")
-        loadFromEnvIfPresent("account"   ,"SNOW_ACCOUNT"  , "SNOWSQL_ACCOUNT")
-        loadFromEnvIfPresent("role"      ,"SNOW_ROLE"     , "SNOWSQL_ROLE")
-        loadFromEnvIfPresent("warehouse" ,"SNOW_WAREHOUSE", "SNOWSQL_ROLE")
-        loadFromEnvIfPresent("database"  ,"SNOW_DATABASE" , "SNOWSQL_DATABASE")
+    /**
+     * utility method that sets up the connection properties from the snowsql config file
+     */   
+  def from_snowsql(section_name:String=null,configpath:String=s"${homeDir}${sep}.snowsql${sep}config") = {
+        var config_section_name = "connections" 
+        val file = new File(configpath)
+        if (file.exists())
+        {
+          val ini = new Wini(file)
+          
+          if (section_name != null) {
+            config_section_name = f"connections.{section}"
+          }
+          sb = loadFromIni("user",ini,config_section_name,"username")
+          sb = loadFromIni("password",ini,config_section_name,"password")
+          sb = loadFromIni("role",ini,config_section_name,"rolename")
+          sb = loadFromIni("warehouse",ini,config_section_name,"warehousename")
+          sb = loadFromIni("database",ini,config_section_name,"dbname")
+          sb = loadFromIni("schema",ini,config_section_name,"schemaname")
+          sb = loadFromIniURL(ini,config_section_name,"accountname")
+        }
+        else {
+          println(s"Config section ${config_section_name} not found in snowsql file: ${configpath}")
+        }
         sb
-    }
-
+  }
 }
+}
+

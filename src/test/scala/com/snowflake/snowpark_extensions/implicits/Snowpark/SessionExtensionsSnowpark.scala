@@ -1,5 +1,5 @@
 package com.snowflake.snowpark_extensions.implicits.Snowpark
-
+import com.snowflake.snowpark.Session
 import com.snowflake.snowpark.DataFrame
 import com.snowflake.snowpark_extensions.testutils.DataFrameCreator.data_for_general_column
 import com.snowflake.snowpark_extensions.testutils.{DataFrameCreator, SessionInitializer}
@@ -11,6 +11,11 @@ object SessionExtensionsSnowpark {
   val df = session.createDataFrame(DataFrameCreator.data_for_general).toDF(data_for_general_column)
 
 //#region Process
+
+  def test_builder_methods() : Unit = {
+    val session = Session.builder.from_snowsql().create
+    session.sql("select 'hi world'").show()
+  }
 
   def test_time() : String = {
     val baos = new java.io.ByteArrayOutputStream
@@ -50,14 +55,7 @@ def test_catalog_methods() : DataFrame = {
 
   //Main
   def main(args: Array[String]): Unit = {
-    val r = test_time()
-    val info = session.getSessionInfo()
-    val info2 = info.replace(" ","")
-    println(info2)
-    session.close()
-    // Snowpark testing main
-    /*var a = test_isin()
-    a.show()*/
+    test_builder_methods()
   }
 
 }
