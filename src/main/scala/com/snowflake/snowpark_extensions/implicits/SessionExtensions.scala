@@ -117,7 +117,7 @@ class Catalog(session:Session) {
 
 /** Session Extensions object containing implicit functions to the Snowpark Session object. */
 object SessionExtensions {
-  val sessionOptions = new WeakHashMap[Session,OptionsTable]
+  private val sessionOptions = new WeakHashMap[Session,OptionsTable]
   /**
    * Session extension class.
    * @param s Session to extend functionality.
@@ -175,13 +175,13 @@ object SessionExtensions {
     }
   }
 
-   class ExtendedSessionBuilder (var sb: Session.SessionBuilder) {
+   class ExtendedSessionBuilder (private var sb: Session.SessionBuilder) {
 
-   val homeDir = System.getProperty("user.home")
+   private val homeDir = System.getProperty("user.home")
 
-   val sep = System.getProperty("file.separator")
+   private val sep = System.getProperty("file.separator")
 
-   def loadFromEnvIfPresent(configKey:String,env1:String, env2:String):Session.SessionBuilder = {
+   private def loadFromEnvIfPresent(configKey:String,env1:String, env2:String):Session.SessionBuilder = {
         var value = sys.env.get(env1)
         if (value.isDefined) {
           return sb.config(configKey,value.get)
@@ -195,7 +195,7 @@ object SessionExtensions {
         return sb
    }
 
-    def loadFromEnvIfPresentURL(configKey:String,env1:String, env2:String):Session.SessionBuilder={
+   private def loadFromEnvIfPresentURL(configKey:String,env1:String, env2:String):Session.SessionBuilder={
         var value = sys.env.get(env1)
         if (value.isDefined) {
             return sb.config(configKey,s"https://${value.get}.snowflakecomputing.com:443")
@@ -209,7 +209,7 @@ object SessionExtensions {
         return sb
     }
     
-    def loadFromIni(configKey:String,ini:Wini,sectionName:String,key:String):Session.SessionBuilder={
+    private def loadFromIni(configKey:String,ini:Wini,sectionName:String,key:String):Session.SessionBuilder={
       var value = ini.get(sectionName,key)
       if (value!=null){
         sb = sb.config(configKey,value)
@@ -217,7 +217,7 @@ object SessionExtensions {
       return sb
     }
 
-    def loadFromIniURL(ini:Wini,sectionName:String,key:String):Session.SessionBuilder={
+    private def loadFromIniURL(ini:Wini,sectionName:String,key:String):Session.SessionBuilder={
       var value = ini.get(sectionName,key)
       if (value!=null){
         val newValue = s"https://${value}.snowflakecomputing.com:443"

@@ -1,6 +1,7 @@
 name := "SnowparkExtensions"
 
 
+Compile / scalacOptions ++= Seq("-doc-root-content", "rootdoc.txt")
 
 (sys.env.get("MAVEN_USERNAME"), sys.env.get("MAVEN_PASSWORD")) match {
   case (Some(username), Some(password)) => 

@@ -344,7 +344,7 @@ object functions {
     cbrt(col(columnName))
   }
 
-  /**
+ /**
    * Wrapper for Spark `from_json` column function. This function converts a JSON string to a struct in Spark (variant in Snowflake).
    * Spark has several overloads for this function, where you specify the schema in which to convert it to the desired names and datatypes.
    *
