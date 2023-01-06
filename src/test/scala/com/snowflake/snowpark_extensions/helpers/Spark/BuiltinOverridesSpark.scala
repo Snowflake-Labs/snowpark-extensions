@@ -195,4 +195,9 @@ object BuiltinOverridesSpark {
     def test_repeat() : DataFrame = {
       df_double3.select(repeat(col("col1"),2).alias("mycol1"))
     }
+
+    //translate
+    def test_translate() : DataFrame = {
+    df_double3.select(translate(col("col1"), "2","1").alias("mycol1"))
+  }
 }
