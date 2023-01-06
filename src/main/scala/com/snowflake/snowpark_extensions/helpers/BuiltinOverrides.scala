@@ -297,10 +297,10 @@ object BuiltinOverrides {
    */
   def repeat(column: Column, n: Int): Column = com.snowflake.snowpark.functions.repeat(column, lit(n))
 
-    /**
-   * Wrapper for Snowflake built-in translate function.
-   * @param e Column.
-   */
+  /**
+ * Wrapper for Snowflake built-in translate function.
+ * @param e Column.
+ */
   def translate(column: Column, matchingString: String, replaceString: String): Column = com.snowflake.snowpark.functions.translate(column, lit(matchingString), lit(replaceString))
 
 }
