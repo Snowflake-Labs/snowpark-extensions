@@ -272,41 +272,43 @@ object functions {
    * in a single call, whereas JSON_EXTRACT_PATH_TEXT must be called once for every column.
    *
    * There were differences found between Spark json_tuple and this function:
-   *
-   * - Float type: Spark returns only 6 floating points, whereas Snowflake returns more.
-   * - Timestamp type: Spark interprets input date as UTC and transforms to local timestamp, whereas Spark leaves the timestamp as-is.
-   * - Complex JSON path expressions: This function allows the retrieval of values within json objects, whereas Spark only allows values from the root.
-   * - Identifiers with spaces: Snowflake returns error when an invalid expression is sent, whereas Spark returns null.
+   * <ul>
+   * <li> Float type: Spark returns only 6 floating points, whereas Snowflake returns more. </li>
+   * <li> Timestamp type: Spark interprets input date as UTC and transforms to local timestamp, whereas Spark leaves the timestamp as-is. </li>
+   * <li> Complex JSON path expressions: This function allows the retrieval of values within json objects, whereas Spark only allows values from the root. </li>
+   * <li> Identifiers with spaces: Snowflake returns error when an invalid expression is sent, whereas Spark returns null. </li>
    *
    * Usage:
-   * {{{
+   * <pre>
    * df = session.createDataFrame(Seq(("CR", "{\"id\": 5, \"name\": \"Jose\", \"age\": 29}"))).toDF(Seq("nationality", "json_string"))
-   * }}}
+   * </pre>
    * When the result of this function is the only part of the select statement, no changes are needed:
-   * {{{
+   * <pre>
    * df.select(json_tuple(col("json_string"), "id", "name", "age")).show()
-   * }}}
-   * ```
+   * </pre>
+   * 
+   * <pre>
    * ----------------------
    * |"C0"  |"C1"  |"C2"  |
    * ----------------------
    * |5     |Jose  |29    |
    * ----------------------
-   * ```
+   * </pre>
    * However, when specifying multiple columns, an expression like this is required:
-   * {{{
+   * <pre>
    * df.select(
    *   col("nationality")
    *   , json_tuple(col("json_string"), "id", "name", "age"):_* // Notice the :_* syntax.
    * ).show()
-   * }}}
-   * ```
+   * </pre>
+   * 
+   * <pre>
    * -------------------------------------------------
    * |"NATIONALITY"  |"C0"  |"C1"  |"C2"  |"C3"      |
    * -------------------------------------------------
    * |CR             |5     |Jose  |29    |Mobilize  |
    * -------------------------------------------------
-   * ```
+   * </pre>
    * @param json Column containing the JSON string text.
    * @param fields Fields to pull from the JSON file.
    * @return Column sequence with the specified strings.
@@ -344,7 +346,7 @@ object functions {
     cbrt(col(columnName))
   }
 
-  /**
+ /**
    * Wrapper for Spark `from_json` column function. This function converts a JSON string to a struct in Spark (variant in Snowflake).
    * Spark has several overloads for this function, where you specify the schema in which to convert it to the desired names and datatypes.
    *
@@ -352,15 +354,16 @@ object functions {
    * However, it parses everything as strings. Manual casts need to be performed, for example:
    *
    * There were differences found between Spark from_json and this function when performing a select on the resulting column:
-   *  - Float type: Spark returns only 7 floating points, whereas Snowflake returns more.
-   *  - Timestamp type: Spark interprets input date as UTC and transforms to local timestamp, whereas Spark leaves the timestamp as-is.
-   *  - Spark allows the selection of values within the resulting object by navigating through the object with a '.' notation. For example: df.select("json.relative.age")
+   *  <ul>
+   *   <li> Float type: Spark returns only 7 floating points, whereas Snowflake returns more. </li>
+   *   <li> Timestamp type: Spark interprets input date as UTC and transforms to local timestamp, whereas Spark leaves the timestamp as-is. </li>
+   *   <li> Spark allows the selection of values within the resulting object by navigating through the object with a '.' notation. For example: df.select("json.relative.age") </li>
    * On Snowflake, however this does not work. It is required to use df.selectExprs function, and the same example should be translated to
    * "json['relative']['age']" to access the value.
    *  - Since Spark receives a schema definition for the JSON string to read, it reads the values from the JSON and converts it to the specified data type.
    * On Snowflake the values are converted automatically, however they're converted as variants, meaning that the printSchema function would return different datatypes.
    * To convert the datatype and it to be printed as the expected datatype, it should be read on the selectExpr function as "json['relative']['age']::integer".
-   * {{{
+   * <pre>
    * val data_for_json = Seq(
    *   (1, "{\"id\": 172319, \"age\": 41, \"relative\": {\"id\": 885471, \"age\": 29}}"),
    *   (2, "{\"id\": 532161, \"age\": 17, \"relative\":{\"id\": 873513, \"age\": 47}}")
@@ -378,15 +381,16 @@ object functions {
    *   , "json['relative']['id']::integer as rel_id"
    *   , "json['relative']['age']::integer as rel_age"
    * ).show(10, 10000)
-   * }}}
-   * ```
+   * </pre>
+   * 
+   * <pre>
    * -----------------------------------------
    * |"ID"    |"AGE"  |"REL_ID"  |"REL_AGE"  |
    * -----------------------------------------
    * |172319  |41     |885471    |29         |
    * |532161  |17     |873513    |47         |
    * -----------------------------------------
-   * ```
+   * </pre>
    * @param e String column to convert to variant.
    * @return Column object.
    */
