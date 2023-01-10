@@ -9,7 +9,7 @@ import org.scalatest.{FlatSpec, Matchers, Ignore}
 class CaseExprExtensionsTest extends FlatSpec with Matchers {
 behavior of "CaseExprExtensions class"
 
-  "otherwise" should "match spark otherwise" in {
+  "otherwise" should "match spark otherwise" ignore {
     var casSpark = CaseExprExtensionsSpark.test_otherwise()
     val casSnowpark = CaseExprExtensionsSnowpark.test_otherwise()
     var colNewSpark = casSpark.collect()

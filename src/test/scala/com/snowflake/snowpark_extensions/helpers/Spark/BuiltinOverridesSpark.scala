@@ -14,6 +14,7 @@ object BuiltinOverridesSpark {
     val df_window = session.createDataFrame(DataFrameCreator.data_for_window).toDF(DataFrameCreator.data_for_window_column:_*)
     val df_double = session.createDataFrame(DataFrameCreator.data_for_double2).toDF(DataFrameCreator.data_for_double2_column:_*) 
     val df_double3 = session.createDataFrame(DataFrameCreator.data_for_double3).toDF(DataFrameCreator.data_for_double3_column:_*)
+    val df_for_cast = session.createDataFrame(DataFrameCreator.data_for_date_cast).toDF(DataFrameCreator.data_for_date_cast_column:_*)
 
   // Process 
     def test_concat() : DataFrame = {
@@ -199,5 +200,10 @@ object BuiltinOverridesSpark {
     //translate
     def test_translate() : DataFrame = {
     df_double3.select(translate(col("col1"), "2","1").alias("mycol1"))
+  }
+
+  // next_day('2015-07-27', "Sunday")
+  def test_next_day(): DataFrame = { 
+    df_for_cast.selectExpr("to_date(col5, 'yyyy-MM-dd') as date_only").select(next_day(col("date_only"),"Sunday").alias("col_next_day"))
   }
 }

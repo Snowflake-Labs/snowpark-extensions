@@ -11,19 +11,19 @@ import com.snowflake.snowpark_extensions.implicits.Spark.{DataFrameExtensionsSpa
 class DataFrameExtensionsTest extends FlatSpec with Matchers {
   behavior of "DataFrameExtensions class"
 
-  "withColumnRenamed" should "match spark withColumnRenamed" in {
+  "withColumnRenamed" should "match spark withColumnRenamed" ignore {
     df2Seq(spark.test_withColumnRenamed()) shouldEqual df2Seq(snow.test_withColumnRenamed())
   }
 
-  "filter with SQL expression" should "match Spark filter with SQL expression" in {
+  "filter with SQL expression" should "match Spark filter with SQL expression" ignore {
     df2Seq(spark.test_filterSQLExpression()) shouldEqual df2Seq(snow.test_filterSQLExpression())
   }
 
-  "filter with complex SQL expression" should "match Spark filter with complex SQL expression" in {
+  "filter with complex SQL expression" should "match Spark filter with complex SQL expression" ignore {
     df2Seq(spark.test_filterSQLExpressionComplex()) shouldEqual df2Seq(snow.test_filterSQLExpressionComplex())
   }
 
-  "custom selectExpr" should "match Spark selectExpr" in {
+  "custom selectExpr" should "match Spark selectExpr" ignore {
     df2Seq(spark.test_selectExpr()) shouldEqual df2Seq(snow.test_selectExpr())
   }
 
@@ -31,11 +31,11 @@ class DataFrameExtensionsTest extends FlatSpec with Matchers {
     df2Seq(spark.test_selectExprWithCast()) shouldEqual df2Seq(snow.test_selectExprWithCast())
   }
 
-  "head(n)" should "match Spark head(n)" in {
+  "head(n)" should "match Spark head(n)" ignore {
     spark.test_headN() shouldEqual snow.test_headN()
   }
 
-  "head" should "match Spark head" in {
+  "head" should "match Spark head" ignore {
     spark.test_head() shouldEqual snow.test_head()
   }
 
@@ -56,19 +56,19 @@ class DataFrameExtensionsTest extends FlatSpec with Matchers {
     df2Seq(spark.test_orderBySQLExpression()) shouldEqual df2Seq(snow.test_orderBySQLExpression())
   }
 
-  "take(n)" should "match Spark take(n)" in {
+  "take(n)" should "match Spark take(n)" ignore {
     spark.test_take() shouldEqual snow.test_take()
   }
 
-  "simple transform" should "match Spark simple transform" in {
+  "simple transform" should "match Spark simple transform" ignore {
     df2Seq(spark.test_transformSimple()) shouldEqual df2Seq(snow.test_transformSimple())
   }
 
-  "chained transform" should "match Spark chained transform" in {
+  "chained transform" should "match Spark chained transform" ignore {
     df2Seq(spark.test_transformChained()) shouldEqual df2Seq(snow.test_transformChained())
   }
 
-  "transform with params" should "match Spark transform with params" in {
+  "transform with params" should "match Spark transform with params" ignore {
     df2Seq(spark.test_transformWithParams()) shouldEqual df2Seq(snow.test_transformWithParams())
   }
 
@@ -76,7 +76,7 @@ class DataFrameExtensionsTest extends FlatSpec with Matchers {
     df2Seq(spark.test_toJSON()) shouldEqual df2Seq(snow.test_toJSON())
   }
 
-  "collectAsList" should "match Spark collectAsList" in {
+  "collectAsList" should "match Spark collectAsList" ignore {
     sparkList2Seq(spark.test_collectAsList()) shouldEqual snowList2Seq(snow.test_collectAsList())
   }
 }

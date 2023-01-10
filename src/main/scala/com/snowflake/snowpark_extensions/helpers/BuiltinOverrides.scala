@@ -303,5 +303,10 @@ object BuiltinOverrides {
  */
   def translate(column: Column, matchingString: String, replaceString: String): Column = com.snowflake.snowpark.functions.translate(column, lit(matchingString), lit(replaceString))
 
+  /**
+  * Wrapper for Snowflake built-in next_day function.
+  * @param e Column.
+  */
+   def next_day(date: Column, dayOfWeek: String): Column = com.snowflake.snowpark.functions.next_day(date, lit(dayOfWeek))
 }
 

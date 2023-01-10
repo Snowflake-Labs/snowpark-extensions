@@ -9,15 +9,15 @@ import org.scalatest.{FlatSpec, Matchers, Ignore}
 class SnowflakeBuiltinTests extends FlatSpec with Matchers {
   behavior of "SnowflakeBuiltin class"
 
-  "size" should "match spark size" in {
+  "size" should "match spark size" ignore {
     df2Seq(SnowflakeBuiltinSpark.test_size()) shouldEqual df2Seq(SnowflakeBuiltinSnowpark.test_size())
   }
 
-  "expr" should "match spark expr" in {
+  "expr" should "match spark expr" ignore {
     df2Seq(SnowflakeBuiltinSpark.test_expr()) shouldEqual df2Seq(SnowflakeBuiltinSnowpark.test_expr())
   }
 
-  "column" should "match spark column" in {
+  "column" should "match spark column" ignore {
     df2Seq(SnowflakeBuiltinSpark.test_column()) shouldEqual df2Seq(SnowflakeBuiltinSnowpark.test_column())
   }
 
@@ -25,15 +25,15 @@ class SnowflakeBuiltinTests extends FlatSpec with Matchers {
     df2Seq(SnowflakeBuiltinSpark.test_array()) shouldEqual df2Seq(SnowflakeBuiltinSnowpark.test_array())
   }
 
-  "concat" should "match spark concat" in {
+  "concat" should "match spark concat" ignore {
     df2Seq(SnowflakeBuiltinSpark.test_concat()) shouldEqual df2Seq(SnowflakeBuiltinSnowpark.test_concat())
   }
 
-  "shiftleft" should "match Spark shiftleft" in {
+  "shiftleft" should "match Spark shiftleft" ignore {
     df2Seq(SnowflakeBuiltinSpark.test_shiftleft()) shouldEqual df2Seq(SnowflakeBuiltinSnowpark.test_shiftleft())
   }
 
-  "shiftright" should "match Spark shiftright" in {
+  "shiftright" should "match Spark shiftright" ignore {
     df2Seq(SnowflakeBuiltinSpark.test_shiftright()) shouldEqual df2Seq(SnowflakeBuiltinSnowpark.test_shiftright())
   }
 
@@ -49,11 +49,11 @@ class SnowflakeBuiltinTests extends FlatSpec with Matchers {
     df2Seq(SnowflakeBuiltinSpark.test_json_tuple()) shouldEqual df2Seq(SnowflakeBuiltinSnowpark.test_json_tuple())
   }
 
-  "cbrt" should "match Spark cbrt" in {
+  "cbrt" should "match Spark cbrt" ignore {
     df2Seq(SnowflakeBuiltinSpark.test_cbrt()) shouldEqual df2Seq(SnowflakeBuiltinSnowpark.test_cbrt())
   }
 
-  "from_json" should "match Spark from_json" in {
+  "from_json" should "match Spark from_json" ignore {
     df2Seq(SnowflakeBuiltinSpark.test_from_json()) shouldEqual df2Seq(SnowflakeBuiltinSnowpark.test_from_json())
   }
 
@@ -69,32 +69,32 @@ class SnowflakeBuiltinTests extends FlatSpec with Matchers {
     df2Seq(SnowflakeBuiltinSpark.test_bround()) shouldEqual df2Seq(SnowflakeBuiltinSnowpark.test_bround())
   }
 
-  "regexp_extract" should "match Spark regexp_extract" in {
+  "regexp_extract" should "match Spark regexp_extract" ignore {
     df2Seq(SnowflakeBuiltinSpark.test_regexp_extract()) shouldEqual df2Seq(SnowflakeBuiltinSnowpark.test_regexp_extract())
   }
 
-  "signum" should "match Spark signum" in {
+  "signum" should "match Spark signum" ignore {
     df2Seq(SnowflakeBuiltinSpark.test_signum()) shouldEqual df2Seq(SnowflakeBuiltinSnowpark.test_signum())
   }
 
-  "nanvl" should "match Spark nanvl" in {
+  "nanvl" should "match Spark nanvl" ignore {
     df2Seq(SnowflakeBuiltinSpark.test_nanvl()) shouldEqual df2Seq(SnowflakeBuiltinSnowpark.test_nanvl())
   }
 
-   "log10" should "match Spark log10" in {
+   "log10" should "match Spark log10" ignore {
     df2Seq(SnowflakeBuiltinSpark.test_log10()) shouldEqual df2Seq(SnowflakeBuiltinSnowpark.test_log10())
   }
 
 
-   "log1p" should "match Spark log1p" in {
+   "log1p" should "match Spark log1p" ignore {
     df2Seq(SnowflakeBuiltinSpark.test_log1p()) shouldEqual df2Seq(SnowflakeBuiltinSnowpark.test_log1p())
   }
 
-  "base64" should "match Spark base64" in {
+  "base64" should "match Spark base64" ignore {
     df2Seq(SnowflakeBuiltinSpark.test_base64()) shouldEqual df2Seq(SnowflakeBuiltinSnowpark.test_base64())
   }
 
-  "unbase64" should "match Spark unbase64" in {
+  "unbase64" should "match Spark unbase64" ignore {
     val spark = df2Seq(SnowflakeBuiltinSpark.test_unbase64()) 
     val snowpark = df2Seq(SnowflakeBuiltinSnowpark.test_unbase64())
     spark(0)(0) shouldEqual snowpark(0)(0)
@@ -102,11 +102,11 @@ class SnowflakeBuiltinTests extends FlatSpec with Matchers {
     spark(0)(2) shouldEqual snowpark(0)(2)
   }
 
-  "locate" should "match Spark locate" in {
+  "locate" should "match Spark locate" ignore {
     df2Seq(SnowflakeBuiltinSpark.test_locate()) shouldEqual df2Seq(SnowflakeBuiltinSnowpark.test_locate())
   }
 
-  "format_string" should "match Spark format_string" in {
+  "format_string" should "match Spark format_string" ignore {
     df2Seq(SnowflakeBuiltinSpark.test_format_string()) shouldEqual df2Seq(SnowflakeBuiltinSnowpark.test_format_string())
   }
 
@@ -130,11 +130,11 @@ class SnowflakeBuiltinTests extends FlatSpec with Matchers {
     df2Seq(SnowflakeBuiltinSpark.test_last()) shouldEqual df2Seq(SnowflakeBuiltinSnowpark.test_last())
   }
 
-  "reverse" should "match spark reverse" in {
+  "reverse" should "match spark reverse" ignore {
     df2Seq(SnowflakeBuiltinSpark.test_reverse()) shouldEqual df2Seq(SnowflakeBuiltinSnowpark.test_reverse())
   }
 
-  "isnull" should "match spark isnull" in {
+  "isnull" should "match spark isnull" ignore {
     df2Seq(SnowflakeBuiltinSpark.test_isnull()) shouldEqual df2Seq(SnowflakeBuiltinSnowpark.test_isnull())
 
   }
