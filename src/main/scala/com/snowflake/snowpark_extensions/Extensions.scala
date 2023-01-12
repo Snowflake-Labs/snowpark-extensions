@@ -100,8 +100,6 @@ object functions {
   def last(c: Column) =
     builtin("LAST_VALUE")(c)
 
-  ///////////////////////////////////// Mauricio ////////////////////////////////////////////////
-
 /**
   * Formats the arguments in printf-style and returns the result as a string column.
   *
@@ -207,8 +205,6 @@ object functions {
   // */
    def ntile(n: Int): Column = callBuiltin("ntile",lit(n))
 
-
-  ///////////////////////////////////// Boga ////////////////////////////////////////////////
 
   /**
    * Wrapper for bitshiftleft. Shifts numBits bits of a number to the left. There is a slight difference between Spark and
@@ -507,11 +503,15 @@ object functions {
     signum(col(columnName))
   }
 
-
-  ///////////////////////////////////// Tannia ////////////////////////////////////////////////
-
-
-  ///////////////////////////////////// Fonse ////////////////////////////////////////////////
+  /**
+   * Wrapper for the when expression to facilite some castings
+   * @param condition expression to evaluate
+   * @param result    the value to return if expression is true
+   * @return Column object.
+   */
+  def when( condition: Column, result:Any) : CaseExpr = {
+    when(condition,lit(result))
+  }
 
   /**
    * Wrapper for Snowflake built-in array function. Create array from columns names.
@@ -631,8 +631,6 @@ object functions {
       sqlExpr(s"FIRST_VALUE(${c.getName.get}) RESPECT NULLS")
     }
   }
-
-  ///////////////////////////////////// Jeremy ////////////////////////////////////////////////
 
   /**
    * Returns the current Unix timestamp (in seconds) as a long.
