@@ -31,8 +31,16 @@ object CaseExprExtensions {
   class ExtendedCaseExpr(c: CaseExpr) {
 
     /**
+     * Appends one more WHEN condition to the CASE expression.
+     * @param value value of Any to apply
+     * @return Column object.
+     */
+    def when( condition: Column , value: Any ) : Column = {
+      c.when(condition,lit(value))
+    }
+    /**
      * Evaluates a list of conditions and returns one of multiple possible result expressions. If otherwise is not defined at the end, null is returned for unmatched conditions.
-     * @param value value of Any to apli.
+     * @param value value of Any to apply
      * @return Column object.
      */
     def otherwise(value: Any): Column = {
