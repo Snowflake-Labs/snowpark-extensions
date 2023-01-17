@@ -39,6 +39,23 @@ object functions {
   import com.snowflake.snowpark.functions._
   import com.snowflake.snowpark.types._
 
+
+  sealed trait ColumnOrInt[T]
+  object ColumnOrInt {
+    implicit val intInstance: ColumnOrInt[Int] =
+      new ColumnOrInt[Int] {}
+    implicit val colInstance: ColumnOrInt[Column] =
+      new ColumnOrInt[Column] {}
+  }
+
+  sealed trait ColumnOrString[T]
+  object ColumnOrString {
+    implicit val strInstance: ColumnOrString[String] =
+      new ColumnOrString[String] {}
+    implicit val colInstance: ColumnOrString[Column] =
+      new ColumnOrString[Column] {}
+  }
+
   /**
    * Function to convert a string into an SQL expression.
    * @param s SQL Expression as text.
@@ -503,14 +520,34 @@ object functions {
     signum(col(columnName))
   }
 
+  def substring_index[TStr:ColumnOrString, TDelim:ColumnOrString, TCount:ColumnOrInt]
+  (str:TStr,delim:TDelim,count:TCount): Column = {
+    print(">>>>>>>")
+    val s:Column = str match {
+      case c:Column => c
+      case s:String => lit(s)
+    } 
+    val d:Column = delim match {
+      case c:Column => c
+      case s:String => lit(s)
+    }
+    val c:Column = count match {
+      case c:Column => c
+      case i:Int => lit(i)
+    }
+    when(c < lit(0), 
+    callBuiltin("substring",s,callBuiltin("regexp_instr",reverse(s),d,1,abs(c),lit(0))))
+    .otherwise(callBuiltin("substring",s,1,callBuiltin("regexp_instr",s,d,1,c,1)))
+  }
+
   /**
    * Wrapper for the when expression to facilite some castings
    * @param condition expression to evaluate
    * @param result    the value to return if expression is true
    * @return Column object.
    */
-  def when( condition: Column, result:Any) : CaseExpr = {
-    when(condition,lit(result))
+  def when( condition: Column, result:Any) : com.snowflake.snowpark_extensions.implicits.CaseExprExtensions.ExtendedCaseExpr = {
+    new com.snowflake.snowpark_extensions.implicits.CaseExprExtensions.ExtendedCaseExpr(com.snowflake.snowpark.functions.when(condition,lit(result)))
   }
 
   /**
@@ -897,9 +934,19 @@ object functions {
    */
   def log2(columnName: String): Column = builtin("LOG")(2,col(columnName))
 
+  /**
+   * Returns element of array at given index in value if column is array. Mostly and overload for snowpark get_path
+   * @see <a href="https://docs.snowflake.com/en/developer-guide/snowpark/reference/scala/com/snowflake/snowpark/functions$.html#get_path(col:com.snowflake.snowpark.Column,path:com.snowflake.snowpark.Column):com.snowflake.snowpark.Column"> Snowpark get_path </a> 
+   */
+  def element_at[T: ColumnOrInt](column:Column, index:T) = {
+     index match {
+      case c:Column  => com.snowflake.snowpark.functions.get_path(column,c)
+      case i:Int => com.snowflake.snowpark.functions.get_path(column,lit(i))
+    }
+  }
+  
 
 
-}
-
+  }
 }
 

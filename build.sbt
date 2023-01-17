@@ -61,7 +61,7 @@ version := sys.env.getOrElse("GITHUB_REF_NAME","0.0.0")
 // Compile / scalacOptions ++= Seq("-doc-version", version.value)
 
 
-val snowparkVersion = "1.6.2"
+val snowparkVersion = "1.7.0"
 val sparkVersion = "3.2.1"
 
 libraryDependencies ++= Seq(

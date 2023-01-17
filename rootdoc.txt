@@ -21,7 +21,7 @@ With Maven you can add something like this to your POM:
 or with sbt use 
 
 <pre>
-libraryDependencies += "net.mobilize.snowpark-extensions" % "snowparkextensions" % "0.0.9"
+libraryDependencies += "net.mobilize.snowpark-extensions" % "snowparkextensions" % "0.0.16"
 </pre>
 
 

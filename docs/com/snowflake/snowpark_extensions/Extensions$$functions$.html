@@ -3,9 +3,9 @@
         <head>
           <meta http-equiv="X-UA-Compatible" content="IE=edge" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-          <title>Snowpark Extensions 0.0.13 - com.snowflake.snowpark_extensions.Extensions.functions</title>
-          <meta name="description" content="Snowpark Extensions 0.0.13 - com.snowflake.snowpark extensions.Extensions.functions" />
-          <meta name="keywords" content="Snowpark Extensions 0.0.13 com.snowflake.snowpark extensions.Extensions.functions" />
+          <title>Snowpark Extensions 0.0.16 - com.snowflake.snowpark_extensions.Extensions.functions</title>
+          <meta name="description" content="Snowpark Extensions 0.0.16 - com.snowflake.snowpark extensions.Extensions.functions" />
+          <meta name="keywords" content="Snowpark Extensions 0.0.16 com.snowflake.snowpark extensions.Extensions.functions" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       
@@ -28,7 +28,7 @@
         </head>
         <body>
       <div id="search">
-        <span id="doc-title">Snowpark Extensions<span id="doc-version">0.0.13</span></span>
+        <span id="doc-title">Snowpark Extensions<span id="doc-version">0.0.16</span></span>
         <span class="close-results"><span class="left">&lt;</span> Back</span>
         <div id="textfilter">
           <span class="input">
@@ -75,7 +75,7 @@
     &lt;version&gt;0.0.9&lt;/version&gt;
 &lt;/dependency&gt;
 </pre></p><p>or with sbt use</p><p><pre>
-libraryDependencies += "net.mobilize.snowpark-extensions" % "snowparkextensions" % "0.0.9"
+libraryDependencies += "net.mobilize.snowpark-extensions" % "snowparkextensions" % "0.0.16"
 </pre></p><h4> Usage </h4><p>just import it at the top of your file and it will automatically extend your snowpark package.</p><p>For example:
 <pre>
 
@@ -237,7 +237,42 @@ See <a href="com/snowflake/snowpark_extensions/Extensions$$functions$.html">Func
         <div id="allMembers">
         
 
-        
+        <div id="types" class="types members">
+              <h3>Type Members</h3>
+              <ol><li name="com.snowflake.snowpark_extensions.Extensions.functions.ColumnOrInt" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="ColumnOrInt[T]extendsAnyRef"></a><a id="ColumnOrInt[T]:ColumnOrInt[T]"></a>
+      <span class="permalink">
+      <a href="../../../com/snowflake/snowpark_extensions/Extensions$$functions$$ColumnOrInt.html" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">sealed </span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="Extensions$$functions$$ColumnOrInt.html"><span class="name">ColumnOrInt</span></a><span class="tparams">[<span name="T">T</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      
+      
+    </li><li name="com.snowflake.snowpark_extensions.Extensions.functions.ColumnOrString" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="ColumnOrString[T]extendsAnyRef"></a><a id="ColumnOrString[T]:ColumnOrString[T]"></a>
+      <span class="permalink">
+      <a href="../../../com/snowflake/snowpark_extensions/Extensions$$functions$$ColumnOrString.html" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">sealed </span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="Extensions$$functions$$ColumnOrString.html"><span class="name">ColumnOrString</span></a><span class="tparams">[<span name="T">T</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      
+      
+    </li></ol>
+            </div>
 
         
 
@@ -647,6 +682,22 @@ a timestamp it will be casted to date (removing its time).</p><p>There are some 
       </span>
       
       <p class="shortcomment cmt">Function to convert column name into column and order in a descending manner.</p><div class="fullcomment"><div class="comment cmt"><p>Function to convert column name into column and order in a descending manner.</p></div><dl class="paramcmts block"><dt class="param">c</dt><dd class="cmt"><p>Column name.</p></dd><dt>returns</dt><dd class="cmt"><p>Column object ordered in a descending manner.</p></dd></dl></div>
+    </li><li name="com.snowflake.snowpark_extensions.Extensions.functions#element_at" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="element_at[T](column:com.snowflake.snowpark.Column,index:T)(implicitevidence$4:com.snowflake.snowpark_extensions.Extensions.functions.ColumnOrInt[T]):com.snowflake.snowpark.Column"></a><a id="element_at[T](Column,T)(ColumnOrInt[T]):Column"></a>
+      <span class="permalink">
+      <a href="../../../com/snowflake/snowpark_extensions/Extensions$$functions$.html#element_at[T](column:com.snowflake.snowpark.Column,index:T)(implicitevidence$4:com.snowflake.snowpark_extensions.Extensions.functions.ColumnOrInt[T]):com.snowflake.snowpark.Column" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">element_at</span><span class="tparams">[<span name="T">T</span>]</span><span class="params">(<span name="column">column: <span class="extype" name="com.snowflake.snowpark.Column">Column</span></span>, <span name="index">index: <span class="extype" name="com.snowflake.snowpark_extensions.Extensions.functions.element_at.T">T</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="Extensions$$functions$$ColumnOrInt.html" class="extype" name="com.snowflake.snowpark_extensions.Extensions.functions.ColumnOrInt">ColumnOrInt</a>[<span class="extype" name="com.snowflake.snowpark_extensions.Extensions.functions.element_at.T">T</span>]</span>)</span><span class="result">: <span class="extype" name="com.snowflake.snowpark.Column">Column</span></span>
+      </span>
+      
+      <p class="shortcomment cmt">Returns element of array at given index in value if column is array.</p><div class="fullcomment"><div class="comment cmt"><p>Returns element of array at given index in value if column is array. Mostly and overload for snowpark get_path</p></div><dl class="attributes block"> <dt>See also</dt><dd><span class="cmt"><p><a href="https://docs.snowflake.com/en/developer-guide/snowpark/reference/scala/com/snowflake/snowpark/functions$.html#get_path(col:com.snowflake.snowpark.Column,path:com.snowflake.snowpark.Column):com.snowflake.snowpark.Column"> Snowpark get_path </a></p></span></dd></dl></div>
     </li><li name="scala.AnyRef#eq" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="eq(x$1:AnyRef):Boolean"></a><a id="eq(AnyRef):Boolean"></a>
       <span class="permalink">
@@ -1625,6 +1676,22 @@ NaN, -1 for negative and null for null.</p><p>There are some functional differen
       </span>
       
       <p class="shortcomment cmt">Wrapper for Snowflake built-in size function.</p><div class="fullcomment"><div class="comment cmt"><p>Wrapper for Snowflake built-in size function. Gets the size of array column.</p></div><dl class="paramcmts block"><dt class="param">c</dt><dd class="cmt"><p>Column to get the size.</p></dd><dt>returns</dt><dd class="cmt"><p>Size of array column.</p></dd></dl></div>
+    </li><li name="com.snowflake.snowpark_extensions.Extensions.functions#substring_index" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="substring_index[TStr,TDelim,TCount](str:TStr,delim:TDelim,count:TCount)(implicitevidence$1:com.snowflake.snowpark_extensions.Extensions.functions.ColumnOrString[TStr],implicitevidence$2:com.snowflake.snowpark_extensions.Extensions.functions.ColumnOrString[TDelim],implicitevidence$3:com.snowflake.snowpark_extensions.Extensions.functions.ColumnOrInt[TCount]):com.snowflake.snowpark.Column"></a><a id="substring_index[TStr,TDelim,TCount](TStr,TDelim,TCount)(ColumnOrString[TStr],ColumnOrString[TDelim],ColumnOrInt[TCount]):Column"></a>
+      <span class="permalink">
+      <a href="../../../com/snowflake/snowpark_extensions/Extensions$$functions$.html#substring_index[TStr,TDelim,TCount](str:TStr,delim:TDelim,count:TCount)(implicitevidence$1:com.snowflake.snowpark_extensions.Extensions.functions.ColumnOrString[TStr],implicitevidence$2:com.snowflake.snowpark_extensions.Extensions.functions.ColumnOrString[TDelim],implicitevidence$3:com.snowflake.snowpark_extensions.Extensions.functions.ColumnOrInt[TCount]):com.snowflake.snowpark.Column" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">substring_index</span><span class="tparams">[<span name="TStr">TStr</span>, <span name="TDelim">TDelim</span>, <span name="TCount">TCount</span>]</span><span class="params">(<span name="str">str: <span class="extype" name="com.snowflake.snowpark_extensions.Extensions.functions.substring_index.TStr">TStr</span></span>, <span name="delim">delim: <span class="extype" name="com.snowflake.snowpark_extensions.Extensions.functions.substring_index.TDelim">TDelim</span></span>, <span name="count">count: <span class="extype" name="com.snowflake.snowpark_extensions.Extensions.functions.substring_index.TCount">TCount</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="Extensions$$functions$$ColumnOrString.html" class="extype" name="com.snowflake.snowpark_extensions.Extensions.functions.ColumnOrString">ColumnOrString</a>[<span class="extype" name="com.snowflake.snowpark_extensions.Extensions.functions.substring_index.TStr">TStr</span>]</span>, <span name="arg1">arg1: <a href="Extensions$$functions$$ColumnOrString.html" class="extype" name="com.snowflake.snowpark_extensions.Extensions.functions.ColumnOrString">ColumnOrString</a>[<span class="extype" name="com.snowflake.snowpark_extensions.Extensions.functions.substring_index.TDelim">TDelim</span>]</span>, <span name="arg2">arg2: <a href="Extensions$$functions$$ColumnOrInt.html" class="extype" name="com.snowflake.snowpark_extensions.Extensions.functions.ColumnOrInt">ColumnOrInt</a>[<span class="extype" name="com.snowflake.snowpark_extensions.Extensions.functions.substring_index.TCount">TCount</span>]</span>)</span><span class="result">: <span class="extype" name="com.snowflake.snowpark.Column">Column</span></span>
+      </span>
+      
+      
     </li><li name="scala.AnyRef#synchronized" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="synchronized[T0](x$1:=&gt;T0):T0"></a><a id="synchronized[T0](⇒T0):T0"></a>
       <span class="permalink">
@@ -1867,6 +1934,54 @@ using the default timezone and the default locale.
     </span>)</span>
               
         </dd></dl></div>
+    </li><li name="com.snowflake.snowpark_extensions.Extensions.functions#when" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="when(condition:com.snowflake.snowpark.Column,result:Any):com.snowflake.snowpark_extensions.implicits.CaseExprExtensions.ExtendedCaseExpr"></a><a id="when(Column,Any):ExtendedCaseExpr"></a>
+      <span class="permalink">
+      <a href="../../../com/snowflake/snowpark_extensions/Extensions$$functions$.html#when(condition:com.snowflake.snowpark.Column,result:Any):com.snowflake.snowpark_extensions.implicits.CaseExprExtensions.ExtendedCaseExpr" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">when</span><span class="params">(<span name="condition">condition: <span class="extype" name="com.snowflake.snowpark.Column">Column</span></span>, <span name="result">result: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <a href="implicits/CaseExprExtensions$$ExtendedCaseExpr.html" class="extype" name="com.snowflake.snowpark_extensions.implicits.CaseExprExtensions.ExtendedCaseExpr">ExtendedCaseExpr</a></span>
+      </span>
+      
+      <p class="shortcomment cmt">Wrapper for the when expression to facilite some castings</p><div class="fullcomment"><div class="comment cmt"><p>Wrapper for the when expression to facilite some castings</p></div><dl class="paramcmts block"><dt class="param">condition</dt><dd class="cmt"><p>expression to evaluate</p></dd><dt class="param">result</dt><dd class="cmt"><p>the value to return if expression is true</p></dd><dt>returns</dt><dd class="cmt"><p>Column object.</p></dd></dl></div>
+    </li><li name="com.snowflake.snowpark_extensions.Extensions.functions.ColumnOrInt" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ColumnOrInt"></a><a id="ColumnOrInt:ColumnOrInt"></a>
+      <span class="permalink">
+      <a href="../../../com/snowflake/snowpark_extensions/Extensions$$functions$$ColumnOrInt$.html" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="Extensions$$functions$$ColumnOrInt$.html"><span class="name">ColumnOrInt</span></a>
+      </span>
+      
+      
+    </li><li name="com.snowflake.snowpark_extensions.Extensions.functions.ColumnOrString" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ColumnOrString"></a><a id="ColumnOrString:ColumnOrString"></a>
+      <span class="permalink">
+      <a href="../../../com/snowflake/snowpark_extensions/Extensions$$functions$$ColumnOrString$.html" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="Extensions$$functions$$ColumnOrString$.html"><span class="name">ColumnOrString</span></a>
+      </span>
+      
+      
     </li>
               </ol>
             </div>
