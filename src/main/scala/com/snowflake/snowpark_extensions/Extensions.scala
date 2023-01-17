@@ -18,6 +18,8 @@ import com.snowflake.snowpark.Session
 
 object Extensions {
   import scala.language.implicitConversions
+  implicit def fromExtendedCaseToColumn(extCol: CaseExprExtensions.ExtendedCaseExpr) =
+    extCol.toCol
   implicit def extendedColumn(c: Column) =
     new ColumnExtensions.ExtendedColumn(c)
   implicit def extendedDataFrame(df: DataFrame) =

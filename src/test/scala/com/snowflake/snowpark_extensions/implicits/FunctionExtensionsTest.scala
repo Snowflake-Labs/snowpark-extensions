@@ -1,6 +1,6 @@
 
 package com.snowflake.snowpark_extensions.implicits
-
+import com.snowflake.snowpark_extensions.Extensions._
 import com.snowflake.snowpark_extensions.Extensions.functions._
 import com.snowflake.snowpark_extensions.testutils.Serializer.df2Seq
 import com.snowflake.snowpark_extensions.testutils.SessionInitializer
@@ -14,6 +14,10 @@ class FunctionExtensionsTest extends FlatSpec with Matchers {
 
   "when expression" should "compile without errors" in {
     when(col("a") > 1,"literal1").otherwise("literal2")
+    val session = SessionInitializer.snow
+    val df = session.createDataFrame(Seq(("aaaa"))).toDF(Seq("a"))
+    df.withColumn("col1",when(col("a")>1,"a"))
+    df.withColumn("col1",when(col("a")>1,"a").otherwise("b"))
   }
 
   "substring_index" should "match spark substring_index" in {

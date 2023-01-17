@@ -29,7 +29,9 @@ object CaseExprExtensions {
    * @param c CaseExpr to extend functionality.
    */
   class ExtendedCaseExpr(c: CaseExpr) {
-
+    def toCol() = {
+      c
+    }
     /**
      * Appends one more WHEN condition to the CASE expression.
      * @param value value of Any to apply
