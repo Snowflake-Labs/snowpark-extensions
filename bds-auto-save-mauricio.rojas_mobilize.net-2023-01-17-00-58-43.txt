@@ -1,0 +1,7 @@
+ M .vscode/settings.json
+ M src/main/scala/com/snowflake/snowpark_extensions/Extensions.scala
+ M src/main/scala/com/snowflake/snowpark_extensions/implicits/CaseExprExtensions.scala
+ M src/test/scala/com/snowflake/snowpark_extensions/implicits/Snowpark/SessionExtensionsSnowpark.scala
+?? bds-auto-save-mauricio.rojas_mobilize.net-2023-01-17-00-58-43.txt
+?? src/UDFS/substring_index.sql
+?? src/test/scala/com/snowflake/snowpark_extensions/implicits/FunctionExtensionsTest.scala

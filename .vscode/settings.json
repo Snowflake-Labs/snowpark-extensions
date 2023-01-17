@@ -1,4 +1,7 @@
 {
+ "files.exclude": {
+  "**/.tmp": true
+ },
  "mochaExplorer.ui": "qunit",
  "mochaExplorer.files": "tests/**/*.spec.js",
  "mochaExplorer.timeout": 200000,
@@ -15,8 +18,7 @@
  ],
  "debug.allowBreakpointsEverywhere": true,
  "mochaExplorer.launcherScript": "tests/node_modules/mocha-explorer-launcher-scripts-c8/c8/index.js",
- "workbench.productIconTheme": "fluent-icons",
- "workbench.colorTheme": "Light BlackDiamond",
+ "workbench.colorTheme": "Dark BlackDiamond",
  "workbench.preferredDarkColorTheme": "Dark BlackDiamond",
  "workbench.preferredHighContrastColorTheme": "Dark BlackDiamond",
  "workbench.preferredLightColorTheme": "Light BlackDiamond",
@@ -35,14 +37,13 @@
  "experiments.override.gettingStarted.overrideCategory.ms-python.python.pythonWelcome.when": false,
  "workbench.startupEditor": "none",
  "python.terminal.activateEnvironment": false,
- "autoHide.panelDelay": 20000,
- "autoHide.sideBarDelay": 20000,
- "autoHide.autoHidePanel": false,
- "autoHide.autoHideSideBar": false,
- "autoHide.hideOnOpen": false,
  "extensions.autoUpdate": false,
  "testExplorer.mergeSuites": true,
  "testExplorer.useNativeTesting": true,
+ "csv-preview.lineNumbers": "ordinal",
+ "[python]": {
+  "editor.tabSize": 1
+ },
  "sqltools.connections": [
     {
         "connId": 2353,
@@ -50,15 +51,15 @@
         "driver": "Snowflake",
         "name": "mobilize",
         "account": "mobilize",
-        "username": "U2FsdGVkX198vuQEVnrWSWmrgbCB1ge19aJ4Grwvfbo=",
-        "password": "U2FsdGVkX1+AMXUSY6jJ0LoYHtAJxGR0HAl8PzT8u9A=",
+        "username": "U2FsdGVkX182D2dy1+5qszfhHlicmQMxeY/rInI1azs=",
+        "password": "U2FsdGVkX19PbgxqimQcdv6eoOfbGqu/UFUQCDIc+jg=",
         "database": "SNOWPARK_ANALYSIS",
         "warehouse": "load_wh",
         "schema": "public"
     }
 ],
-"sqltools.defaultConnId": 2353,
-"files.watcherExclude": {
-    "**/target": true
-}
+ "sqltools.defaultConnId": 2353,
+ "files.watcherExclude": {
+  "**/target": true
+ }
 }

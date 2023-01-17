@@ -53,9 +53,6 @@ def test_catalog_methods() : DataFrame = {
   }
 //#end region
 
-  //Main
-  def main(args: Array[String]): Unit = {
-    test_builder_methods()
-  }
+
 
 }

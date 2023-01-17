@@ -35,8 +35,8 @@ object CaseExprExtensions {
      * @param value value of Any to apply
      * @return Column object.
      */
-    def when( condition: Column , value: Any ) : Column = {
-      c.when(condition,lit(value))
+    def when( condition: Column , value: Any ) : ExtendedCaseExpr = {
+      new ExtendedCaseExpr(c.when(condition,lit(value)))
     }
     /**
      * Evaluates a list of conditions and returns one of multiple possible result expressions. If otherwise is not defined at the end, null is returned for unmatched conditions.
