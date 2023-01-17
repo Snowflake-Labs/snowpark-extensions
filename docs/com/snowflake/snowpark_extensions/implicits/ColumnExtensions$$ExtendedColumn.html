@@ -3,9 +3,9 @@
         <head>
           <meta http-equiv="X-UA-Compatible" content="IE=edge" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-          <title>Snowpark Extensions 0.0.13 - com.snowflake.snowpark_extensions.implicits.ColumnExtensions.ExtendedColumn</title>
-          <meta name="description" content="Snowpark Extensions 0.0.13 - com.snowflake.snowpark extensions.implicits.ColumnExtensions.ExtendedColumn" />
-          <meta name="keywords" content="Snowpark Extensions 0.0.13 com.snowflake.snowpark extensions.implicits.ColumnExtensions.ExtendedColumn" />
+          <title>Snowpark Extensions 0.0.16 - com.snowflake.snowpark_extensions.implicits.ColumnExtensions.ExtendedColumn</title>
+          <meta name="description" content="Snowpark Extensions 0.0.16 - com.snowflake.snowpark extensions.implicits.ColumnExtensions.ExtendedColumn" />
+          <meta name="keywords" content="Snowpark Extensions 0.0.16 com.snowflake.snowpark extensions.implicits.ColumnExtensions.ExtendedColumn" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       
@@ -28,7 +28,7 @@
         </head>
         <body>
       <div id="search">
-        <span id="doc-title">Snowpark Extensions<span id="doc-version">0.0.13</span></span>
+        <span id="doc-title">Snowpark Extensions<span id="doc-version">0.0.16</span></span>
         <span class="close-results"><span class="left">&lt;</span> Back</span>
         <div id="textfilter">
           <span class="input">
@@ -75,7 +75,7 @@
     &lt;version&gt;0.0.9&lt;/version&gt;
 &lt;/dependency&gt;
 </pre></p><p>or with sbt use</p><p><pre>
-libraryDependencies += "net.mobilize.snowpark-extensions" % "snowparkextensions" % "0.0.9"
+libraryDependencies += "net.mobilize.snowpark-extensions" % "snowparkextensions" % "0.0.16"
 </pre></p><h4> Usage </h4><p>just import it at the top of your file and it will automatically extend your snowpark package.</p><p>For example:
 <pre>
 
@@ -687,6 +687,22 @@ Functional Difference with Spark: The function returns a Variant type.</p></div>
       </span>
       
       <p class="shortcomment cmt">Function that validates if the value of the column is within the list of strings from parameter.</p><div class="fullcomment"><div class="comment cmt"><p>Function that validates if the value of the column is within the list of strings from parameter.</p></div><dl class="paramcmts block"><dt class="param">strings</dt><dd class="cmt"><p>List of strings to compare with the value.</p></dd><dt>returns</dt><dd class="cmt"><p>Column object.</p></dd></dl></div>
+    </li><li name="com.snowflake.snowpark_extensions.implicits.ColumnExtensions.ExtendedColumn#like" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="like(literal:String):com.snowflake.snowpark.Column"></a><a id="like(String):Column"></a>
+      <span class="permalink">
+      <a href="../../../../com/snowflake/snowpark_extensions/implicits/ColumnExtensions$$ExtendedColumn.html#like(literal:String):com.snowflake.snowpark.Column" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">like</span><span class="params">(<span name="literal">literal: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <span class="extype" name="com.snowflake.snowpark.Column">Column</span></span>
+      </span>
+      
+      <p class="shortcomment cmt">Function that returns a boolean column based on a match.</p><div class="fullcomment"><div class="comment cmt"><p>Function that returns a boolean column based on a match.</p></div><dl class="paramcmts block"><dt class="param">literal</dt><dd class="cmt"><p>expresion to match.</p></dd><dt>returns</dt><dd class="cmt"><p>Column object.</p></dd></dl></div>
     </li><li name="scala.AnyRef#ne" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="ne(x$1:AnyRef):Boolean"></a><a id="ne(AnyRef):Boolean"></a>
       <span class="permalink">
