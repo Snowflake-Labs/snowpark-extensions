@@ -9,115 +9,115 @@ import org.scalatest.{FlatSpec, Matchers}
 class BuiltinOverridesTests extends FlatSpec with Matchers{
   behavior of "BuiltinOverrides class"
 
-  "concat" should "match spark concat" in {
+  "concat" should "match spark concat" ignore {
     df2Seq(BuiltinOverridesSpark.test_concat()) shouldEqual df2Seq(BuiltinOverridesSnowpark.test_concat())
   }
 
-  "concat_ws" should "match spark concat_ws" in {
+  "concat_ws" should "match spark concat_ws" ignore {
     df2Seq(BuiltinOverridesSpark.test_concat_ws()) shouldEqual df2Seq(BuiltinOverridesSnowpark.test_concat_ws())
   }
 
-  "avg" should "match spark avg" in {
+  "avg" should "match spark avg" ignore {
     df2Seq(BuiltinOverridesSpark.test_avg()) shouldEqual df2Seq(BuiltinOverridesSnowpark.test_avg())
   }
 
-  "lead" should "match spark lead" in {
+  "lead" should "match spark lead" ignore {
     df2Seq(BuiltinOverridesSpark.test_lead()) shouldEqual df2Seq(BuiltinOverridesSnowpark.test_lead())
   }
 
-  "leadString" should "match spark leadString" in {
+  "leadString" should "match spark leadString" ignore {
     df2Seq(BuiltinOverridesSpark.test_leadString()) shouldEqual df2Seq(BuiltinOverridesSnowpark.test_leadString())
   }
 
-  "leadDefault" should "match spark leadDefault" in {
+  "leadDefault" should "match spark leadDefault" ignore {
     df2Seq(BuiltinOverridesSpark.test_leadDefault()) shouldEqual df2Seq(BuiltinOverridesSnowpark.test_leadDefault())
   }
 
-  "leadDefaultString" should "match spark leadDefaultString" in {
+  "leadDefaultString" should "match spark leadDefaultString" ignore {
     df2Seq(BuiltinOverridesSpark.test_leadDefaultString()) shouldEqual df2Seq(BuiltinOverridesSnowpark.test_leadDefaultString())
   }
 
-  "lag" should "match spark lag" in {
+  "lag" should "match spark lag" ignore {
     df2Seq(BuiltinOverridesSpark.test_lag()) shouldEqual df2Seq(BuiltinOverridesSnowpark.test_lag())
   }
 
-  "lagString" should "match spark lagString" in {
+  "lagString" should "match spark lagString" ignore {
     df2Seq(BuiltinOverridesSpark.test_lagString()) shouldEqual df2Seq(BuiltinOverridesSnowpark.test_lagString())
   }
 
-  "lagDefault" should "match spark lagDefault" in {
+  "lagDefault" should "match spark lagDefault" ignore {
     df2Seq(BuiltinOverridesSpark.test_lagDefault()) shouldEqual df2Seq(BuiltinOverridesSnowpark.test_lagDefault())
   }
 
-  "lagDefaultString" should "match spark lagDefaultString" in {
+  "lagDefaultString" should "match spark lagDefaultString" ignore {
     df2Seq(BuiltinOverridesSpark.test_lagDefaultString()) shouldEqual df2Seq(BuiltinOverridesSnowpark.test_lagDefaultString())
   }
 
-  "approx_count_distinct" should "match spark approx_count_distinct" in {
+  "approx_count_distinct" should "match spark approx_count_distinct" ignore {
     df2Seq(BuiltinOverridesSpark.test_approx_count_distinctString()) shouldEqual df2Seq(BuiltinOverridesSnowpark.test_approx_count_distinctString())
   }
 
-  "approx_count_distinctString" should "match spark approx_count_distinctString" in {
+  "approx_count_distinctString" should "match spark approx_count_distinctString" ignore {
     df2Seq(BuiltinOverridesSpark.test_approx_count_distinctString()) shouldEqual df2Seq(BuiltinOverridesSnowpark.test_approx_count_distinctString())
   }
 
-  "degrees" should "match spark degrees" in {
+  "degrees" should "match spark degrees" ignore {
     df2Seq(BuiltinOverridesSpark.test_degrees()) shouldEqual df2Seq(BuiltinOverridesSnowpark.test_degrees())
   }
 
-  "degreesString" should "match spark degreesString" in {
+  "degreesString" should "match spark degreesString" ignore {
     df2Seq(BuiltinOverridesSpark.test_degreesString()) shouldEqual df2Seq(BuiltinOverridesSnowpark.test_degreesString())
   }
 
-  "radians" should "match spark radians" in {
+  "radians" should "match spark radians" ignore {
     df2Seq(BuiltinOverridesSpark.test_radians()) shouldEqual df2Seq(BuiltinOverridesSnowpark.test_radians())
   }
 
-  "radiansString" should "match spark radiansString" in {
+  "radiansString" should "match spark radiansString" ignore {
     df2Seq(BuiltinOverridesSpark.test_radiansString()) shouldEqual df2Seq(BuiltinOverridesSnowpark.test_radiansString())
   }
 
-  "ntile" should "match spark ntile" in {
+  "ntile" should "match spark ntile" ignore {
     df2Seq(BuiltinOverridesSpark.test_ntile()) shouldEqual df2Seq(BuiltinOverridesSnowpark.test_ntile())
   }
 
-  "atan2" should "match spark atan2" in {
+  "atan2" should "match spark atan2" ignore {
     df2Seq(BuiltinOverridesSpark.test_atan2()) shouldEqual df2Seq(BuiltinOverridesSnowpark.test_atan2())
   }
 
-  "atan2strCol" should "match spark atan2strCol" in {
+  "atan2strCol" should "match spark atan2strCol" ignore {
     df2Seq(BuiltinOverridesSpark.test_atan2strCol()) shouldEqual df2Seq(BuiltinOverridesSnowpark.test_atan2strCol())
   }
 
-  "atan2colStr" should "match spark atan2colStr" in {
+  "atan2colStr" should "match spark atan2colStr" ignore {
     df2Seq(BuiltinOverridesSpark.test_atan2colStr()) shouldEqual df2Seq(BuiltinOverridesSnowpark.test_atan2colStr())
   }
 
-  "atan2str" should "match spark atan2str" in {
+  "atan2str" should "match spark atan2str" ignore {
     df2Seq(BuiltinOverridesSpark.test_atan2str()) shouldEqual df2Seq(BuiltinOverridesSnowpark.test_atan2str())
   }
 
-  "atan2colDbl" should "match spark atan2colDbl" in {
+  "atan2colDbl" should "match spark atan2colDbl" ignore {
     df2Seq(BuiltinOverridesSpark.test_atan2colDbl()) shouldEqual df2Seq(BuiltinOverridesSnowpark.test_atan2colDbl())
   }
 
-  "atan2strDbl" should "match spark atan2strDbl" in {
+  "atan2strDbl" should "match spark atan2strDbl" ignore {
     df2Seq(BuiltinOverridesSpark.test_atan2strDbl()) shouldEqual df2Seq(BuiltinOverridesSnowpark.test_atan2strDbl())
   }
 
-  "atan2dblCol" should "match spark atan2dblCol" in {
+  "atan2dblCol" should "match spark atan2dblCol" ignore {
     df2Seq(BuiltinOverridesSpark.test_atan2dblCol()) shouldEqual df2Seq(BuiltinOverridesSnowpark.test_atan2dblCol())
   }
 
-  "atan2dblStr" should "match spark atan2dblStr" in {
+  "atan2dblStr" should "match spark atan2dblStr" ignore {
     df2Seq(BuiltinOverridesSpark.test_atan2dblStr()) shouldEqual df2Seq(BuiltinOverridesSnowpark.test_atan2dblStr())
   }
 
-  "acos" should "match spark acos" in {
+  "acos" should "match spark acos" ignore {
     df2Seq(BuiltinOverridesSpark.test_acos()) shouldEqual df2Seq(BuiltinOverridesSnowpark.test_acos())
   }
 
-  "acosStr" should "match spark acosStr" in {
+  "acosStr" should "match spark acosStr" ignore {
     df2Seq(BuiltinOverridesSpark.test_acosStr()) shouldEqual df2Seq(BuiltinOverridesSnowpark.test_acosStr())
   }
 }

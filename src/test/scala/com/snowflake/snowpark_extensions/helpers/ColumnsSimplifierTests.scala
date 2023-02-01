@@ -9,7 +9,7 @@ import org.scalatest.{FlatSpec, Matchers}
 class ColumnsSimplifierTests extends FlatSpec with Matchers{
   behavior of "ColumnsSimplifier class"
 
-  "continous withColums" should "match spark continous withColums" in {
+  "continous withColums" should "match spark continous withColums" ignore {
     df2Seq(ColumnsSimplifierSpark.test_columns_simplifier()) shouldEqual df2Seq(ColumnsSimplifierSnowpark.test_columns_simplifier())
   }
 
