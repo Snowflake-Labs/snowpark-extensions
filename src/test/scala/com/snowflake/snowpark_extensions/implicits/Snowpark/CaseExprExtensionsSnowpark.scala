@@ -16,7 +16,7 @@ object CaseExprExtensionsSnowpark {
 
   //Function: otherwise(value: Any): Column
   def test_otherwise() : DataFrame = {
-    df2.withColumn("colNew", when(col("COL3")==="5",lit("1")).otherwise(lit("0")))
+    df2.withColumn("colNew", when(col("COL3")==="5",lit("1")).otherwise("0"))//.show()
   }
 
 }
