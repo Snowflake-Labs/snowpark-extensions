@@ -3,7 +3,11 @@ package com.snowflake.snowpark_extensions.helpers.Snowpark
 import com.snowflake.snowpark.{DataFrame, Window}
 import com.snowflake.snowpark.functions.col
 import com.snowflake.snowpark.types.FloatType
-import com.snowflake.snowpark_extensions.helpers.BuiltinOverrides.{avg, concat, concat_ws, lead, lag, approx_count_distinct,degrees,radians,ntile,atan2,acos}
+import com.snowflake.snowpark_extensions.helpers.BuiltinOverrides.{avg, concat, concat_ws, lead}
+import com.snowflake.snowpark_extensions.helpers.BuiltinOverrides.{lag, approx_count_distinct,degrees}
+import com.snowflake.snowpark_extensions.helpers.BuiltinOverrides.{radians,ntile,atan2,acos}
+import com.snowflake.snowpark_extensions.helpers.BuiltinOverrides.{trim, rtrim, ltrim, split}
+import com.snowflake.snowpark_extensions.helpers.BuiltinOverrides.{round, repeat, translate, next_day}
 import com.snowflake.snowpark_extensions.Extensions._
 import com.snowflake.snowpark_extensions.testutils.{DataFrameCreator, SessionInitializer}
 
@@ -14,7 +18,8 @@ object BuiltinOverridesSnowpark {
   val df = session.createDataFrame(DataFrameCreator.data_for_general).toDF(DataFrameCreator.data_for_general_column)
   val df_window = session.createDataFrame(DataFrameCreator.data_for_window).toDF(DataFrameCreator.data_for_window_column)
   val df_double = session.createDataFrame(DataFrameCreator.data_for_double2).toDF(DataFrameCreator.data_for_double2_column)
-
+  val df_double3 = session.createDataFrame(DataFrameCreator.data_for_double3).toDF(DataFrameCreator.data_for_double3_column)
+  val df_for_cast = session.createDataFrame(DataFrameCreator.data_for_date_cast).toDF(DataFrameCreator.data_for_date_cast_column)
   // Process
   def test_concat(): DataFrame = {
     df.select(concat(col("col3"), col("col4")).as("result"))
@@ -170,4 +175,42 @@ object BuiltinOverridesSnowpark {
     test_acosStr.show
   }
 
-}
+  def test_trim() : DataFrame = {
+    df_double.select(trim(col("col1")).alias("mycol1"))
+  }
+  //rtrim
+    def test_rtrim() : DataFrame = {
+      df_double.select(rtrim(col("col1")).alias("mycol1"))
+    }
+
+    //ltrim
+    def test_ltrim() : DataFrame = {
+      df_double.select(ltrim(col("col1")).alias("mycol1"))
+    }
+
+    //split
+    def test_split() : DataFrame = {
+      df_double.select(split(col("col1"),".").alias("mycol1"))
+    }
+
+      //split
+    def test_round() : DataFrame = {
+      df_double3.select(round(col("col1")).alias("mycol1"))
+    }
+
+    //repeat
+    def test_repeat() : DataFrame = {
+      df_double3.select(repeat(col("col1"), 2).alias("mycol1"))
+    }
+
+    //translate
+      def test_translate() : DataFrame = {
+      df_double3.select(translate(col("col1"), "2","1").alias("mycol1"))
+    }
+
+    //next_day
+
+    def test_next_day(): DataFrame = { 
+      df_for_cast.selectExpr("to_date(col5, 'yyyy-MM-dd') as date_only").select(next_day(col("date_only"),"Sunday").alias("col_next_day"))
+    }
+  }

@@ -38,6 +38,8 @@ object DataFrameCreator {
   val data_for_double_column = Seq("col1", "col2", "col3", "col4")
   val data_for_double2 = Seq((0.1d,1, "test123", 5))
   val data_for_double2_column = Seq("col1", "col2", "col3", "col4")
+  val data_for_double3 = Seq((22.1321f, 1, "test123", 5))
+  val data_for_double3_column = Seq("col1", "col2", "col3", "col4")
   val data_for_array = Seq((Array("a","b","c"), 2), (Array("a"), 4), (Array(""),6))
   val data_for_array_column = Seq("col1", "col2")
   val data_for_cast = Seq(("true",1,"123","2.1","2021-05-15 06:54:34"), ("false",0,"15","5.4","2021-05-15"), (null,0,"0","0.0",null))
