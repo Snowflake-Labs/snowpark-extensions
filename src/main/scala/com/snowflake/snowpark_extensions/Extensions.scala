@@ -18,14 +18,19 @@ import com.snowflake.snowpark.Session
 
 object Extensions {
   import scala.language.implicitConversions
+  implicit def fromExtendedCaseToColumn(extCol: CaseExprExtensions.ExtendedCaseExpr) =
+    extCol.toCol
   implicit def extendedColumn(c: Column) =
     new ColumnExtensions.ExtendedColumn(c)
   implicit def extendedDataFrame(df: DataFrame) =
     new DataFrameExtensions.ExtendedDataFrame(df)
   implicit def extendedSession(s: Session) =
     new SessionExtensions.ExtendedSession(s)
+  implicit def extendedSessionBuilder(sb: Session.SessionBuilder) =
+    new SessionExtensions.ExtendedSessionBuilder(sb)
   implicit def extendedCaseExpr(cex: CaseExpr) =
     new CaseExprExtensions.ExtendedCaseExpr(cex)
+
 
 
 /**  
@@ -35,6 +40,24 @@ object functions {
   import com.snowflake.snowpark.{Column, DataFrame, functions}
   import com.snowflake.snowpark.functions._
   import com.snowflake.snowpark.types._
+
+
+  sealed trait ColumnOrInt[T]
+  object ColumnOrInt {
+    implicit val intInstance: ColumnOrInt[Int] =
+      new ColumnOrInt[Int] {}
+    implicit val colInstance: ColumnOrInt[Column] =
+      new ColumnOrInt[Column] {}
+  }
+
+  sealed trait ColumnOrString[T]
+  object ColumnOrString {
+    implicit val strInstance: ColumnOrString[String] =
+      new ColumnOrString[String] {}
+    implicit val colInstance: ColumnOrString[Column] =
+      new ColumnOrString[Column] {}
+  }
+
   /**
    * Function to convert a string into an SQL expression.
    * @param s SQL Expression as text.
@@ -95,8 +118,6 @@ object functions {
    */
   def last(c: Column) =
     builtin("LAST_VALUE")(c)
-
-  ///////////////////////////////////// Mauricio ////////////////////////////////////////////////
 
 /**
   * Formats the arguments in printf-style and returns the result as a string column.
@@ -204,8 +225,6 @@ object functions {
    def ntile(n: Int): Column = callBuiltin("ntile",lit(n))
 
 
-  ///////////////////////////////////// Boga ////////////////////////////////////////////////
-
   /**
    * Wrapper for bitshiftleft. Shifts numBits bits of a number to the left. There is a slight difference between Spark and
    * Snowflake's implementation. When shifting an integer value, if Snowflake detects that the shift will exceed the maximum value for the
@@ -268,41 +287,43 @@ object functions {
    * in a single call, whereas JSON_EXTRACT_PATH_TEXT must be called once for every column.
    *
    * There were differences found between Spark json_tuple and this function:
-   *
-   * - Float type: Spark returns only 6 floating points, whereas Snowflake returns more.
-   * - Timestamp type: Spark interprets input date as UTC and transforms to local timestamp, whereas Spark leaves the timestamp as-is.
-   * - Complex JSON path expressions: This function allows the retrieval of values within json objects, whereas Spark only allows values from the root.
-   * - Identifiers with spaces: Snowflake returns error when an invalid expression is sent, whereas Spark returns null.
+   * <ul>
+   * <li> Float type: Spark returns only 6 floating points, whereas Snowflake returns more. </li>
+   * <li> Timestamp type: Spark interprets input date as UTC and transforms to local timestamp, whereas Spark leaves the timestamp as-is. </li>
+   * <li> Complex JSON path expressions: This function allows the retrieval of values within json objects, whereas Spark only allows values from the root. </li>
+   * <li> Identifiers with spaces: Snowflake returns error when an invalid expression is sent, whereas Spark returns null. </li>
    *
    * Usage:
-   * {{{
+   * <pre>
    * df = session.createDataFrame(Seq(("CR", "{\"id\": 5, \"name\": \"Jose\", \"age\": 29}"))).toDF(Seq("nationality", "json_string"))
-   * }}}
+   * </pre>
    * When the result of this function is the only part of the select statement, no changes are needed:
-   * {{{
+   * <pre>
    * df.select(json_tuple(col("json_string"), "id", "name", "age")).show()
-   * }}}
-   * ```
+   * </pre>
+   * 
+   * <pre>
    * ----------------------
    * |"C0"  |"C1"  |"C2"  |
    * ----------------------
    * |5     |Jose  |29    |
    * ----------------------
-   * ```
+   * </pre>
    * However, when specifying multiple columns, an expression like this is required:
-   * {{{
+   * <pre>
    * df.select(
    *   col("nationality")
    *   , json_tuple(col("json_string"), "id", "name", "age"):_* // Notice the :_* syntax.
    * ).show()
-   * }}}
-   * ```
+   * </pre>
+   * 
+   * <pre>
    * -------------------------------------------------
    * |"NATIONALITY"  |"C0"  |"C1"  |"C2"  |"C3"      |
    * -------------------------------------------------
    * |CR             |5     |Jose  |29    |Mobilize  |
    * -------------------------------------------------
-   * ```
+   * </pre>
    * @param json Column containing the JSON string text.
    * @param fields Fields to pull from the JSON file.
    * @return Column sequence with the specified strings.
@@ -340,7 +361,7 @@ object functions {
     cbrt(col(columnName))
   }
 
-  /**
+ /**
    * Wrapper for Spark `from_json` column function. This function converts a JSON string to a struct in Spark (variant in Snowflake).
    * Spark has several overloads for this function, where you specify the schema in which to convert it to the desired names and datatypes.
    *
@@ -348,15 +369,16 @@ object functions {
    * However, it parses everything as strings. Manual casts need to be performed, for example:
    *
    * There were differences found between Spark from_json and this function when performing a select on the resulting column:
-   *  - Float type: Spark returns only 7 floating points, whereas Snowflake returns more.
-   *  - Timestamp type: Spark interprets input date as UTC and transforms to local timestamp, whereas Spark leaves the timestamp as-is.
-   *  - Spark allows the selection of values within the resulting object by navigating through the object with a '.' notation. For example: df.select("json.relative.age")
+   *  <ul>
+   *   <li> Float type: Spark returns only 7 floating points, whereas Snowflake returns more. </li>
+   *   <li> Timestamp type: Spark interprets input date as UTC and transforms to local timestamp, whereas Spark leaves the timestamp as-is. </li>
+   *   <li> Spark allows the selection of values within the resulting object by navigating through the object with a '.' notation. For example: df.select("json.relative.age") </li>
    * On Snowflake, however this does not work. It is required to use df.selectExprs function, and the same example should be translated to
    * "json['relative']['age']" to access the value.
    *  - Since Spark receives a schema definition for the JSON string to read, it reads the values from the JSON and converts it to the specified data type.
    * On Snowflake the values are converted automatically, however they're converted as variants, meaning that the printSchema function would return different datatypes.
    * To convert the datatype and it to be printed as the expected datatype, it should be read on the selectExpr function as "json['relative']['age']::integer".
-   * {{{
+   * <pre>
    * val data_for_json = Seq(
    *   (1, "{\"id\": 172319, \"age\": 41, \"relative\": {\"id\": 885471, \"age\": 29}}"),
    *   (2, "{\"id\": 532161, \"age\": 17, \"relative\":{\"id\": 873513, \"age\": 47}}")
@@ -374,15 +396,16 @@ object functions {
    *   , "json['relative']['id']::integer as rel_id"
    *   , "json['relative']['age']::integer as rel_age"
    * ).show(10, 10000)
-   * }}}
-   * ```
+   * </pre>
+   * 
+   * <pre>
    * -----------------------------------------
    * |"ID"    |"AGE"  |"REL_ID"  |"REL_AGE"  |
    * -----------------------------------------
    * |172319  |41     |885471    |29         |
    * |532161  |17     |873513    |47         |
    * -----------------------------------------
-   * ```
+   * </pre>
    * @param e String column to convert to variant.
    * @return Column object.
    */
@@ -499,11 +522,35 @@ object functions {
     signum(col(columnName))
   }
 
+  def substring_index[TStr:ColumnOrString, TDelim:ColumnOrString, TCount:ColumnOrInt]
+  (str:TStr,delim:TDelim,count:TCount): Column = {
+    print(">>>>>>>")
+    val s:Column = str match {
+      case c:Column => c
+      case s:String => lit(s)
+    } 
+    val d:Column = delim match {
+      case c:Column => c
+      case s:String => lit(s)
+    }
+    val c:Column = count match {
+      case c:Column => c
+      case i:Int => lit(i)
+    }
+    when(c < lit(0), 
+    callBuiltin("substring",s,callBuiltin("regexp_instr",reverse(s),d,1,abs(c),lit(0))))
+    .otherwise(callBuiltin("substring",s,1,callBuiltin("regexp_instr",s,d,1,c,1)))
+  }
 
-  ///////////////////////////////////// Tannia ////////////////////////////////////////////////
-
-
-  ///////////////////////////////////// Fonse ////////////////////////////////////////////////
+  /**
+   * Wrapper for the when expression to facilite some castings
+   * @param condition expression to evaluate
+   * @param result    the value to return if expression is true
+   * @return Column object.
+   */
+  def when( condition: Column, result:Any) : com.snowflake.snowpark_extensions.implicits.CaseExprExtensions.ExtendedCaseExpr = {
+    new com.snowflake.snowpark_extensions.implicits.CaseExprExtensions.ExtendedCaseExpr(com.snowflake.snowpark.functions.when(condition,lit(result)))
+  }
 
   /**
    * Wrapper for Snowflake built-in array function. Create array from columns names.
@@ -623,8 +670,6 @@ object functions {
       sqlExpr(s"FIRST_VALUE(${c.getName.get}) RESPECT NULLS")
     }
   }
-
-  ///////////////////////////////////// Jeremy ////////////////////////////////////////////////
 
   /**
    * Returns the current Unix timestamp (in seconds) as a long.
@@ -891,9 +936,19 @@ object functions {
    */
   def log2(columnName: String): Column = builtin("LOG")(2,col(columnName))
 
+  /**
+   * Returns element of array at given index in value if column is array. Mostly and overload for snowpark get_path
+   * @see <a href="https://docs.snowflake.com/en/developer-guide/snowpark/reference/scala/com/snowflake/snowpark/functions$.html#get_path(col:com.snowflake.snowpark.Column,path:com.snowflake.snowpark.Column):com.snowflake.snowpark.Column"> Snowpark get_path </a> 
+   */
+  def element_at[T: ColumnOrInt](column:Column, index:T) = {
+     index match {
+      case c:Column  => com.snowflake.snowpark.functions.get_path(column,c)
+      case i:Int => com.snowflake.snowpark.functions.get_path(column,lit(i))
+    }
+  }
+  
 
 
-}
-
+  }
 }
 

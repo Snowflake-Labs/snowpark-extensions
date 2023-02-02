@@ -130,6 +130,14 @@ object ColumnExtensions {
       c.not_equal(lit(other))
 
     /**
+     * Function that returns a boolean column based on a match.
+     * @param literal expresion to match.
+     * @return Column object.
+     */
+    def like(literal: String): Column =
+      c.like(lit(literal))
+
+    /**
      * Function that returns a boolean column based on a regex match.
      * @param literal Regex expresion to match.
      * @return Column object.

@@ -1,0 +1,274 @@
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/home/BlackDiamond/.cache/coursier/v1/https/repo1.maven.org/maven2/org/slf4j/slf4j-simple/1.7.32/slf4j-simple-1.7.32.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/home/BlackDiamond/.cache/coursier/v1/https/repo1.maven.org/maven2/org/slf4j/slf4j-log4j12/1.7.30/slf4j-log4j12-1.7.30.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [org.slf4j.impl.SimpleLoggerFactory]
+[main] INFO com.snowflake.snowpark.Session - Closing stderr and redirecting to stdout
+[main] INFO com.snowflake.snowpark.Session - Done closing stderr and redirecting to stdout
+[main] INFO com.snowflake.snowpark.internal.ParameterUtils - set JDBC client memory limit to 10240
+[main] INFO com.snowflake.snowpark.Session - Snowpark Session information: {
+ "snowpark.version" : "1.6.0",
+ "client.language": "Scala",
+ "java.version" : "11.0.13",
+ "scala.version" : "2.12.10",
+ "jdbc.session.id" : "31151419343502",
+ "os.name" : "Linux",
+ "jdbc.version" : "3.13.14",
+ "snowpark.library" : "/home/BlackDiamond/.cache/coursier/v1/https/repo1.maven.org/maven2/com/snowflake/snowpark/1.6.0/snowpark-1.6.0.jar",
+ "scala.library" : "/home/BlackDiamond/.cache/coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/scala-library/2.12.10/scala-library-2.12.10.jar",
+ "jdbc.library" : "/home/BlackDiamond/.cache/coursier/v1/https/repo1.maven.org/maven2/net/snowflake/snowflake-jdbc/3.13.14/snowflake-jdbc-3.13.14.jar"
+}
+concat[main] INFO com.snowflake.snowpark.internal.ServerConnection - Actively querying parameter QUERY_TAG from server.
+[main] INFO com.snowflake.snowpark.internal.ServerConnection - Execute query [queryID: 01a970a7-0605-7b91-0000-1c55027c161e]  SELECT array_to_string(array_compact(array_construct("COL3", "COL4")), '') AS "RESULT" FROM ( SELECT "_1" AS "COL1", "_2" AS "COL2", "_3" AS "COL3", "_4" AS "COL4" FROM ( SELECT "_1", "_2", "_3", "_4" FROM ( SELECT  *  FROM ( VALUES (1 :: int, 1.1::DOUBLE, NULL :: string, 'c'), (2 :: int, 2.1::DOUBLE, 'two', 'c'), (237 :: int, 237.1::DOUBLE, 'two hundred thirty seven', 'g') AS SNOWPARK_TEMP_TABLE_0LWLTVTCLUHOWC1("_1", "_2", "_3", "_4")))))
+[main] INFO com.snowflake.snowpark.internal.ServerConnection - Execute query [queryID: 01a970a7-0605-7b91-0000-1c55027c1622]  SELECT  *  FROM ( SELECT array_to_string(array_compact(array_construct("COL3", "COL4")), '') AS "RESULT" FROM ( SELECT "_1" AS "COL1", "_2" AS "COL2", "_3" AS "COL3", "_4" AS "COL4" FROM ( SELECT "_1", "_2", "_3", "_4" FROM ( SELECT  *  FROM ( VALUES (1 :: int, 1.1::DOUBLE, NULL :: string, 'c'), (2 :: int, 2.1::DOUBLE, 'two', 'c'), (237 :: int, 237.1::DOUBLE, 'two hundred thirty seven', 'g') AS SNOWPARK_TEMP_TABLE_0LWLTVTCLUHOWC1("_1", "_2", "_3", "_4")))))) LIMIT 10
+-----------------------------
+|"RESULT"                   |
+-----------------------------
+|c                          |
+|twoc                       |
+|two hundred thirty seveng  |
+-----------------------------
+
+concat_ws[main] INFO com.snowflake.snowpark.internal.ServerConnection - Execute query [queryID: 01a970a7-0605-7b88-0000-1c55027bebda]  SELECT  *  FROM ( SELECT array_to_string(array_compact(array_construct("COL3", "COL4")), '-') AS "RESULT" FROM ( SELECT "_1" AS "COL1", "_2" AS "COL2", "_3" AS "COL3", "_4" AS "COL4" FROM ( SELECT "_1", "_2", "_3", "_4" FROM ( SELECT  *  FROM ( VALUES (1 :: int, 1.1::DOUBLE, NULL :: string, 'c'), (2 :: int, 2.1::DOUBLE, 'two', 'c'), (237 :: int, 237.1::DOUBLE, 'two hundred thirty seven', 'g') AS SNOWPARK_TEMP_TABLE_0LWLTVTCLUHOWC1("_1", "_2", "_3", "_4")))))) LIMIT 10
+------------------------------
+|"RESULT"                    |
+------------------------------
+|c                           |
+|two-c                       |
+|two hundred thirty seven-g  |
+------------------------------
+
+avg[main] INFO com.snowflake.snowpark.internal.ServerConnection - Execute query [queryID: 01a970a7-0605-7b91-0000-1c55027c1626]  SELECT  *  FROM ( SELECT  CAST (avg("COL1") AS FLOAT) AS "MYCOL1",  CAST (avg("COL2") AS FLOAT) AS "MYCOL2" FROM ( SELECT "_1" AS "COL1", "_2" AS "COL2" FROM ( SELECT "_1", "_2" FROM ( SELECT  *  FROM ( VALUES (1 :: int, 10 :: int), (1 :: int, 11 :: int), (1 :: int, 12 :: int), (2 :: int, 20 :: int), (2 :: int, 21 :: int), (2 :: int, 22 :: int) AS SNOWPARK_TEMP_TABLE_JT2IVZB8HP1CC8Q("_1", "_2")))))) LIMIT 10
+-----------------------
+|"MYCOL1"  |"MYCOL2"  |
+-----------------------
+|1.5       |16.0      |
+-----------------------
+
+avgString[main] INFO com.snowflake.snowpark.internal.ServerConnection - Execute query [queryID: 01a970a7-0605-7b89-0000-1c55027c074a]  SELECT  *  FROM ( SELECT  CAST (avg("COL1") AS FLOAT) AS "MYCOL1",  CAST (avg("COL2") AS FLOAT) AS "MYCOL2" FROM ( SELECT "_1" AS "COL1", "_2" AS "COL2" FROM ( SELECT "_1", "_2" FROM ( SELECT  *  FROM ( VALUES (1 :: int, 10 :: int), (1 :: int, 11 :: int), (1 :: int, 12 :: int), (2 :: int, 20 :: int), (2 :: int, 21 :: int), (2 :: int, 22 :: int) AS SNOWPARK_TEMP_TABLE_JT2IVZB8HP1CC8Q("_1", "_2")))))) LIMIT 10
+-----------------------
+|"MYCOL1"  |"MYCOL2"  |
+-----------------------
+|1.5       |16.0      |
+-----------------------
+
+lead[main] INFO com.snowflake.snowpark.internal.ServerConnection - Execute query [queryID: 01a970a7-0605-7b91-0000-1c55027c162e]  SELECT  *  FROM ( SELECT *, lead("COL2", 1, NULL) OVER ( PARTITION BY "COL1" ORDER BY "COL1" ASC NULLS FIRST) AS "MYCOL" FROM ( SELECT * FROM ( SELECT "_1" AS "COL1", "_2" AS "COL2" FROM ( SELECT "_1", "_2" FROM ( SELECT  *  FROM ( VALUES (1 :: int, 10 :: int), (1 :: int, 11 :: int), (1 :: int, 12 :: int), (2 :: int, 20 :: int), (2 :: int, 21 :: int), (2 :: int, 22 :: int) AS SNOWPARK_TEMP_TABLE_JT2IVZB8HP1CC8Q("_1", "_2"))))))) ORDER BY "COL1" ASC NULLS FIRST, "COL2" ASC NULLS FIRST LIMIT 10
+-----------------------------
+|"COL1"  |"COL2"  |"MYCOL"  |
+-----------------------------
+|1       |10      |11       |
+|1       |11      |12       |
+|1       |12      |NULL     |
+|2       |20      |21       |
+|2       |21      |22       |
+|2       |22      |NULL     |
+-----------------------------
+
+leadString[main] INFO com.snowflake.snowpark.internal.ServerConnection - Execute query [queryID: 01a970a7-0605-7b89-0000-1c55027c074e]  SELECT  *  FROM ( SELECT *, lead("COL2", 1, NULL) OVER ( PARTITION BY "COL1" ORDER BY "COL1" ASC NULLS FIRST) AS "MYCOL" FROM ( SELECT * FROM ( SELECT "_1" AS "COL1", "_2" AS "COL2" FROM ( SELECT "_1", "_2" FROM ( SELECT  *  FROM ( VALUES (1 :: int, 10 :: int), (1 :: int, 11 :: int), (1 :: int, 12 :: int), (2 :: int, 20 :: int), (2 :: int, 21 :: int), (2 :: int, 22 :: int) AS SNOWPARK_TEMP_TABLE_JT2IVZB8HP1CC8Q("_1", "_2"))))))) ORDER BY "COL1" ASC NULLS FIRST, "COL2" ASC NULLS FIRST LIMIT 10
+-----------------------------
+|"COL1"  |"COL2"  |"MYCOL"  |
+-----------------------------
+|1       |10      |11       |
+|1       |11      |12       |
+|1       |12      |NULL     |
+|2       |20      |21       |
+|2       |21      |22       |
+|2       |22      |NULL     |
+-----------------------------
+
+leadDefault[main] INFO com.snowflake.snowpark.internal.ServerConnection - Execute query [queryID: 01a970a7-0605-7b91-0000-1c55027c1632]  SELECT  *  FROM ( SELECT *, lead("COL2", 1, 0) OVER ( PARTITION BY "COL1" ORDER BY "COL1" ASC NULLS FIRST) AS "MYCOL" FROM ( SELECT * FROM ( SELECT "_1" AS "COL1", "_2" AS "COL2" FROM ( SELECT "_1", "_2" FROM ( SELECT  *  FROM ( VALUES (1 :: int, 10 :: int), (1 :: int, 11 :: int), (1 :: int, 12 :: int), (2 :: int, 20 :: int), (2 :: int, 21 :: int), (2 :: int, 22 :: int) AS SNOWPARK_TEMP_TABLE_JT2IVZB8HP1CC8Q("_1", "_2"))))))) ORDER BY "COL1" ASC NULLS FIRST, "COL2" ASC NULLS FIRST LIMIT 10
+-----------------------------
+|"COL1"  |"COL2"  |"MYCOL"  |
+-----------------------------
+|1       |10      |11       |
+|1       |11      |12       |
+|1       |12      |0        |
+|2       |20      |21       |
+|2       |21      |22       |
+|2       |22      |0        |
+-----------------------------
+
+leadDefaultString[main] INFO com.snowflake.snowpark.internal.ServerConnection - Execute query [queryID: 01a970a7-0605-7b88-0000-1c55027bebde]  SELECT  *  FROM ( SELECT *, lead("COL2", 1, 0) OVER ( PARTITION BY "COL1" ORDER BY "COL1" ASC NULLS FIRST) AS "MYCOL" FROM ( SELECT * FROM ( SELECT "_1" AS "COL1", "_2" AS "COL2" FROM ( SELECT "_1", "_2" FROM ( SELECT  *  FROM ( VALUES (1 :: int, 10 :: int), (1 :: int, 11 :: int), (1 :: int, 12 :: int), (2 :: int, 20 :: int), (2 :: int, 21 :: int), (2 :: int, 22 :: int) AS SNOWPARK_TEMP_TABLE_JT2IVZB8HP1CC8Q("_1", "_2"))))))) ORDER BY "COL1" ASC NULLS FIRST, "COL2" ASC NULLS FIRST LIMIT 10
+-----------------------------
+|"COL1"  |"COL2"  |"MYCOL"  |
+-----------------------------
+|1       |10      |11       |
+|1       |11      |12       |
+|1       |12      |0        |
+|2       |20      |21       |
+|2       |21      |22       |
+|2       |22      |0        |
+-----------------------------
+
+lag[main] INFO com.snowflake.snowpark.internal.ServerConnection - Execute query [queryID: 01a970a7-0605-7b91-0000-1c55027c1636]  SELECT  *  FROM ( SELECT *, lag("COL2", 1, NULL) OVER ( PARTITION BY "COL1" ORDER BY "COL1" ASC NULLS FIRST) AS "MYCOL" FROM ( SELECT * FROM ( SELECT "_1" AS "COL1", "_2" AS "COL2" FROM ( SELECT "_1", "_2" FROM ( SELECT  *  FROM ( VALUES (1 :: int, 10 :: int), (1 :: int, 11 :: int), (1 :: int, 12 :: int), (2 :: int, 20 :: int), (2 :: int, 21 :: int), (2 :: int, 22 :: int) AS SNOWPARK_TEMP_TABLE_JT2IVZB8HP1CC8Q("_1", "_2"))))))) ORDER BY "COL1" ASC NULLS FIRST, "COL2" ASC NULLS FIRST LIMIT 10
+-----------------------------
+|"COL1"  |"COL2"  |"MYCOL"  |
+-----------------------------
+|1       |10      |NULL     |
+|1       |11      |10       |
+|1       |12      |11       |
+|2       |20      |NULL     |
+|2       |21      |20       |
+|2       |22      |21       |
+-----------------------------
+
+lagString[main] INFO com.snowflake.snowpark.internal.ServerConnection - Execute query [queryID: 01a970a7-0605-7b89-0000-1c55027c0752]  SELECT  *  FROM ( SELECT *, lag("COL2", 1, NULL) OVER ( PARTITION BY "COL1" ORDER BY "COL1" ASC NULLS FIRST) AS "MYCOL" FROM ( SELECT * FROM ( SELECT "_1" AS "COL1", "_2" AS "COL2" FROM ( SELECT "_1", "_2" FROM ( SELECT  *  FROM ( VALUES (1 :: int, 10 :: int), (1 :: int, 11 :: int), (1 :: int, 12 :: int), (2 :: int, 20 :: int), (2 :: int, 21 :: int), (2 :: int, 22 :: int) AS SNOWPARK_TEMP_TABLE_JT2IVZB8HP1CC8Q("_1", "_2"))))))) ORDER BY "COL1" ASC NULLS FIRST, "COL2" ASC NULLS FIRST LIMIT 10
+-----------------------------
+|"COL1"  |"COL2"  |"MYCOL"  |
+-----------------------------
+|1       |10      |NULL     |
+|1       |11      |10       |
+|1       |12      |11       |
+|2       |20      |NULL     |
+|2       |21      |20       |
+|2       |22      |21       |
+-----------------------------
+
+lagDefault[main] INFO com.snowflake.snowpark.internal.ServerConnection - Execute query [queryID: 01a970a7-0605-7b89-0000-1c55027c0756]  SELECT  *  FROM ( SELECT *, lag("COL2", 1, 0) OVER ( PARTITION BY "COL1" ORDER BY "COL1" ASC NULLS FIRST) AS "MYCOL" FROM ( SELECT * FROM ( SELECT "_1" AS "COL1", "_2" AS "COL2" FROM ( SELECT "_1", "_2" FROM ( SELECT  *  FROM ( VALUES (1 :: int, 10 :: int), (1 :: int, 11 :: int), (1 :: int, 12 :: int), (2 :: int, 20 :: int), (2 :: int, 21 :: int), (2 :: int, 22 :: int) AS SNOWPARK_TEMP_TABLE_JT2IVZB8HP1CC8Q("_1", "_2"))))))) ORDER BY "COL1" ASC NULLS FIRST, "COL2" ASC NULLS FIRST LIMIT 10
+-----------------------------
+|"COL1"  |"COL2"  |"MYCOL"  |
+-----------------------------
+|1       |10      |0        |
+|1       |11      |10       |
+|1       |12      |11       |
+|2       |20      |0        |
+|2       |21      |20       |
+|2       |22      |21       |
+-----------------------------
+
+lagDefaultString[main] INFO com.snowflake.snowpark.internal.ServerConnection - Execute query [queryID: 01a970a7-0605-7b88-0000-1c55027bebe2]  SELECT  *  FROM ( SELECT *, lag("COL2", 1, 0) OVER ( PARTITION BY "COL1" ORDER BY "COL1" ASC NULLS FIRST) AS "MYCOL" FROM ( SELECT * FROM ( SELECT "_1" AS "COL1", "_2" AS "COL2" FROM ( SELECT "_1", "_2" FROM ( SELECT  *  FROM ( VALUES (1 :: int, 10 :: int), (1 :: int, 11 :: int), (1 :: int, 12 :: int), (2 :: int, 20 :: int), (2 :: int, 21 :: int), (2 :: int, 22 :: int) AS SNOWPARK_TEMP_TABLE_JT2IVZB8HP1CC8Q("_1", "_2"))))))) ORDER BY "COL1" ASC NULLS FIRST, "COL2" ASC NULLS FIRST LIMIT 10
+-----------------------------
+|"COL1"  |"COL2"  |"MYCOL"  |
+-----------------------------
+|1       |10      |0        |
+|1       |11      |10       |
+|1       |12      |11       |
+|2       |20      |0        |
+|2       |21      |20       |
+|2       |22      |21       |
+-----------------------------
+
+aprox_count_distinct[main] INFO com.snowflake.snowpark.internal.ServerConnection - Execute query [queryID: 01a970a7-0605-7b89-0000-1c55027c075a]  SELECT  *  FROM ( SELECT approx_count_distinct("COL1") AS "MYCOL1", approx_count_distinct("COL2") AS "MYCOL2" FROM ( SELECT "_1" AS "COL1", "_2" AS "COL2" FROM ( SELECT "_1", "_2" FROM ( SELECT  *  FROM ( VALUES (1 :: int, 10 :: int), (1 :: int, 11 :: int), (1 :: int, 12 :: int), (2 :: int, 20 :: int), (2 :: int, 21 :: int), (2 :: int, 22 :: int) AS SNOWPARK_TEMP_TABLE_JT2IVZB8HP1CC8Q("_1", "_2")))))) LIMIT 10
+-----------------------
+|"MYCOL1"  |"MYCOL2"  |
+-----------------------
+|2         |6         |
+-----------------------
+
+approx_count_distinctString[main] INFO com.snowflake.snowpark.internal.ServerConnection - Execute query [queryID: 01a970a7-0605-7b91-0000-1c55027c163a]  SELECT  *  FROM ( SELECT approx_count_distinct("COL1") AS "MYCOL1", approx_count_distinct("COL2") AS "MYCOL2" FROM ( SELECT "_1" AS "COL1", "_2" AS "COL2" FROM ( SELECT "_1", "_2" FROM ( SELECT  *  FROM ( VALUES (1 :: int, 10 :: int), (1 :: int, 11 :: int), (1 :: int, 12 :: int), (2 :: int, 20 :: int), (2 :: int, 21 :: int), (2 :: int, 22 :: int) AS SNOWPARK_TEMP_TABLE_JT2IVZB8HP1CC8Q("_1", "_2")))))) LIMIT 10
+-----------------------
+|"MYCOL1"  |"MYCOL2"  |
+-----------------------
+|2         |6         |
+-----------------------
+
+degrees[main] INFO com.snowflake.snowpark.internal.ServerConnection - Execute query [queryID: 01a970a7-0605-7b89-0000-1c55027c075e]  SELECT  *  FROM ( SELECT degrees("COL1") AS "MYCOL1" FROM ( SELECT "_1" AS "COL1", "_2" AS "COL2", "_3" AS "COL3", "_4" AS "COL4" FROM ( SELECT "_1", "_2", "_3", "_4" FROM ( SELECT  *  FROM ( VALUES (0.1::DOUBLE, 1 :: int, 'test123', 5 :: int) AS SNOWPARK_TEMP_TABLE_UHLS6V4H3JC6XSB("_1", "_2", "_3", "_4")))))) LIMIT 10
+---------------------
+|"MYCOL1"           |
+---------------------
+|5.729577951308233  |
+---------------------
+
+degreesString[main] INFO com.snowflake.snowpark.internal.ServerConnection - Execute query [queryID: 01a970a7-0605-7b89-0000-1c55027c0762]  SELECT  *  FROM ( SELECT degrees("COL1") AS "MYCOL1" FROM ( SELECT "_1" AS "COL1", "_2" AS "COL2", "_3" AS "COL3", "_4" AS "COL4" FROM ( SELECT "_1", "_2", "_3", "_4" FROM ( SELECT  *  FROM ( VALUES (0.1::DOUBLE, 1 :: int, 'test123', 5 :: int) AS SNOWPARK_TEMP_TABLE_UHLS6V4H3JC6XSB("_1", "_2", "_3", "_4")))))) LIMIT 10
+---------------------
+|"MYCOL1"           |
+---------------------
+|5.729577951308233  |
+---------------------
+
+radians[main] INFO com.snowflake.snowpark.internal.ServerConnection - Execute query [queryID: 01a970a7-0605-7b88-0000-1c55027bebe6]  SELECT  *  FROM ( SELECT radians("COL1") AS "MYCOL1" FROM ( SELECT "_1" AS "COL1", "_2" AS "COL2", "_3" AS "COL3", "_4" AS "COL4" FROM ( SELECT "_1", "_2", "_3", "_4" FROM ( SELECT  *  FROM ( VALUES (0.1::DOUBLE, 1 :: int, 'test123', 5 :: int) AS SNOWPARK_TEMP_TABLE_UHLS6V4H3JC6XSB("_1", "_2", "_3", "_4")))))) LIMIT 10
+-------------------------
+|"MYCOL1"               |
+-------------------------
+|0.0017453292519943296  |
+-------------------------
+
+radiansString[main] INFO com.snowflake.snowpark.internal.ServerConnection - Execute query [queryID: 01a970a7-0605-7b88-0000-1c55027bebea]  SELECT  *  FROM ( SELECT radians("COL1") AS "MYCOL1" FROM ( SELECT "_1" AS "COL1", "_2" AS "COL2", "_3" AS "COL3", "_4" AS "COL4" FROM ( SELECT "_1", "_2", "_3", "_4" FROM ( SELECT  *  FROM ( VALUES (0.1::DOUBLE, 1 :: int, 'test123', 5 :: int) AS SNOWPARK_TEMP_TABLE_UHLS6V4H3JC6XSB("_1", "_2", "_3", "_4")))))) LIMIT 10
+-------------------------
+|"MYCOL1"               |
+-------------------------
+|0.0017453292519943296  |
+-------------------------
+
+ntile[main] INFO com.snowflake.snowpark.internal.ServerConnection - Execute query [queryID: 01a970a7-0605-7b91-0000-1c55027c163e]  SELECT  *  FROM ( SELECT *, ntile(2) OVER ( PARTITION BY "COL1" ORDER BY "COL1" ASC NULLS FIRST) AS "MYCOL" FROM ( SELECT * FROM ( SELECT "_1" AS "COL1", "_2" AS "COL2" FROM ( SELECT "_1", "_2" FROM ( SELECT  *  FROM ( VALUES (1 :: int, 10 :: int), (1 :: int, 11 :: int), (1 :: int, 12 :: int), (2 :: int, 20 :: int), (2 :: int, 21 :: int), (2 :: int, 22 :: int) AS SNOWPARK_TEMP_TABLE_JT2IVZB8HP1CC8Q("_1", "_2"))))))) ORDER BY "COL1" ASC NULLS FIRST, "COL2" ASC NULLS FIRST LIMIT 10
+-----------------------------
+|"COL1"  |"COL2"  |"MYCOL"  |
+-----------------------------
+|1       |10      |1        |
+|1       |11      |1        |
+|1       |12      |2        |
+|2       |20      |1        |
+|2       |21      |1        |
+|2       |22      |2        |
+-----------------------------
+
+atan2[main] INFO com.snowflake.snowpark.internal.ServerConnection - Execute query [queryID: 01a970a7-0605-7b91-0000-1c55027c1642]  SELECT  *  FROM ( SELECT atan2("COL1", "COL2") AS "MYCOL1" FROM ( SELECT "_1" AS "COL1", "_2" AS "COL2", "_3" AS "COL3", "_4" AS "COL4" FROM ( SELECT "_1", "_2", "_3", "_4" FROM ( SELECT  *  FROM ( VALUES (0.1::DOUBLE, 1 :: int, 'test123', 5 :: int) AS SNOWPARK_TEMP_TABLE_UHLS6V4H3JC6XSB("_1", "_2", "_3", "_4")))))) LIMIT 10
+-----------------------
+|"MYCOL1"             |
+-----------------------
+|0.09966865249116204  |
+-----------------------
+
+atan2strCol[main] INFO com.snowflake.snowpark.internal.ServerConnection - Execute query [queryID: 01a970a7-0605-7b89-0000-1c55027c0766]  SELECT  *  FROM ( SELECT atan2("COL1", "COL2") AS "MYCOL1" FROM ( SELECT "_1" AS "COL1", "_2" AS "COL2", "_3" AS "COL3", "_4" AS "COL4" FROM ( SELECT "_1", "_2", "_3", "_4" FROM ( SELECT  *  FROM ( VALUES (0.1::DOUBLE, 1 :: int, 'test123', 5 :: int) AS SNOWPARK_TEMP_TABLE_UHLS6V4H3JC6XSB("_1", "_2", "_3", "_4")))))) LIMIT 10
+-----------------------
+|"MYCOL1"             |
+-----------------------
+|0.09966865249116204  |
+-----------------------
+
+atan2colStr[main] INFO com.snowflake.snowpark.internal.ServerConnection - Execute query [queryID: 01a970a7-0605-7b89-0000-1c55027c076a]  SELECT  *  FROM ( SELECT atan2("COL1", "COL2") AS "MYCOL1" FROM ( SELECT "_1" AS "COL1", "_2" AS "COL2", "_3" AS "COL3", "_4" AS "COL4" FROM ( SELECT "_1", "_2", "_3", "_4" FROM ( SELECT  *  FROM ( VALUES (0.1::DOUBLE, 1 :: int, 'test123', 5 :: int) AS SNOWPARK_TEMP_TABLE_UHLS6V4H3JC6XSB("_1", "_2", "_3", "_4")))))) LIMIT 10
+-----------------------
+|"MYCOL1"             |
+-----------------------
+|0.09966865249116204  |
+-----------------------
+
+atan2str[main] INFO com.snowflake.snowpark.internal.ServerConnection - Execute query [queryID: 01a970a7-0605-7b91-0000-1c55027c1646]  SELECT  *  FROM ( SELECT atan2("COL1", "COL2") AS "MYCOL1" FROM ( SELECT "_1" AS "COL1", "_2" AS "COL2", "_3" AS "COL3", "_4" AS "COL4" FROM ( SELECT "_1", "_2", "_3", "_4" FROM ( SELECT  *  FROM ( VALUES (0.1::DOUBLE, 1 :: int, 'test123', 5 :: int) AS SNOWPARK_TEMP_TABLE_UHLS6V4H3JC6XSB("_1", "_2", "_3", "_4")))))) LIMIT 10
+-----------------------
+|"MYCOL1"             |
+-----------------------
+|0.09966865249116204  |
+-----------------------
+
+atan2colDbl[main] INFO com.snowflake.snowpark.internal.ServerConnection - Execute query [queryID: 01a970a7-0605-7b88-0000-1c55027bebee]  SELECT  *  FROM ( SELECT atan2("COL2", 3.1::DOUBLE) AS "MYCOL1" FROM ( SELECT "_1" AS "COL1", "_2" AS "COL2", "_3" AS "COL3", "_4" AS "COL4" FROM ( SELECT "_1", "_2", "_3", "_4" FROM ( SELECT  *  FROM ( VALUES (0.1::DOUBLE, 1 :: int, 'test123', 5 :: int) AS SNOWPARK_TEMP_TABLE_UHLS6V4H3JC6XSB("_1", "_2", "_3", "_4")))))) LIMIT 10
+----------------------
+|"MYCOL1"            |
+----------------------
+|0.3120421215625333  |
+----------------------
+
+atan2strDbl[main] INFO com.snowflake.snowpark.internal.ServerConnection - Execute query [queryID: 01a970a7-0605-7b88-0000-1c55027bebf2]  SELECT  *  FROM ( SELECT atan2("COL2", 3.1::DOUBLE) AS "MYCOL1" FROM ( SELECT "_1" AS "COL1", "_2" AS "COL2", "_3" AS "COL3", "_4" AS "COL4" FROM ( SELECT "_1", "_2", "_3", "_4" FROM ( SELECT  *  FROM ( VALUES (0.1::DOUBLE, 1 :: int, 'test123', 5 :: int) AS SNOWPARK_TEMP_TABLE_UHLS6V4H3JC6XSB("_1", "_2", "_3", "_4")))))) LIMIT 10
+----------------------
+|"MYCOL1"            |
+----------------------
+|0.3120421215625333  |
+----------------------
+
+atan2dblCol[main] INFO com.snowflake.snowpark.internal.ServerConnection - Execute query [queryID: 01a970a7-0605-7b91-0000-1c55027c164a]  SELECT  *  FROM ( SELECT atan2(3.1::DOUBLE, "COL2") AS "MYCOL1" FROM ( SELECT "_1" AS "COL1", "_2" AS "COL2", "_3" AS "COL3", "_4" AS "COL4" FROM ( SELECT "_1", "_2", "_3", "_4" FROM ( SELECT  *  FROM ( VALUES (0.1::DOUBLE, 1 :: int, 'test123', 5 :: int) AS SNOWPARK_TEMP_TABLE_UHLS6V4H3JC6XSB("_1", "_2", "_3", "_4")))))) LIMIT 10
+----------------------
+|"MYCOL1"            |
+----------------------
+|1.2587542052323633  |
+----------------------
+
+atan2dblStr[main] INFO com.snowflake.snowpark.internal.ServerConnection - Execute query [queryID: 01a970a7-0605-7b89-0000-1c55027c076e]  SELECT  *  FROM ( SELECT atan2(3.1::DOUBLE, "COL2") AS "MYCOL1" FROM ( SELECT "_1" AS "COL1", "_2" AS "COL2", "_3" AS "COL3", "_4" AS "COL4" FROM ( SELECT "_1", "_2", "_3", "_4" FROM ( SELECT  *  FROM ( VALUES (0.1::DOUBLE, 1 :: int, 'test123', 5 :: int) AS SNOWPARK_TEMP_TABLE_UHLS6V4H3JC6XSB("_1", "_2", "_3", "_4")))))) LIMIT 10
+----------------------
+|"MYCOL1"            |
+----------------------
+|1.2587542052323633  |
+----------------------
+
+acos[main] INFO com.snowflake.snowpark.internal.ServerConnection - Execute query [queryID: 01a970a7-0605-7b88-0000-1c55027bebf6]  SELECT  *  FROM ( SELECT acos("COL1") AS "MYCOL1" FROM ( SELECT "_1" AS "COL1", "_2" AS "COL2", "_3" AS "COL3", "_4" AS "COL4" FROM ( SELECT "_1", "_2", "_3", "_4" FROM ( SELECT  *  FROM ( VALUES (0.1::DOUBLE, 1 :: int, 'test123', 5 :: int) AS SNOWPARK_TEMP_TABLE_UHLS6V4H3JC6XSB("_1", "_2", "_3", "_4")))))) LIMIT 10
+----------------------
+|"MYCOL1"            |
+----------------------
+|1.4706289056333368  |
+----------------------
+
+acosStr[main] INFO com.snowflake.snowpark.internal.ServerConnection - Execute query [queryID: 01a970a7-0605-7b91-0000-1c55027c164e]  SELECT  *  FROM ( SELECT acos("COL1") AS "MYCOL1" FROM ( SELECT "_1" AS "COL1", "_2" AS "COL2", "_3" AS "COL3", "_4" AS "COL4" FROM ( SELECT "_1", "_2", "_3", "_4" FROM ( SELECT  *  FROM ( VALUES (0.1::DOUBLE, 1 :: int, 'test123', 5 :: int) AS SNOWPARK_TEMP_TABLE_UHLS6V4H3JC6XSB("_1", "_2", "_3", "_4")))))) LIMIT 10
+----------------------
+|"MYCOL1"            |
+----------------------
+|1.4706289056333368  |
+----------------------
+

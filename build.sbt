@@ -1,6 +1,9 @@
 name := "SnowparkExtensions"
 
 
+// Compile / scalacOptions ++= Seq("-doc-root-content", "rootdoc.txt")
+// Compile / scalacOptions ++= Seq("-doc-title", "Snowpark Extensions")
+
 
 (sys.env.get("MAVEN_USERNAME"), sys.env.get("MAVEN_PASSWORD")) match {
   case (Some(username), Some(password)) => 
@@ -55,15 +58,16 @@ ThisBuild / publishMavenStyle := true
 crossPaths := false
 
 version := sys.env.getOrElse("GITHUB_REF_NAME","0.0.0")
+// Compile / scalacOptions ++= Seq("-doc-version", version.value)
 
-val snowparkVersion = "1.6.0"
+
+val snowparkVersion = "1.7.0"
 val sparkVersion = "3.2.1"
 
-libraryDependencies ++= Seq( 
+libraryDependencies ++= Seq(
+  "org.ini4j" % "ini4j" % "0.5.4",
   "org.scala-lang" % "scala-library" % "2.12.10",
   "com.snowflake" % "snowpark" % snowparkVersion,  
   "org.scala-lang" % "scala-library" % "2.12.10" % Test,
-  "org.scalatest" %% "scalatest" % "3.0.1" % Test,  
-  "org.apache.spark" %% "spark-core" % sparkVersion % Test,
-  "org.apache.spark" %% "spark-sql" % sparkVersion  % Test
+  "org.scalatest" %% "scalatest" % "3.0.1" % Test,
 )

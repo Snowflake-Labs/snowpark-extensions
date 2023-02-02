@@ -1,5 +1,5 @@
 package com.snowflake.snowpark_extensions.implicits.Snowpark
-
+import com.snowflake.snowpark.Session
 import com.snowflake.snowpark.DataFrame
 import com.snowflake.snowpark_extensions.testutils.DataFrameCreator.data_for_general_column
 import com.snowflake.snowpark_extensions.testutils.{DataFrameCreator, SessionInitializer}
@@ -12,6 +12,11 @@ object SessionExtensionsSnowpark {
 
 //#region Process
 
+  def test_builder_methods() : Unit = {
+    val session = Session.builder.from_snowsql().create
+    session.sql("select 'hi world'").show()
+  }
+
   def test_time() : String = {
     val baos = new java.io.ByteArrayOutputStream
     val ps = new java.io.PrintStream(baos)
@@ -23,10 +28,10 @@ object SessionExtensionsSnowpark {
 def test_catalog_methods() : DataFrame = {
      val name = "TestDB"
      val tableName = "TestTable"
-
+     session.sql("USE SCHEMA PUBLIC").collect()
      val catalog = session.catalog
      //catalog.setCurrentDatabase(name)
-     session.sql("""CREATE OR REPLACE TABLE TestTable("col1" int, "col2" string, "a" int, "b" string)""").collect()
+     session.sql("""CREATE OR REPLACE TABLE PUBLIC.TestTable("col1" int, "col2" string, "a" int, "b" string)""").collect()
      val columns = catalog.listColumns(tableName)
      val df = session.createDataFrame(DataFrameCreator.data_for_general).toDF(DataFrameCreator.data_for_general_column)
      df.createOrReplaceTempView("view1")
@@ -48,16 +53,6 @@ def test_catalog_methods() : DataFrame = {
   }
 //#end region
 
-  //Main
-  def main(args: Array[String]): Unit = {
-    val r = test_time()
-    val info = session.getSessionInfo()
-    val info2 = info.replace(" ","")
-    println(info2)
-    session.close()
-    // Snowpark testing main
-    /*var a = test_isin()
-    a.show()*/
-  }
+
 
 }

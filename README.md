@@ -1,4 +1,4 @@
-# SnowparkExtenions
+# SnowparkExtensions
 
 ## Overview
 
@@ -22,11 +22,6 @@ sbt clean compile package
 
 The code has the following structure:
 
-+ docs
-  + com
-  + lib
-  index.html
-  index.js
 + src
   + main
 	+ scala
