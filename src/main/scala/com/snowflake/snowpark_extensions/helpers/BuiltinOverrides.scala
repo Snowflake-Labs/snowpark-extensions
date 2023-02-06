@@ -260,57 +260,69 @@ object BuiltinOverrides {
   def acos(columnName: String): Column = com.snowflake.snowpark.functions.acos(col(columnName))
 
   /**
-   * Wrapper for Snowflake built-in trim function.
-   *
-   * @param e Column.
+   * Wrapper for Snowflake built-in trim function. Trim the spaces from both ends for the specified string column.
+   * @param column Column for trimming the spaces.
+   * @return Column object.
    */
   def trim(column: Column): Column = com.snowflake.snowpark.functions.trim(column, lit(""))
 
   /**
-   * Wrapper for Snowflake built-in rtrim function.
-   * @param e Column.
+   * Wrapper for Snowflake built-in rtrim function. Trim the spaces from right end for the specified string value.
+   * @param column Column for trimming the spaces from right.
+   * @return Column object.
    */
   def rtrim(column: Column): Column = com.snowflake.snowpark.functions.rtrim(column, lit(""))
 
 
   /**
-   * Wrapper for Snowflake built-in ltrim function.
-   * @param e Column.
+   * Wrapper for Snowflake built-in ltrim function. Trim the spaces from left end for the specified string value.
+   * @param column Column for trimming the spaces from left.
+   * @return Column object.
    */
   def ltrim(column: Column): Column = com.snowflake.snowpark.functions.ltrim(column, lit(""))
   
   /**
-   * Wrapper for Snowflake built-in round function.
-   *
-   * @param e Column.
+   * Wrapper for Snowflake built-in round function. Splits str around matches of the given pattern.
+   * @param column Column for spliting.
+   * @param pattern String pattern for splitting..
+   * @return Column object.
    */
   def split(column: Column, pattern: String): Column = com.snowflake.snowpark.functions.split(column, lit(pattern))
 
   /**
-   * Wrapper for Snowflake built-in round function.
+   * Wrapper for Snowflake built-in round function. Round the value of e to scale decimal places with HALF_UP round mode if scale is greater than or equal to 0 or at integral part when scale is less than 0.
    *
-   * @param e Column.
+   * @param column Column for round the value.
+   * @param scale Int scale decimal places.
+   * @return Column object.
    */
   def round(column: Column, scale: Int): Column = com.snowflake.snowpark.functions.round(column, lit(scale))
 
   /**
-   * Wrapper for Snowflake built-in repeat function.
+   * Wrapper for Snowflake built-in repeat function. Repeats a string column n times, and returns it as a new string column.
    *
-   * @param e Column.
+   * @param column Column for repeat.
+   * @param n Int times for repeat.
+   * @return Column object.
    */
   def repeat(column: Column, n: Int): Column = com.snowflake.snowpark.functions.repeat(column, lit(n))
 
   /**
-   * Wrapper for Snowflake built-in translate function.
+   * Wrapper for Snowflake built-in translate function. Translate any character in the src by a character in replaceString.
    *
-   * @param e Column.
+   * @param column Column for translate.
+   * @param matchingString String for mach.
+   * @param replaceString String for replacing.
+   * @return Column object.
    */
   def translate(column: Column, matchingString: String, replaceString: String): Column = com.snowflake.snowpark.functions.translate(column, lit(matchingString), lit(replaceString))
 
   /**
-   * Wrapper for Snowflake built-in next_day function.
+   * Wrapper for Snowflake built-in next_day function. Returns the first date which is later than the value of the date column that is on the specified day of the week.
    *
-   * @param e Column.
+   * @param date Column date to find the day.
+   * @param dayOfWeek String day of the week you do want to find.
+   * @return Column object.
    */
   def next_day(date: Column, dayOfWeek: String): Column = com.snowflake.snowpark.functions.next_day(date, lit(dayOfWeek))
 
