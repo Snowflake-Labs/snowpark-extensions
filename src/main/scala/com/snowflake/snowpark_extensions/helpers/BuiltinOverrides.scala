@@ -259,5 +259,48 @@ object BuiltinOverrides {
    */
   def acos(columnName: String): Column = com.snowflake.snowpark.functions.acos(col(columnName))
 
+  /**
+   * Wrapper for Snowflake built-in trim function.
+   *
+   * @param e Column.
+   */
+  def trim(column: Column): Column = com.snowflake.snowpark.functions.trim(column, lit(""))
+
+
+  /**
+   * Wrapper for Snowflake built-in round function.
+   *
+   * @param e Column.
+   */
+  def split(column: Column, pattern: String): Column = com.snowflake.snowpark.functions.split(column, lit(pattern))
+
+  /**
+   * Wrapper for Snowflake built-in round function.
+   *
+   * @param e Column.
+   */
+  def round(column: Column, scale: Int): Column = com.snowflake.snowpark.functions.round(column, lit(scale))
+
+  /**
+   * Wrapper for Snowflake built-in repeat function.
+   *
+   * @param e Column.
+   */
+  def repeat(column: Column, n: Int): Column = com.snowflake.snowpark.functions.repeat(column, lit(n))
+
+  /**
+   * Wrapper for Snowflake built-in translate function.
+   *
+   * @param e Column.
+   */
+  def translate(column: Column, matchingString: String, replaceString: String): Column = com.snowflake.snowpark.functions.translate(column, lit(matchingString), lit(replaceString))
+
+  /**
+   * Wrapper for Snowflake built-in next_day function.
+   *
+   * @param e Column.
+   */
+  def next_day(date: Column, dayOfWeek: String): Column = com.snowflake.snowpark.functions.next_day(date, lit(dayOfWeek))
+
 }
 

@@ -60,6 +60,6 @@
 ],
  "sqltools.defaultConnId": 2353,
  "files.watcherExclude": {
-  "**/target": true
- }
+    "**/target": true
+}
 }
