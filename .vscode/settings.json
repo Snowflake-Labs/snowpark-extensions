@@ -28,7 +28,7 @@
   "*.docx": "cweijan.officeViewer",
   "*.md": "default"
  },
- "metals.serverVersion": "0.11.7-SNAPSHOT",
+ "metals.serverVersion": "0.11.10",
  "python.showStartPage": false,
  "python.defaultInterpreterPath": "/opt/conda/bin/python",
  "python.pythonPath": "/opt/conda/bin/python",
@@ -61,5 +61,5 @@
  "sqltools.defaultConnId": 2353,
  "files.watcherExclude": {
     "**/target": true
- }
+}
 }
