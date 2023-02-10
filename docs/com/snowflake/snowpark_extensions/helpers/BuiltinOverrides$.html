@@ -890,7 +890,7 @@ See <a href="com/snowflake/snowpark_extensions/Extensions$$functions$.html">Func
         <span class="name">ltrim</span><span class="params">(<span name="column">column: <span class="extype" name="com.snowflake.snowpark.Column">Column</span></span>)</span><span class="result">: <span class="extype" name="com.snowflake.snowpark.Column">Column</span></span>
       </span>
       
-      <p class="shortcomment cmt">Wrapper for Snowflake built-in ltrim function.</p><div class="fullcomment"><div class="comment cmt"><p>Wrapper for Snowflake built-in ltrim function. Trim the spaces from left end for the specified string value.</p></div><dl class="paramcmts block"><dt class="param">column</dt><dd class="cmt"><p>Column for trimming the spaces from left.</p></dd><dt>returns</dt><dd class="cmt"><p>Column object.</p></dd></dl></div>
+      <p class="shortcomment cmt">This is an overload of the trim method that uses the empty space as a replacement for the white spaces at the left string of characters.</p><div class="fullcomment"><div class="comment cmt"><p>This is an overload of the trim method that uses the empty space as a replacement for the white spaces at the left string of characters.</p></div><dl class="paramcmts block"><dt class="param">column</dt><dd class="cmt"><p>Column for trimming the spaces from left.</p></dd><dt>returns</dt><dd class="cmt"><p>Column object.</p></dd></dl></div>
     </li><li name="scala.AnyRef#ne" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="ne(x$1:AnyRef):Boolean"></a><a id="ne(AnyRef):Boolean"></a>
       <span class="permalink">
@@ -922,7 +922,7 @@ See <a href="com/snowflake/snowpark_extensions/Extensions$$functions$.html">Func
         <span class="name">next_day</span><span class="params">(<span name="date">date: <span class="extype" name="com.snowflake.snowpark.Column">Column</span></span>, <span name="dayOfWeek">dayOfWeek: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <span class="extype" name="com.snowflake.snowpark.Column">Column</span></span>
       </span>
       
-      <p class="shortcomment cmt">Wrapper for Snowflake built-in next_day function.</p><div class="fullcomment"><div class="comment cmt"><p>Wrapper for Snowflake built-in next_day function. Returns the first date which is later than the value of the date column that is on the specified day of the week.
+      <p class="shortcomment cmt">This is an overload of the next_day method.</p><div class="fullcomment"><div class="comment cmt"><p>This is an overload of the next_day method. Returns the first date which is later than the value of the date column that is on the specified day of the week.
 </p></div><dl class="paramcmts block"><dt class="param">date</dt><dd class="cmt"><p>Column date to find the day.</p></dd><dt class="param">dayOfWeek</dt><dd class="cmt"><p>String day of the week you do want to find.</p></dd><dt>returns</dt><dd class="cmt"><p>Column object.</p></dd></dl></div>
     </li><li name="scala.AnyRef#notify" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="notify():Unit"></a>
@@ -1010,6 +1010,22 @@ See <a href="com/snowflake/snowpark_extensions/Extensions$$functions$.html">Func
       </span>
       
       <p class="shortcomment cmt">Wrapper for Snowflake built-in radians function.</p><div class="fullcomment"><div class="comment cmt"><p>Wrapper for Snowflake built-in radians function. Converts an angle measured in degrees to an approximately equivalent angle measured in radians.</p></div><dl class="paramcmts block"><dt class="param">c</dt><dd class="cmt"><p>Column for convert to radians.</p></dd><dt>returns</dt><dd class="cmt"><p>Column object.</p></dd></dl></div>
+    </li><li name="com.snowflake.snowpark_extensions.helpers.BuiltinOverrides#regexp_split" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="regexp_split(column:com.snowflake.snowpark.Column,pattern:String,limit:Int)(implicitsession:com.snowflake.snowpark.Session):com.snowflake.snowpark.Column"></a><a id="regexp_split(Column,String,Int)(Session):Column"></a>
+      <span class="permalink">
+      <a href="../../../../com/snowflake/snowpark_extensions/helpers/BuiltinOverrides$.html#regexp_split(column:com.snowflake.snowpark.Column,pattern:String,limit:Int)(implicitsession:com.snowflake.snowpark.Session):com.snowflake.snowpark.Column" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">regexp_split</span><span class="params">(<span name="column">column: <span class="extype" name="com.snowflake.snowpark.Column">Column</span></span>, <span name="pattern">pattern: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="limit">limit: <span class="extype" name="scala.Int">Int</span> = <span class="symbol">-1</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="session">session: <span class="extype" name="com.snowflake.snowpark.Session">Session</span></span>)</span><span class="result">: <span class="extype" name="com.snowflake.snowpark.Column">Column</span></span>
+      </span>
+      
+      <p class="shortcomment cmt">This is a method  split  that split a column with a regular expresion patter or common string.</p><div class="fullcomment"><div class="comment cmt"><p>This is a method  split  that split a column with a regular expresion patter or common string.</p></div><dl class="paramcmts block"><dt class="param">column</dt><dd class="cmt"><p>Column for spliting.</p></dd><dt class="param">pattern</dt><dd class="cmt"><p>String pattern for splitting..</p></dd><dt>returns</dt><dd class="cmt"><p>Column object.</p></dd></dl></div>
     </li><li name="com.snowflake.snowpark_extensions.helpers.BuiltinOverrides#repeat" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="repeat(column:com.snowflake.snowpark.Column,n:Int):com.snowflake.snowpark.Column"></a><a id="repeat(Column,Int):Column"></a>
       <span class="permalink">
@@ -1025,8 +1041,8 @@ See <a href="com/snowflake/snowpark_extensions/Extensions$$functions$.html">Func
         <span class="name">repeat</span><span class="params">(<span name="column">column: <span class="extype" name="com.snowflake.snowpark.Column">Column</span></span>, <span name="n">n: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <span class="extype" name="com.snowflake.snowpark.Column">Column</span></span>
       </span>
       
-      <p class="shortcomment cmt">Wrapper for Snowflake built-in repeat function.</p><div class="fullcomment"><div class="comment cmt"><p>Wrapper for Snowflake built-in repeat function. Repeats a string column n times, and returns it as a new string column.
-</p></div><dl class="paramcmts block"><dt class="param">column</dt><dd class="cmt"><p>Column for repeat.</p></dd><dt class="param">n</dt><dd class="cmt"><p>Int times for repeat.</p></dd><dt>returns</dt><dd class="cmt"><p>Column object.</p></dd></dl></div>
+      <p class="shortcomment cmt"> This is an overload of the repeat method that repeats a string of characters n times and returns it as a new column.</p><div class="fullcomment"><div class="comment cmt"><p> This is an overload of the repeat method that repeats a string of characters n times and returns it as a new column.
+</p></div><dl class="paramcmts block"><dt class="param">column</dt><dd class="cmt"><p>Column for repeat.</p></dd><dt class="param">n</dt><dd class="cmt"><p>Int times for repeat.{</p></dd><dt>returns</dt><dd class="cmt"><p>Column object.</p></dd></dl></div>
     </li><li name="com.snowflake.snowpark_extensions.helpers.BuiltinOverrides#round" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="round(column:com.snowflake.snowpark.Column,scale:Int):com.snowflake.snowpark.Column"></a><a id="round(Column,Int):Column"></a>
       <span class="permalink">
@@ -1042,7 +1058,7 @@ See <a href="com/snowflake/snowpark_extensions/Extensions$$functions$.html">Func
         <span class="name">round</span><span class="params">(<span name="column">column: <span class="extype" name="com.snowflake.snowpark.Column">Column</span></span>, <span name="scale">scale: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <span class="extype" name="com.snowflake.snowpark.Column">Column</span></span>
       </span>
       
-      <p class="shortcomment cmt">Wrapper for Snowflake built-in round function.</p><div class="fullcomment"><div class="comment cmt"><p>Wrapper for Snowflake built-in round function. Round the value of e to scale decimal places with HALF_UP round mode if scale is greater than or equal to 0 or at integral part when scale is less than 0.
+      <p class="shortcomment cmt">This is an overload of the round method that rounds a value to a number with scala times of decimals .</p><div class="fullcomment"><div class="comment cmt"><p>This is an overload of the round method that rounds a value to a number with scala times of decimals .
 </p></div><dl class="paramcmts block"><dt class="param">column</dt><dd class="cmt"><p>Column for round the value.</p></dd><dt class="param">scale</dt><dd class="cmt"><p>Int scale decimal places.</p></dd><dt>returns</dt><dd class="cmt"><p>Column object.</p></dd></dl></div>
     </li><li name="com.snowflake.snowpark_extensions.helpers.BuiltinOverrides#rtrim" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="rtrim(column:com.snowflake.snowpark.Column):com.snowflake.snowpark.Column"></a><a id="rtrim(Column):Column"></a>
@@ -1059,23 +1075,7 @@ See <a href="com/snowflake/snowpark_extensions/Extensions$$functions$.html">Func
         <span class="name">rtrim</span><span class="params">(<span name="column">column: <span class="extype" name="com.snowflake.snowpark.Column">Column</span></span>)</span><span class="result">: <span class="extype" name="com.snowflake.snowpark.Column">Column</span></span>
       </span>
       
-      <p class="shortcomment cmt">Wrapper for Snowflake built-in rtrim function.</p><div class="fullcomment"><div class="comment cmt"><p>Wrapper for Snowflake built-in rtrim function. Trim the spaces from right end for the specified string value.</p></div><dl class="paramcmts block"><dt class="param">column</dt><dd class="cmt"><p>Column for trimming the spaces from right.</p></dd><dt>returns</dt><dd class="cmt"><p>Column object.</p></dd></dl></div>
-    </li><li name="com.snowflake.snowpark_extensions.helpers.BuiltinOverrides#split" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="split(column:com.snowflake.snowpark.Column,pattern:String):com.snowflake.snowpark.Column"></a><a id="split(Column,String):Column"></a>
-      <span class="permalink">
-      <a href="../../../../com/snowflake/snowpark_extensions/helpers/BuiltinOverrides$.html#split(column:com.snowflake.snowpark.Column,pattern:String):com.snowflake.snowpark.Column" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">split</span><span class="params">(<span name="column">column: <span class="extype" name="com.snowflake.snowpark.Column">Column</span></span>, <span name="pattern">pattern: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <span class="extype" name="com.snowflake.snowpark.Column">Column</span></span>
-      </span>
-      
-      <p class="shortcomment cmt">Wrapper for Snowflake built-in round function.</p><div class="fullcomment"><div class="comment cmt"><p>Wrapper for Snowflake built-in round function. Splits str around matches of the given pattern.</p></div><dl class="paramcmts block"><dt class="param">column</dt><dd class="cmt"><p>Column for spliting.</p></dd><dt class="param">pattern</dt><dd class="cmt"><p>String pattern for splitting..</p></dd><dt>returns</dt><dd class="cmt"><p>Column object.</p></dd></dl></div>
+      <p class="shortcomment cmt">This is an overload of the trim method that uses the empty space as a replacement for the white spaces at the right string of characters.</p><div class="fullcomment"><div class="comment cmt"><p>This is an overload of the trim method that uses the empty space as a replacement for the white spaces at the right string of characters.</p></div><dl class="paramcmts block"><dt class="param">column</dt><dd class="cmt"><p>Column for trimming the spaces from right.</p></dd><dt>returns</dt><dd class="cmt"><p>Column object.</p></dd></dl></div>
     </li><li name="scala.AnyRef#synchronized" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="synchronized[T0](x$1:=&gt;T0):T0"></a><a id="synchronized[T0](⇒T0):T0"></a>
       <span class="permalink">
@@ -1123,7 +1123,7 @@ See <a href="com/snowflake/snowpark_extensions/Extensions$$functions$.html">Func
         <span class="name">translate</span><span class="params">(<span name="column">column: <span class="extype" name="com.snowflake.snowpark.Column">Column</span></span>, <span name="matchingString">matchingString: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="replaceString">replaceString: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <span class="extype" name="com.snowflake.snowpark.Column">Column</span></span>
       </span>
       
-      <p class="shortcomment cmt">Wrapper for Snowflake built-in translate function.</p><div class="fullcomment"><div class="comment cmt"><p>Wrapper for Snowflake built-in translate function. Translate any character in the src by a character in replaceString.
+      <p class="shortcomment cmt">This is an overload of the translate method.</p><div class="fullcomment"><div class="comment cmt"><p>This is an overload of the translate method. Translate any string of characters with a string of characters sources
 </p></div><dl class="paramcmts block"><dt class="param">column</dt><dd class="cmt"><p>Column for translate.</p></dd><dt class="param">matchingString</dt><dd class="cmt"><p>String for mach.</p></dd><dt class="param">replaceString</dt><dd class="cmt"><p>String for replacing.</p></dd><dt>returns</dt><dd class="cmt"><p>Column object.</p></dd></dl></div>
     </li><li name="com.snowflake.snowpark_extensions.helpers.BuiltinOverrides#trim" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="trim(column:com.snowflake.snowpark.Column):com.snowflake.snowpark.Column"></a><a id="trim(Column):Column"></a>
@@ -1140,7 +1140,7 @@ See <a href="com/snowflake/snowpark_extensions/Extensions$$functions$.html">Func
         <span class="name">trim</span><span class="params">(<span name="column">column: <span class="extype" name="com.snowflake.snowpark.Column">Column</span></span>)</span><span class="result">: <span class="extype" name="com.snowflake.snowpark.Column">Column</span></span>
       </span>
       
-      <p class="shortcomment cmt">Wrapper for Snowflake built-in trim function.</p><div class="fullcomment"><div class="comment cmt"><p>Wrapper for Snowflake built-in trim function. Trim the spaces from both ends for the specified string column.</p></div><dl class="paramcmts block"><dt class="param">column</dt><dd class="cmt"><p>Column for trimming the spaces.</p></dd><dt>returns</dt><dd class="cmt"><p>Column object.</p></dd></dl></div>
+      <p class="shortcomment cmt">This is an overload of the trim method that uses the empty space as a replacement for the white spaces at the beginning and end of the string of characters..</p><div class="fullcomment"><div class="comment cmt"><p>This is an overload of the trim method that uses the empty space as a replacement for the white spaces at the beginning and end of the string of characters..</p></div><dl class="paramcmts block"><dt class="param">column</dt><dd class="cmt"><p>Column for trimming the spaces.</p></dd><dt>returns</dt><dd class="cmt"><p>Column object.</p></dd></dl></div>
     </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="wait():Unit"></a>
       <span class="permalink">
