@@ -548,7 +548,7 @@ object functions {
    * @param result    the value to return if expression is true
    * @return Column object.
    */
-  def when( condition: Column, result:Any) : com.snowflake.snowpark_extensions.implicits.CaseExprExtensions.ExtendedCaseExpr = {
+  def when_ext( condition: Column, result:Any) : com.snowflake.snowpark_extensions.implicits.CaseExprExtensions.ExtendedCaseExpr = {
     new com.snowflake.snowpark_extensions.implicits.CaseExprExtensions.ExtendedCaseExpr(com.snowflake.snowpark.functions.when(condition,lit(result)))
   }
 
