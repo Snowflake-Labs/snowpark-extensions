@@ -11,12 +11,12 @@ import org.scalatest.{FlatSpec, Matchers}
 class FunctionExtensionsTest extends FlatSpec with Matchers {
   behavior of "FunctionExtenions class"
 
-  "when expression" should "compile without errors" in {
-    when(col("a") > 1,"literal1").otherwise("literal2")
+  "when_ext expression" should "compile without errors" in {
+    when_ext(col("a") > 1,"literal1").otherwise("literal2")
     val session = SessionInitializer.snow
     val df = session.createDataFrame(Seq(("aaaa"))).toDF(Seq("a"))
-    df.withColumn("col1",when(col("a")>1,"a"))
-    df.withColumn("col1",when(col("a")>1,"a").otherwise("b"))
+    df.withColumn("col1",when_ext(col("a")>1,"a"))
+    df.withColumn("col1",when_ext(col("a")>1,"a").otherwise("b"))
   }
 
   "substring_index" should "match spark substring_index" in {
