@@ -19,6 +19,7 @@ import com.snowflake.snowpark.{Column, DataFrame, Row}
 import com.snowflake.snowpark.functions._
 import com.snowflake.snowpark_extensions.helpers.ColumnsSimplifier
 import com.snowflake.snowpark.types._
+import com.snowflake.snowpark_extensions.Extensions.extendedDataFrame
 
 /** DataFrame Extensions object containing implicit functions to the Snowpark DataFrame object. */
 object DataFrameExtensions {
@@ -170,6 +171,33 @@ object DataFrameExtensions {
      */
     def collectAsList(): java.util.List[Row] = {
       java.util.Arrays.asList(df.collect():_*)
+    }
+
+    /**
+     * Implementation of Sparks's unionByName allowing an union between dataframes that does not contains the exact same columns
+     *
+     * @param other               Dataframe to be united
+     * @param allowMissingColumns If true, there is going to be additional logic to avoid error in Snowpark, if false there is no anything additional within expected Snowpark implementation (failing using dataframes with different columns)
+     * @return New dataframe united both dataframes
+     */
+    def unionByName(other: DataFrame, allowMissingColumns: Boolean) = {
+      if (allowMissingColumns) {
+        val merged_cols = df.columns.toSet ++ other.columns.toSet
+
+        def getNewColumns(column: Set[String], merged_cols: Set[String]) = {
+          merged_cols.toList.map(x => x match {
+            case x if column.contains(x) => col(x)
+            case _ => lit(null).as(x)
+          })
+        }
+
+        val new_df1 = df.select(getNewColumns(df.columns.toSet, merged_cols))
+        val new_df2 = other.select(getNewColumns(other.columns.toSet, merged_cols))
+
+        new_df1.unionByName(new_df2)
+      } else {
+        df.unionByName(other)
+      }
     }
 
   }
