@@ -19,6 +19,7 @@ import com.snowflake.snowpark.{Column, DataFrame, Row}
 import com.snowflake.snowpark.functions._
 import com.snowflake.snowpark_extensions.helpers.ColumnsSimplifier
 import com.snowflake.snowpark.types._
+import com.snowflake.snowpark_extensions.Extensions.extendedDataFrame
 
 /** DataFrame Extensions object containing implicit functions to the Snowpark DataFrame object. */
 object DataFrameExtensions {
@@ -170,6 +171,56 @@ object DataFrameExtensions {
      */
     def collectAsList(): java.util.List[Row] = {
       java.util.Arrays.asList(df.collect():_*)
+    }
+
+    /**
+     * Implementation of Sparks's unionByName allowing an union between dataframes that does not contains the exact same columns
+     *
+     * @param other               Dataframe to be united
+     * @param allowMissingColumns If true, there is going to be additional logic to avoid error in Snowpark, if false there is no anything additional within expected Snowpark implementation (failing using dataframes with different columns)
+     * @return New dataframe united both dataframes
+     * @example
+     * {{{
+     *    val df = Seq((1, 2, 3)).toDF("col0", "col1", "col2")
+     *    val other = Seq((4, 5, 6)).toDF("col1", "col2", "col3")
+     *
+     *    // Failing code for columns differentiation
+     *    df.unionByName(other).show()
+     *
+     *    // Failing code for columns differentiation (as the allowMissingColumns flag is set as False)
+     *    df.unionByName(other, allowMissingColumns=False).show()
+     *
+     *    // Working code, allowMissingColumns is set as True, so the missing columns are going to be filled with NULL
+     *    df.unionByName(other, allowMissingColumns=True).show()
+     *
+     *    // -------------------------------------
+     *    // |"COL0"  |"COL1"  |"COL2"  |"COL3"  |
+     *    // -------------------------------------
+     *    // |1       |2       |3       |NULL    |
+     *    // |NULL    |4       |5       |6       |
+     *    // -------------------------------------
+     *
+     * }}}
+     *
+     */
+    def unionByName(other: DataFrame, allowMissingColumns: Boolean) = {
+      if (allowMissingColumns) {
+        val merged_cols = df.columns.toSet ++ other.columns.toSet
+
+        def getNewColumns(column: Set[String], merged_cols: Set[String]) = {
+          merged_cols.toList.map(x => x match {
+            case x if column.contains(x) => col(x)
+            case _ => lit(null).as(x)
+          })
+        }
+
+        val new_df1 = df.select(getNewColumns(df.columns.toSet, merged_cols))
+        val new_df2 = other.select(getNewColumns(other.columns.toSet, merged_cols))
+
+        new_df1.unionByName(new_df2)
+      } else {
+        df.unionByName(other)
+      }
     }
 
   }
