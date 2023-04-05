@@ -179,6 +179,29 @@ object DataFrameExtensions {
      * @param other               Dataframe to be united
      * @param allowMissingColumns If true, there is going to be additional logic to avoid error in Snowpark, if false there is no anything additional within expected Snowpark implementation (failing using dataframes with different columns)
      * @return New dataframe united both dataframes
+     * @example
+     * {{{
+     *    val df = Seq((1, 2, 3)).toDF("col0", "col1", "col2")
+     *    val other = Seq((4, 5, 6)).toDF("col1", "col2", "col3")
+     *
+     *    // Failing code for columns differentiation
+     *    df.unionByName(other).show()
+     *
+     *    // Failing code for columns differentiation (as the allowMissingColumns flag is set as False)
+     *    df.unionByName(other, allowMissingColumns=False).show()
+     *
+     *    // Working code, allowMissingColumns is set as True, so the missing columns are going to be filled with NULL
+     *    df.unionByName(other, allowMissingColumns=True).show()
+     *
+     *    // -------------------------------------
+     *    // |"COL0"  |"COL1"  |"COL2"  |"COL3"  |
+     *    // -------------------------------------
+     *    // |1       |2       |3       |NULL    |
+     *    // |NULL    |4       |5       |6       |
+     *    // -------------------------------------
+     *
+     * }}}
+     *
      */
     def unionByName(other: DataFrame, allowMissingColumns: Boolean) = {
       if (allowMissingColumns) {
