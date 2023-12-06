@@ -6,7 +6,7 @@ Here is my attempt at rephrasing the readme text in a more explanatory, comprehe
 
 The Snowpark Extensions project aims to simplify the migration process from Apache Spark to Snowpark for Scala developers. It provides a set of helper methods and utilities built as extensions on top of the existing Snowpark Scala APIs. 
 
-The core goal is to minimize the amount of manual code changes required when migrating from Spark to Snowpark. This is achieved by leveraging Scala's implicit classes to essentially "overload" existing Snowpark classes like Column, DataFrame, and Session to have additional functionality not available out-of-the-box in Snowflake.
+The core goal is to minimize the amount of manual code changes required when migrating from Spark to Snowpark. This is achieved by leveraging Scala's implicit classes to essentially "overload" existing Snowpark classes like Column, DataFrame, and Session to have additional functionality not available out-of-the-box in Snowflake Snowpark Scala APIs.
 
 ## Features
 
@@ -17,6 +17,8 @@ The Snowpark Extensions project offers the following features:
 - **Implicit Session Extensions** - Helper utilities for Session to simplify setup and configuration
 
 By leveraging implicits, these extensions provide overlayed APIs without requiring changes to existing Snowpark imports or references.
+
+In some situations, some functions is easier to implement by registering some SQL or Javascript UDFs. You can find the code for some of them [at the scripts folder](https://github.com/Snowflake-Labs/snowpark-extensions/tree/main/scripts)
 
 ## Usage
 
