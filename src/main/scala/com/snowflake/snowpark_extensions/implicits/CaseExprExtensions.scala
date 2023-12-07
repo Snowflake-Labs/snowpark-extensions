@@ -3,9 +3,6 @@ package com.snowflake.snowpark_extensions.implicits
 import com.snowflake.snowpark.Column
 import com.snowflake.snowpark.CaseExpr
 import com.snowflake.snowpark.functions.{builtin, lit, when, sqlExpr, substring}
-import net.snowflake.client.jdbc.internal.apache.tika.metadata.Metadata
-import net.snowflake.client.jdbc.internal.amazonaws.services.s3.model.ObjectMetadata
-import net.snowflake.client.jdbc.internal.apache.arrow.flatbuf.Bool
 import com.snowflake.snowpark.types._
 
 /** Column Extensions object containing implicit functions to the Snowpark Column object. */
