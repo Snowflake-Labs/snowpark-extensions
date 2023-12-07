@@ -1,18 +1,3 @@
-/**
-  Copyright (C) Mobilize.Net info@mobilize.net - All Rights Reserved
-
-  This file is part of the Mobilize Frameworks, which is
-  proprietary and confidential.
-
-  NOTICE:  All information contained herein is, and remains
-  the property of Mobilize.Net Corporation.
-  The intellectual and technical concepts contained herein are
-  proprietary to Mobilize.Net Corporation and may be covered
-  by U.S. Patents, and are protected by trade secret or copyright law.
-  Dissemination of this information or reproduction of this material
-  is strictly forbidden unless prior written permission is obtained
-  from Mobilize.Net Corporation.
-*/
 package com.snowflake.snowpark_extensions.implicits
 
 import com.snowflake.snowpark.{Column, DataFrame, Row}
@@ -23,12 +8,59 @@ import com.snowflake.snowpark_extensions.Extensions.extendedDataFrame
 
 /** DataFrame Extensions object containing implicit functions to the Snowpark DataFrame object. */
 object DataFrameExtensions {
-
+  private val aliasMap:  scala.collection.mutable.Map[String, DataFrame] =  scala.collection.mutable.Map()
   /**
    * DataFrame extension class.
    * @param df DataFrame to extend functionality.
    */
   class ExtendedDataFrame(df: DataFrame) {
+    
+    /**
+     * Associates this dataframe with an alias, that can then be used 
+     * to resolve a column reference
+     */
+    def as(aliasName: String): DataFrame = {
+      aliasMap.put(aliasName, df)
+      return df
+    }
+
+    /**
+     * Associates this dataframe with an alias, that can then be used 
+     * to resolve a column reference
+     */
+    def alias(aliasName: String): DataFrame = {
+      aliasMap.put(aliasName, df)
+      return df
+    }
+
+    private def getColumnFromAliasMap(alias: String, columnName: String): Column = {
+      if (!aliasMap.contains(alias)) {
+        throw new IllegalArgumentException(
+          s"Alias '$alias' not found in aliasMap"
+        )
+      }
+      aliasMap(alias).col(columnName)
+    }
+
+    private def handleColumnExpression(expr: String): Seq[Column] = {
+      expr match {
+        case colName if colName.contains(" AS ") =>
+          val parts = colName.split(" AS ")
+          val colExpresion = parts(0).trim()
+          val colAlias = parts(1).trim()
+          Seq(handleColumnExpression(colExpresion)(0).alias(colAlias))
+        case colName if colName.endsWith(".*") =>
+          val parts = colName.split("\\.")
+          val alias = parts(0)
+          val fields = aliasMap(alias).schema.fields.map(_.name)
+          fields.map(getColumnFromAliasMap(alias, _))
+        case colName if colName.contains(".") =>
+          val parts = colName.split("\\.")
+          Seq(getColumnFromAliasMap(parts(0), parts(1)))
+        case colName =>
+          Seq(sqlExpr(colName))
+      }
+    }
 
     /**
      * Function that returns a Seq of strings with the DataFrame's column names.
@@ -85,8 +117,14 @@ object DataFrameExtensions {
      * @param exprs Expressions to apply to select from the DataFrame.
      * @return DataFrame with the selected expressions as columns. Unspecified columns are not included.
      */
-    def selectExpr(exprs: String*): DataFrame = {
-      df.select(exprs.map(e => sqlExpr(e)))
+    def selectExpr(exprs: Any*): DataFrame = {
+      val columns: Seq[Column] = exprs.flatMap {
+        case colName: String => handleColumnExpression(colName)
+        case col: Column     => Seq(col)
+        case other =>
+          throw new IllegalArgumentException(s"Unsupported expression: $other")
+      }
+      df.select(columns)
     }
 
     /**
