@@ -1,5 +1,3 @@
-Here is my attempt at rephrasing the readme text in a more explanatory, comprehensive, formal, and structured manner:
-
 # Snowpark Extensions
 
 ## Overview
@@ -15,7 +13,7 @@ The Snowpark Extensions project offers the following features:
 - **Implicit Column Extensions** - Additional helper methods for Column to simplify common data transformation tasks
 - **Implicit DataFrame Extensions** - Extra functionality for DataFrame to streamline migrations including things like improved join APIs
 - **Implicit Session Extensions** - Helper utilities for Session to simplify setup and configuration
-
+- ** SQL Extensions ** - Helper utilities that encapsulate functionality as UDFs
 By leveraging implicits, these extensions provide overlayed APIs without requiring changes to existing Snowpark imports or references.
 
 In some situations, some functions is easier to implement by registering some SQL or Javascript UDFs. You can find the code for some of them [at the scripts folder](https://github.com/Snowflake-Labs/snowpark-extensions/tree/main/scripts)
@@ -41,6 +39,17 @@ mvn clean compile package
 This will compile the code and package it into a JAR file for distribution and dependency management.
 
 The output JAR can then be included in any Scala application to leverage the Snowpark Extensions helpers.
+
+## SQL Extensions
+
+| UDF  | Description |
+|---|---|
+| conv | |
+| format_string| |
+| isnan | |
+| nanvl | |
+| substring_index | |
+
 
 ## Links
 
