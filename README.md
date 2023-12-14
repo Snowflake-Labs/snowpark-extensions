@@ -42,6 +42,18 @@ This will compile the code and package it into a JAR file for distribution and d
 
 The output JAR can then be included in any Scala application to leverage the Snowpark Extensions helpers.
 
+## SQL Extensions
+
+| UDF  | Description |
+|---|---|
+| conv | |
+| format_string| |
+| isnan | |
+| nanvl | |
+| substring_index | |
+
+
+
 ## Links
 
 See the full API documentation here:
