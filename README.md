@@ -44,14 +44,15 @@ The output JAR can then be included in any Scala application to leverage the Sno
 
 ## SQL Extensions
 
-| UDF  | Description |
-|---|---|
-| conv | |
-| format_string| |
-| isnan | |
-| nanvl | |
-| substring_index | |
+You can find some [SQL scripts here](https://github.com/Snowflake-Labs/snowpark-extensions/tree/main/scripts):
 
+| UDF             | Description                                                              |
+|-----------------|--------------------------------------------------------------------------|
+| conv            | Convert num from from_base to to_base                                    |
+| format_string   | Returns a formatted string from printf-style format strings.             |
+| isnan           | Returns true if expr is NaN, or false otherwise.                         |
+| nanvl           | Returns expr1 if it's not NaN, or expr2 otherwise                        |
+| substring_index | Returns the substring from str before count occurrences of the delimiter |
 
 
 ## Links

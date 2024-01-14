@@ -17,118 +17,12 @@ object ColumnExtensions {
   class ExtendedColumn(c: Column) {
 
     /**
-     * Function that validates if the value of the column is within the list of strings from parameter.
-     * @param strings List of strings to compare with the value.
-     * @return Column object.
-     */
-    def isin(strings: String*): Column = {
-      c.in(strings)
-    }
-
-    /**
-     * Function that validates if the value of the column is not within the list of strings from parameter.
-     * @param strings List of strings to compare with the value.
-     * @return Column object.
-     */
-    def not_isin(strings: String*): Column = {
-      !c.in(strings)
-    }
-
-    /**
-     * Function that validates if the values of the column are not null.
-     * @return Column object.
-     */
-    def isNotNull() =
-      c.is_not_null
-
-    /**
-     * Function that validates if the values of the column are null.
-     * @return Column object.
-     */
-    def isNull() =
-      c.is_null
-
-    /**
-     * Function that validates if the values of the column start with the parameter expression.
-     * @param expr Expression to validate with the column's values.
-     * @return Column object.
-     */
-    def startsWith(expr: String) =
-      com.snowflake.snowpark.functions.startswith(c,lit(expr))
-
-    /**
-     * Function that validates if the values of the column contain the value from the paratemer expression.
-     * @param expr Expression to validate with the column's values.
-     * @return Column object.
-     */
-    def contains(expr: String) =
-      builtin("contains")(c, expr)
-
-    /**
-     * Function that replaces column's values according to the regex pattern and replacement value parameters.
-     * @param pattern Regex pattern to replace.
-     * @param replacement Value to replace matches with.
-     * @return Column object.
-     */
-    def regexp_replace(pattern: String, replacement: String) =
-      builtin("regexp_replace")(c, pattern, replacement)
-
-    /**
      * Function that gives the column an alias using a symbol.
      * @param symbol Symbol name.
      * @return Column object.
      */
     def as(symbol: Symbol): Column =
       c.as(symbol.name)
-    
-    /**
-     * Function that returns True if the current expression is NaN.
-     * @return Column object.
-     */
-    def isNaN(): Column = 
-      when(sqlExpr(s"try_cast(${c.getName.get} :: STRING as FLOAT)").is_not_null, c.cast(FloatType).equal_nan).otherwise(lit(false))
-
-    /**
-     * Function that returns the portion of the string or binary value str, starting from the character/byte specified by pos, with limited length.
-     * @param pos Start position.
-     * @param len Length of the substring.
-     * @return Column object.
-     */
-    def substr(pos: Column , len: Column): Column = 
-      substring(c, pos, len)
-
-    /**
-     * Function that returns the portion of the string or binary value str, starting from the character/byte specified by pos, with limited length.
-     * @param pos Start position.
-     * @param len Length of the substring.
-     * @return Column object.
-     */
-    def substr(pos: Int, len: Int): Column = 
-      substring(c, lit(pos), lit(len))
-
-    /**
-     * Function that returns the result of the comparison of two columns.
-     * @param other Column to compare.
-     * @return Column object.
-     */
-    def notEqual(other: Any): Column =
-      c.not_equal(lit(other))
-
-    /**
-     * Function that returns a boolean column based on a match.
-     * @param literal expresion to match.
-     * @return Column object.
-     */
-    def like(literal: String): Column =
-      c.like(lit(literal))
-
-    /**
-     * Function that returns a boolean column based on a regex match.
-     * @param literal Regex expresion to match.
-     * @return Column object.
-     */
-    def rlike(literal: String): Column =
-      c.regexp(lit(literal))
 
     /**
      * Function that computes bitwise AND of this expression with another expression.
@@ -155,33 +49,6 @@ object ColumnExtensions {
       c.bitxor(lit(other))
 
     /**
-     * Function that gets an item at position ordinal out of an array, or gets a value by key in a object. 
-     * Functional Difference with Spark: The function returns a Variant type.
-     * @param key Key element to get.
-     * @return Column object.
-     */
-    def getItem(key: Any): Column =
-        builtin("get")(c, key)
-
-    /**
-     * Function that gets a value by field name or key in a object. 
-     * Functional Difference with Spark: The function returns a Variant type.
-     * This function works for StructType in Spark. The equivalent in Snowpark is object.
-     * @param fieldName Field name.
-     * @return Column object.
-     */
-    def getField(fieldName: String): Column =
-        builtin("get")(c, fieldName)
-
-    /**
-     * Function that returns a boolean column based on a pattern match.
-     * @param other Pattern to match.
-     * @return Column object.
-     */
-    def contains(other: Any): Column =
-        c.like(lit(other))
-
-    /**
      * Function that casts the column to a different data type, using the canonical string representation of the type. 
      * The supported types are: string, boolean, byte, short, int, long, float, double, decimal, date, timestamp.
      * Functional Difference with Spark: Spark returns null when casting is not possible. Snowflake throws an exception. 
@@ -203,7 +70,23 @@ object ColumnExtensions {
         case "timestamp" => c.cast(TimestampType)  
         case _ => lit(null)
       }
-    }
+    }      
+
+    /**
+     * Function that validates if the values of the column contain the value from the paratemer expression.
+     * @param expr Expression to validate with the column's values.
+     * @return Column object.
+     */
+    def contains(expr: String) =
+      builtin("contains")(c, expr)
+
+    /**
+     * Function that returns a boolean column based on a pattern match.
+     * @param other Pattern to match.
+     * @return Column object.
+     */
+    def contains(other: Any): Column =
+        c.like(lit(other))
 
     /**
      * Function that performs quality test that is safe for null values.
@@ -212,6 +95,124 @@ object ColumnExtensions {
      */
     def eqNullSafe(other: Any): Column =
       c.equal_null(lit(other))
+
+    /**
+     * Function that gets an item at position ordinal out of an array, or gets a value by key in a object. 
+     * Functional Difference with Spark: The function returns a Variant type.
+     * @param key Key element to get.
+     * @return Column object.
+     */
+    def getItem(key: Any): Column =
+        builtin("get")(c, key)
+
+    /**
+     * Function that gets a value by field name or key in a object. 
+     * Functional Difference with Spark: The function returns a Variant type.
+     * This function works for StructType in Spark. The equivalent in Snowpark is object.
+     * @param fieldName Field name.
+     * @return Column object.
+     */
+    def getField(fieldName: String): Column =
+        builtin("get")(c, fieldName)                    
+
+    /**
+     * Function that validates if the value of the column is within the list of strings from parameter.
+     * @param strings List of strings to compare with the value.
+     * @return Column object.
+     */
+    def isin(strings: String*): Column = {
+      c.in(strings)
+    }
+
+    /**
+     * Function that returns True if the current expression is NaN.
+     * @return Column object.
+     */
+    def isNaN(): Column = 
+      when(sqlExpr(s"try_cast(${c.getName.get} :: STRING as FLOAT)").is_not_null, c.cast(FloatType).equal_nan).otherwise(lit(false))    
+
+     /**
+     * Function that validates if the values of the column are not null.
+     * @return Column object.
+     */
+    def isNotNull() =
+      c.is_not_null
+
+    /**
+     * Function that validates if the values of the column are null.
+     * @return Column object.
+     */
+    def isNull() =
+      c.is_null
+
+    /**
+     * Function that returns a boolean column based on a match.
+     * @param literal expresion to match.
+     * @return Column object.
+     */
+    def like(literal: String): Column =
+      c.like(lit(literal))
+
+    /**
+     * Function that returns the result of the comparison of two columns.
+     * @param other Column to compare.
+     * @return Column object.
+     */
+    def notEqual(other: Any): Column =
+      c.not_equal(lit(other))   
+
+    /**
+     * Function that validates if the value of the column is not within the list of strings from parameter.
+     * @param strings List of strings to compare with the value.
+     * @return Column object.
+     */
+    def not_isin(strings: String*): Column = {
+      !c.in(strings)
+    }
+
+    /**
+     * Function that validates if the values of the column start with the parameter expression.
+     * @param expr Expression to validate with the column's values.
+     * @return Column object.
+     */
+    def startsWith(expr: String) =
+      com.snowflake.snowpark.functions.startswith(c,lit(expr))
+
+    /**
+     * Function that replaces column's values according to the regex pattern and replacement value parameters.
+     * @param pattern Regex pattern to replace.
+     * @param replacement Value to replace matches with.
+     * @return Column object.
+     */
+    def regexp_replace(pattern: String, replacement: String) =
+      builtin("regexp_replace")(c, pattern, replacement)
+   
+    /**
+     * Function that returns a boolean column based on a regex match.
+     * @param literal Regex expresion to match.
+     * @return Column object.
+     */
+    def rlike(literal: String): Column =
+      c.regexp(lit(literal))
+
+    /**
+     * Function that returns the portion of the string or binary value str, starting from the character/byte specified by pos, with limited length.
+     * @param pos Start position.
+     * @param len Length of the substring.
+     * @return Column object.
+     */
+    def substr(pos: Column , len: Column): Column = 
+      substring(c, pos, len)
+
+    /**
+     * Function that returns the portion of the string or binary value str, starting from the character/byte specified by pos, with limited length.
+     * @param pos Start position.
+     * @param len Length of the substring.
+     * @return Column object.
+     */
+    def substr(pos: Int, len: Int): Column = 
+      substring(c, lit(pos), lit(len))
+
   }
 
 }
