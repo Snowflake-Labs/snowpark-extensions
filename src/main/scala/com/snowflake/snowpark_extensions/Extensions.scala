@@ -14,7 +14,9 @@ import com.snowflake.snowpark_extensions.implicits.ColumnExtensions
 import com.snowflake.snowpark_extensions.implicits.DataFrameExtensions
 import com.snowflake.snowpark_extensions.implicits.SessionExtensions
 import com.snowflake.snowpark_extensions.implicits.CaseExprExtensions
+import com.snowflake.snowpark_extensions.implicits.RowExtensions
 import com.snowflake.snowpark.Session
+import com.snowflake.snowpark.Row
 
 object Extensions {
   import scala.language.implicitConversions
@@ -30,7 +32,8 @@ object Extensions {
     new SessionExtensions.ExtendedSessionBuilder(sb)
   implicit def extendedCaseExpr(cex: CaseExpr) =
     new CaseExprExtensions.ExtendedCaseExpr(cex)
-
+  implicit def extendedRow(row: Row) =
+    new RowExtensions.ExtendedRow(row)
 
 
 /**  

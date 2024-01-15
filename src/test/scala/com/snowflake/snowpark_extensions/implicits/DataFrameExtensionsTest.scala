@@ -3,11 +3,12 @@ package com.snowflake.snowpark_extensions.implicits
 //Testing packages
 import com.snowflake.snowpark_extensions.implicits.Snowpark._
 import com.snowflake.snowpark_extensions.testutils.Serializer.{df2Seq, snowList2Seq}
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should
 import com.snowflake.snowpark_extensions.implicits.Snowpark.{DataFrameExtensionsSnowpark => snow}
 
 
-class DataFrameExtensionsTest extends FlatSpec with Matchers {
+class DataFrameExtensionsTest extends AnyFlatSpec with should.Matchers {
   behavior of "DataFrameExtensions class"
 
   "withColumnRenamed" should "match spark withColumnRenamed" in {

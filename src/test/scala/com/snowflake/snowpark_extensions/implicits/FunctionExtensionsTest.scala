@@ -6,10 +6,10 @@ import com.snowflake.snowpark_extensions.Extensions.functions._
 import com.snowflake.snowpark_extensions.helpers.BuiltinOverrides.{regexp_split, trim}
 import com.snowflake.snowpark_extensions.testutils.Serializer.df2Seq
 import com.snowflake.snowpark_extensions.testutils.SessionInitializer
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should
 
-class FunctionExtensionsTest extends FlatSpec with Matchers {
-  behavior of "FunctionExtenions class"
+class FunctionExtensionsTest extends AnyFlatSpec with should.Matchers {
 
   "when_ext expression" should "compile without errors" in {
     when_ext(col("a") > 1,"literal1").otherwise("literal2")

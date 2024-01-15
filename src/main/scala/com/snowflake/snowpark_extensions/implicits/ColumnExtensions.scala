@@ -25,6 +25,24 @@ object ColumnExtensions {
       c.as(symbol.name)
 
     /**
+      * True if the current column is between the long lower bound and upper bound, inclusive.
+      */
+    def between(min: Long, max: Long) =
+      c.between(lit(min), lit(max))
+
+    /**
+      * True if the current column is between the string lower bound and upper bound, inclusive.
+      */      
+    def between(min: String, max: String) =
+      c.between(lit(min), lit(max))
+
+    /**
+      * True if the current column is between the date lower bound and upper bound, inclusive.
+      */
+    def between(min: java.sql.Date, max: java.sql.Date) =
+      c.between(lit(min), lit(max))
+
+    /**
      * Function that computes bitwise AND of this expression with another expression.
      * @param other Expression to match.
      * @return Column object.

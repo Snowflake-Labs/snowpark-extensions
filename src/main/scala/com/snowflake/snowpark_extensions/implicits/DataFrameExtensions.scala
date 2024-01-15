@@ -54,7 +54,7 @@ object DataFrameExtensions {
           val alias = parts(0)
           val fields = aliasMap(alias).schema.fields.map(_.name)
           fields.map(getColumnFromAliasMap(alias, _))
-        case colName if colName.contains(".") =>
+        case colName if colName.matches("\\w+\\.\\w+") =>
           val parts = colName.split("\\.")
           Seq(getColumnFromAliasMap(parts(0), parts(1)))
         case colName =>

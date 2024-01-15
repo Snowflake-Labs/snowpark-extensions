@@ -56,6 +56,14 @@ object ColumnExtensionsSnowpark {
     df.select(col("col3").as('mySymbol))
   }
 
+  def test_between_int(): DataFrame = {
+    df.select(col("col1").between(1,2))
+  }
+
+  def test_between_string(): DataFrame = {
+    df.select(col("col1").between(1,2))
+  }
+
    //Function: isNaN: Column
   def test_isNaN(): DataFrame = {  
     df2.select(col("col1").isNaN, col("col2").isNaN)

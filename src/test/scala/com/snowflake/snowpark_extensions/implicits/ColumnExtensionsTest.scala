@@ -4,10 +4,10 @@ package com.snowflake.snowpark_extensions.implicits
 import com.snowflake.snowpark_extensions.implicits.Snowpark._
 
 import com.snowflake.snowpark_extensions.testutils.Serializer.df2Seq
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should
 
-class ColumnExtensionsTest extends FlatSpec with Matchers {
-  behavior of "ColumnExtensions class"
+class ColumnExtensionsTest extends AnyFlatSpec with should.Matchers {
 
   "isin" should "match spark isin" in {
     // -------------------------------------
@@ -27,6 +27,28 @@ class ColumnExtensionsTest extends FlatSpec with Matchers {
     // |two hundred thirty seven  |
     // ----------------------------
     Seq(Seq(null),Seq("two"),Seq("two hundred thirty seven")) shouldEqual df2Seq(ColumnExtensionsSnowpark.test_as_symbol())
+  }
+
+  "between(int,int)" should "match spark between(int,int)" in {
+    // +-----------------------------+
+    // |((col1 >= 1) AND (col1 <= 2))|
+    // +-----------------------------+
+    // |                         true|
+    // |                         true|
+    // |                        false|
+    // +-----------------------------+
+    Seq(Seq(true),Seq(true),Seq(false)) shouldEqual df2Seq(ColumnExtensionsSnowpark.test_between_int())
+  }
+
+  "between(string,string)" should "match spark between(string,string)" in {
+    // +-----------------------------+
+    // |((col1 >= 1) AND (col1 <= 2))|
+    // +-----------------------------+
+    // |                         true|
+    // |                         true|
+    // |                        false|
+    // +-----------------------------+
+    Seq(Seq(true),Seq(true),Seq(false)) shouldEqual df2Seq(ColumnExtensionsSnowpark.test_between_string())
   }
 
   "isNaN" should "match spark isNaN" in {
