@@ -53,6 +53,7 @@ You can find some [SQL scripts here](https://github.com/Snowflake-Labs/snowpark-
 | isnan           | Returns true if expr is NaN, or false otherwise.                         |
 | nanvl           | Returns expr1 if it's not NaN, or expr2 otherwise                        |
 | substring_index | Returns the substring from str before count occurrences of the delimiter |
+| regexp_split    | Splits into an array based on regexp                                     |
 
 
 ## Links
