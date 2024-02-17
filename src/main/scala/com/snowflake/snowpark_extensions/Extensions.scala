@@ -34,6 +34,8 @@ object Extensions {
     new CaseExprExtensions.ExtendedCaseExpr(cex)
   implicit def extendedRow(row: Row) =
     new RowExtensions.ExtendedRow(row)
+  implicit def fromExtendedRowToRow(extRow: RowExtensions.ExtendedRow) =
+    extRow.toRow()
 
 
 /**  
@@ -591,7 +593,6 @@ object functions {
 
   def substring_index[TStr:ColumnOrString, TDelim:ColumnOrString, TCount:ColumnOrInt]
   (str:TStr,delim:TDelim,count:TCount): Column = {
-    print(">>>>>>>")
     val s:Column = str match {
       case c:Column => c
       case s:String => lit(s)

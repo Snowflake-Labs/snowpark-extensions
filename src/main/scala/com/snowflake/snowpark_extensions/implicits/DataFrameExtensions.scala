@@ -68,6 +68,12 @@ object DataFrameExtensions {
      */
     def columns: Seq[String] = df.schema.map(x => x.name)
 
+    def collectExt() = {
+      df.collect().map { r =>
+        new RowExtensions.ExtendedRow(r, df.schema)
+      }
+    }
+
     /**
      * Column simplifier object to increase performance of withColumns functionality.
      * @return Column simplifier class

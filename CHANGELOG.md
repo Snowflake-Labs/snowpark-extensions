@@ -23,3 +23,13 @@ Version [0.0.19]
 - Adding function extension for Column.between
 - Adding function extension for DataFrame.alias
 - Extending DataFrame.selectExpr to support some alias cases
+
+Version [0.0.20]
+--------------
+- Updated dependency to snowpark 1.10.0
+- Adding function extension for Column.between
+- Removed function extension for DataFrame.alias, because it is now available
+- Extending DataFrame.selectExpr to support some alias cases
+- Added extensions for lpad, rpad
+- Added RowExtension to support fieldIndex, getAs[T](fieldName), getAs[T](index)
+- Adding extensions for Snowpark Java
