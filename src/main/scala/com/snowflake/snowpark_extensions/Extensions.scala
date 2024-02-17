@@ -122,6 +122,12 @@ object functions {
   def last(c: Column) =
     builtin("LAST_VALUE")(c)
 
+  /**
+   * Wrapper for Snowflake built-in lpad 
+   */
+  def lpad(str: Column, len: Int, pad: String) = 
+      com.snowflake.snowpark.functions.lpad(str, lit(len), lit(pad))
+
 /**
   * Formats the arguments in printf-style and returns the result as a string column.
   *
@@ -228,6 +234,95 @@ object functions {
    def ntile(n: Int): Column = callBuiltin("ntile",lit(n))
 
 
+
+  /**
+   * Wrapper for Spark randn. It will return a call to the Snowflake RANDOM function. The return values differ from Snowflake to Spark, however this difference is accepted.
+   * Spark returns a Float number between -9 and 9 with 15-17 floating points, whereas Snowflake returns integers of 17-19 digits.
+   * @return Random number.
+   */
+  def randn(): Column =
+    builtin("RANDOM")()
+
+  /**
+   * Wrapper for Spark randn(seed). It will return a call to the Snowflake RANDOM function. The return values differ from Snowflake to Spark, however this difference is accepted.
+   * Spark returns a Float number between -9 and 9 with 15-17 floating points, whereas Snowflake returns integers of 17-19 digits.
+   * @param seed Seed to use in the random function.
+   * @return Random number.
+   */
+  def randn(seed: Long): Column =
+    builtin("RANDOM")(seed)
+
+  /**
+   * Wrapper for Snowflake built-in regexp_replace function. Replaces parts of a string with the specified replacement value, based on a regular expression.
+   * @param strExpr String to apply replacement.
+   * @param pattern Regex pattern to find in the expression.
+   * @param replacement Column to replace within the string.
+   * @return Column object.
+   */
+  def regexp_replace(strExpr: Column, pattern: Column, replacement: Column): Column =
+    builtin("regexp_replace")(strExpr, pattern, replacement)
+
+  /**
+   * Wrapper for Snowflake built-in regexp_replace function. Replaces parts of a string with the specified replacement value, based on a regular expression.
+   * @param strExpr String to apply replacement.
+   * @param pattern Regex pattern to find in the expression.
+   * @param replacement Column to replace within the string.
+   * @return Column object.
+   */
+  def regexp_replace(strExpr: Column, pattern: String, replacement: String): Column = {
+    builtin("regexp_replace")(strExpr, pattern, replacement)
+  }    
+
+  /**
+   * Implementation for Spark `regexp_extract`. This function receives a column and extracts the groupIdx from the string
+   * after applying the exp regex. Spark returns empty string when the string doesn't match and null if the input is null.
+   * This behavior has been replicated, since Snowflake returned null on both cases.
+   *
+   * This function applies the `case sensitive` and `extract` flags. It doesn't apply multiline nor .* matches newlines.
+   * Even though Snowflake is capable of doing so with the `regexp_substr` function, Spark's behavior for this function
+   * doesn't allow this. If these flags need to be applied, use `builtin("REGEXP_SUBSTR")` instead and apply the desired
+   * flags.
+   *
+   * Note: This function ensures that the function has the same functionality on Snowflake as it does on Spark. However,
+   * it doesn't guarantee that regular expressions on Spark will work the same on Snowflake. They still have different
+   * engines and the regex itself needs to be analyzed manually. For example: non-greedy tokens such as `.*?` don't work
+   * on Snowflake as they do on Spark.
+   *
+   * @param colName Column to apply regex.
+   * @param exp Regex expression to apply.
+   * @param grpIdx Group to extract.
+   * @return Column object.
+   */
+  def regexp_extract(colName: Column, exp: String, grpIdx: Int): Column = {
+    when(colName.is_null, lit(null))
+      .otherwise(
+        coalesce(
+          builtin("REGEXP_SUBSTR")(colName, lit(exp), lit(1), lit(1), lit("ce"), lit(grpIdx)), lit("")
+        )
+      )
+  }
+
+  /**
+   * Wrapper for Snowflake built-in reverse function. Gets the reversed string.
+   * @param c Column to be reverse.
+   * @return Column object.
+   */
+  def reverse(c: Column) =
+    builtin("reverse")(c)
+
+  /**
+    * Wrapper for Snowflake built-in rpad function.
+    * @param str
+    * @param len
+    * @param pad
+    * @return right-padded string
+    */    
+  def rpad(str: Column, len: Int, pad: String): Column = 
+    com.snowflake.snowpark.functions.rpad(str, lit(len), lit(pad))
+  
+
+
+
   /**
    * Wrapper for bitshiftleft. Shifts numBits bits of a number to the left. There is a slight difference between Spark and
    * Snowflake's implementation. When shifting an integer value, if Snowflake detects that the shift will exceed the maximum value for the
@@ -253,6 +348,14 @@ object functions {
     bitshiftright(c, lit(numBits))
 
   /**
+    * Wrapper for the split function.
+    * @param str
+    * @param pattern
+    * @return
+    */    
+  def split(str: Column, pattern: String): Column =
+    com.snowflake.snowpark.functions.split(str, lit(pattern))
+  /**
    * Wrapper for Snowflake built-in hex_encode function. Returns the hexadecimal representation of a string.
    * @param c Column to encode.
    * @return Encoded string.
@@ -267,23 +370,6 @@ object functions {
    */
   def unhex(c: Column): Column =
     builtin("HEX_DECODE_STRING")(c)
-
-  /**
-   * Wrapper for Spark randn. It will return a call to the Snowflake RANDOM function. The return values differ from Snowflake to Spark, however this difference is accepted.
-   * Spark returns a Float number between -9 and 9 with 15-17 floating points, whereas Snowflake returns integers of 17-19 digits.
-   * @return Random number.
-   */
-  def randn(): Column =
-    builtin("RANDOM")()
-
-  /**
-   * Wrapper for Spark randn(seed). It will return a call to the Snowflake RANDOM function. The return values differ from Snowflake to Spark, however this difference is accepted.
-   * Spark returns a Float number between -9 and 9 with 15-17 floating points, whereas Snowflake returns integers of 17-19 digits.
-   * @param seed Seed to use in the random function.
-   * @return Random number.
-   */
-  def randn(seed: Long): Column =
-    builtin("RANDOM")(seed)
 
   /**
    * Wrapper for Spark json_tuple. This leverages JSON_EXTRACT_PATH_TEXT and improves functionality by allowing multiple columns
@@ -465,35 +551,6 @@ object functions {
   }
 
   /**
-   * Implementation for Spark `regexp_extract`. This function receives a column and extracts the groupIdx from the string
-   * after applying the exp regex. Spark returns empty string when the string doesn't match and null if the input is null.
-   * This behavior has been replicated, since Snowflake returned null on both cases.
-   *
-   * This function applies the `case sensitive` and `extract` flags. It doesn't apply multiline nor .* matches newlines.
-   * Even though Snowflake is capable of doing so with the `regexp_substr` function, Spark's behavior for this function
-   * doesn't allow this. If these flags need to be applied, use `builtin("REGEXP_SUBSTR")` instead and apply the desired
-   * flags.
-   *
-   * Note: This function ensures that the function has the same functionality on Snowflake as it does on Spark. However,
-   * it doesn't guarantee that regular expressions on Spark will work the same on Snowflake. They still have different
-   * engines and the regex itself needs to be analyzed manually. For example: non-greedy tokens such as `.*?` don't work
-   * on Snowflake as they do on Spark.
-   *
-   * @param colName Column to apply regex.
-   * @param exp Regex expression to apply.
-   * @param grpIdx Group to extract.
-   * @return Column object.
-   */
-  def regexp_extract(colName: Column, exp: String, grpIdx: Int): Column = {
-    when(colName.is_null, lit(null))
-      .otherwise(
-        coalesce(
-          builtin("REGEXP_SUBSTR")(colName, lit(exp), lit(1), lit(1), lit("ce"), lit(grpIdx)), lit("")
-        )
-      )
-  }
-
-  /**
    * Wrapper for Spark signum function. Returns the sign of the given column. Returns either 1 for positive, 0 for 0 or
    * NaN, -1 for negative and null for null.
    *
@@ -524,6 +581,13 @@ object functions {
   def signum(columnName: String): Column = {
     signum(col(columnName))
   }
+
+  /**
+    *
+    */
+     
+  def substring(str: Column, pos: Int, len: Int): Column =
+    com.snowflake.snowpark.functions.substring(str, lit(pos), lit(len))
 
   def substring_index[TStr:ColumnOrString, TDelim:ColumnOrString, TCount:ColumnOrInt]
   (str:TStr,delim:TDelim,count:TCount): Column = {
@@ -575,14 +639,6 @@ object functions {
    * @return The array.
    */
   def collect_list(s: String) = array_agg(col(s))
-
-  /**
-   * Wrapper for Snowflake built-in reverse function. Gets the reversed string.
-   * @param c Column to be reverse.
-   * @return Column object.
-   */
-  def reverse(c: Column) =
-    builtin("reverse")(c)
 
   /**
    * Wrapper for Snowflake built-in isnull function. Gets a boolean depending if value is NULL or not.
@@ -706,27 +762,6 @@ object functions {
    */
   def unix_timestamp(s: Column, p: String): Column = {
     builtin("date_part")("epoch_second", to_timestamp(s, lit(p)))
-  }
-
-  /**
-   * Wrapper for Snowflake built-in regexp_replace function. Replaces parts of a string with the specified replacement value, based on a regular expression.
-   * @param strExpr String to apply replacement.
-   * @param pattern Regex pattern to find in the expression.
-   * @param replacement Column to replace within the string.
-   * @return Column object.
-   */
-  def regexp_replace(strExpr: Column, pattern: Column, replacement: Column): Column =
-    builtin("regexp_replace")(strExpr, pattern, replacement)
-
-  /**
-   * Wrapper for Snowflake built-in regexp_replace function. Replaces parts of a string with the specified replacement value, based on a regular expression.
-   * @param strExpr String to apply replacement.
-   * @param pattern Regex pattern to find in the expression.
-   * @param replacement Column to replace within the string.
-   * @return Column object.
-   */
-  def regexp_replace(strExpr: Column, pattern: String, replacement: String): Column = {
-    builtin("regexp_replace")(strExpr, pattern, replacement)
   }
 
   /**

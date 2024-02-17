@@ -199,6 +199,20 @@ class FunctionExtensionsTest extends AnyFlatSpec with should.Matchers {
     assert(resSymLeft(0)(0) == " test$#\"test   Ba$#\"$#\"$#\"$#\"reTwoBBtests")
   }
 
+  "lpad" should "match spark lpad" in {
+     val session = SessionInitializer.snow
+     val df = session.createDataFrame(Seq("abcd")).toDF("s")
+     val res = df.select(lpad(df.col("s"),6,"#").alias("s")).collect()
+     assert(res(0)(0) == "##abcd")
+  }
+
+  "rpad" should "match spark rpad" in {
+     val session = SessionInitializer.snow
+     val df = session.createDataFrame(Seq("abcd")).toDF("s")
+     val res = df.select(rpad(df.col("s"),6,"#").alias("s")).collect()
+     assert(res(0)(0) == "abcd##")
+  }
+
   "ltrim" should "match spark ltrim" in {
 
     val session = SessionInitializer.snow
