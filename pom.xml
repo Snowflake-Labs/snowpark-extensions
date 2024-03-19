@@ -5,7 +5,7 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.snowflake</groupId>
     <artifactId>snowpark-extensions</artifactId>
-    <version>0.0.19</version>
+    <version>0.0.20</version>
 
     <name>snowpark-extensions</name>
     <description>A set of extensions to help on migrations</description>
@@ -54,7 +54,7 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
         <dependency>
             <groupId>com.snowflake</groupId>
             <artifactId>snowpark</artifactId>
-            <version>1.9.0</version>
+            <version>1.10.0</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
