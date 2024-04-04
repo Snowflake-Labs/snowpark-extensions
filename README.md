@@ -48,6 +48,7 @@ You can find some [SQL scripts here](https://github.com/Snowflake-Labs/snowpark-
 
 | UDF               | Description                                                              |
 |-------------------|--------------------------------------------------------------------------|
+| array_zip         | Returns a merged array of arrays                                         |
 | conv              | Convert num from from_base to to_base                                    |
 | format_string     | Returns a formatted string from printf-style format strings.             |
 | isnan             | Returns true if expr is NaN, or false otherwise.                         |
