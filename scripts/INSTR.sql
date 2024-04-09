@@ -1,0 +1,6 @@
+CREATE OR REPLACE FUNCTION instr(str VARCHAR, substring VARCHAR)
+  RETURNS INT
+  LANGUAGE SQL
+  AS '
+  SELECT REGEXP_INSTR(str, substring)
+  ';
