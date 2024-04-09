@@ -58,6 +58,7 @@ You can find some [SQL scripts here](https://github.com/Snowflake-Labs/snowpark-
 | regexp_extract    | Extracts the group specified based on regexp                             |
 | regexp_replaceall | Replaces all matches to a regexp with another string                     |
 | regexp_like       | Returns True/False based on whether a regexp matches                     |
+| instr             | Returns the position of the first occurrence of substr column in the given string |
 
 
 ## Links
