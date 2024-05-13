@@ -49,6 +49,7 @@ You can find some [SQL scripts here](https://github.com/Snowflake-Labs/snowpark-
 | UDF               | Description                                                              |
 |-------------------|--------------------------------------------------------------------------|
 | from_unixtime     | Returns a date string representation of a Unix epoch timestamp using the specified format |
+| unix_timestamp    | Turns a date or date string into epoch_second |
 | array_zip         | Returns a merged array of arrays                                         |
 | conv              | Convert num from from_base to to_base                                    |
 | format_string     | Returns a formatted string from printf-style format strings.             |
