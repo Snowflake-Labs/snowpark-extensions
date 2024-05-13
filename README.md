@@ -48,6 +48,7 @@ You can find some [SQL scripts here](https://github.com/Snowflake-Labs/snowpark-
 
 | UDF               | Description                                                              |
 |-------------------|--------------------------------------------------------------------------|
+| _datediff         | calculates the difference in days between two dates. NOTE: the function name has an underscore at the start to make the difference with the snowflake existing built in | 
 | from_unixtime     | Returns a date string representation of a Unix epoch timestamp using the specified format |
 | unix_timestamp    | Turns a date or date string into epoch_second |
 | array_zip         | Returns a merged array of arrays                                         |
