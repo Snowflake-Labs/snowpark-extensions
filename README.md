@@ -59,6 +59,7 @@ You can find some [SQL scripts here](https://github.com/Snowflake-Labs/snowpark-
 | instr              | Returns the position of the first occurrence of the substr column in the given string. |
 | isnan              | Returns true if expr is NaN, or false otherwise. |
 | nanvl              | Returns expr1 if it's not NaN, or expr2 otherwise. |
+| map_from_arrays    | Creates a new map from two arrays |
 | regexp_extract     | Extracts the group specified based on the regexp. |
 | regexp_like        | Returns True/False based on whether a regexp matches. |
 | regexp_replaceall  | Replaces all matches to a regexp with another string. |
