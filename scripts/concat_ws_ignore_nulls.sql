@@ -1,3 +1,5 @@
+--- NOTE: This script does not replicate properly the HIVE concat_ws behaviour, consider _concat_ws instead
+
 -- UDF for 1 argument
 CREATE OR REPLACE FUNCTION concat_ws_ignore_nulls(sep STRING, arg1 STRING)
 RETURNS STRING
