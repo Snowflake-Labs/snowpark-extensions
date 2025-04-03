@@ -48,7 +48,7 @@ You can find some [SQL scripts here](https://github.com/Snowflake-Labs/snowpark-
 
 | UDF               | Description                                                              |
 |-------------------|--------------------------------------------------------------------------|
-| _concat_ws         | Concatenates multiple input string columns together into a single string column, using the given separator.|
+| _concat_ws         | Concatenates multiple input string columns together into a single string column, using the given separator. It replicates hive/sparksql behavior which omits nulls|
 | _datediff          | Calculates the difference in days between two dates. NOTE: The function name has an underscore at the start to differentiate it from the existing built-in in Snowflake. |
 | array_zip          | Returns a merged array of arrays. |
 | conv               | Converts num from from_base to to_base. |
