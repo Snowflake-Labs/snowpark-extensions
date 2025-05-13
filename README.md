@@ -56,6 +56,7 @@ You can find some [SQL scripts here](https://github.com/Snowflake-Labs/snowpark-
 | date_format        | Converts a date/timestamp/string to a value of string in the format specified by the given date format. |
 | date_sub           | Subtracts days from a date. |
 | element_at         | Get an element from an array/object/variant. Support 1 based indexes like spark |
+| from_json          | Parses a json string. No schema validation yet |
 | format_string      | Returns a formatted string from printf-style format strings. |
 | from_unixtime      | Returns a date string representation of a Unix epoch timestamp using the specified format. |
 | instr              | Returns the position of the first occurrence of the substr column in the given string. |
